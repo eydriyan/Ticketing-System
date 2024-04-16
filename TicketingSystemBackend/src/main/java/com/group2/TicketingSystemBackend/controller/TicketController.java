@@ -77,7 +77,7 @@ public class TicketController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/user/{studentId}")
+    @GetMapping("/student-tickets/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketsByStudentId(@PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);
         List<Ticket> tickets = ticketService.getTicketsByStudent(student);
