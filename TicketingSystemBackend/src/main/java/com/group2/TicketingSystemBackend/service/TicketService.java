@@ -15,7 +15,7 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    // create/add ticket
+    // add ticket
     public Ticket addTicket(Ticket ticket) {
         if (ticket.getStatus() == null) {
             ticket.setStatus("Pending");
