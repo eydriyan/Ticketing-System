@@ -5,7 +5,6 @@ import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.repository.StudentRepository;
 import com.group2.TicketingSystemBackend.repository.TechnicianRepository;
-import com.group2.TicketingSystemBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +16,6 @@ public class AuthService {
     private StudentRepository studentRepository;
     @Autowired
     private TechnicianRepository technicianRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     // Sign up
     public Student signUp(Student newAccount) {
@@ -41,10 +38,10 @@ public class AuthService {
 //        return technicianRepository.save(newAccount);
 //    }
 
-    // log in
-    public User login(User existingAccount) {
+    // log in as Student
+    public Student login(Student existingAccount) {
         // Check if email exists
-        Optional<User> opt_account = userRepository.findByEmail(existingAccount.getEmail());
+        Optional<Student> opt_account = studentRepository.findByEmail(existingAccount.getEmail());
         if (opt_account.isEmpty())
             return null;
 
@@ -53,14 +50,36 @@ public class AuthService {
             return null;
         }
 
-        User user = opt_account.get();
+        Student student = opt_account.get();
 
         // Compare Passwords
-        if (!user.getPassword().equals(existingAccount.getPassword())) {
+        if (!student.getPassword().equals(existingAccount.getPassword())) {
             return null;
         }
 
-        return userRepository.save(user);
+        return studentRepository.save(student);
+    }
+
+    // log in as Student
+    public Technician login(Technician existingAccount) {
+        // Check if email exists
+        Optional<Technician> opt_account = technicianRepository.findByEmail(existingAccount.getEmail());
+        if (opt_account.isEmpty())
+            return null;
+
+        // No Empty Passwords
+        if (existingAccount.getPassword().isEmpty()) {
+            return null;
+        }
+
+        Technician technician = opt_account.get();
+
+        // Compare Passwords
+        if (!technician.getPassword().equals(existingAccount.getPassword())) {
+            return null;
+        }
+
+        return technicianRepository.save(technician);
     }
 
     // Log out
@@ -85,13 +104,13 @@ public class AuthService {
         return possiblyAdminAccount.getEmail().equals("admin@gmail.com");
     }
 
-    public boolean isValidUser(User possiblyValidUserAccount) {
+    public boolean isValidStudent(Student possiblyValidUserAccount) {
         // Check if non-null
         if (possiblyValidUserAccount == null)
             return false;
 
-        Optional<User> userAccount = userRepository.findByEmail(possiblyValidUserAccount.getEmail());
+        Optional<Student> studentAccount = studentRepository.findByEmail(possiblyValidUserAccount.getEmail());
 
-        return userAccount.isPresent();
+        return studentAccount.isPresent();
     }
 }

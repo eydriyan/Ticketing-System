@@ -43,7 +43,7 @@ public class TicketController {
 
         Student reqStudent = studentService.getStudentByEmail(email);
 
-        if (!authService.isValidUser(reqStudent)) {
+        if (!authService.isValidStudent(reqStudent)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 

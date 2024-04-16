@@ -46,10 +46,20 @@ public class AuthController {
 //        return ResponseEntity.ok(createdUser);
 //    }
 
-    // Log in
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User existingUser) {
-        User loggedInUser = authService.login(existingUser);
+    // Log in as student
+    @PostMapping("/student/login")
+    public ResponseEntity<Student> login(@RequestBody Student existingUser) {
+        Student loggedInUser = authService.login(existingUser);
+        if (loggedInUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(loggedInUser);
+    }
+
+    // Log in as technician
+    @PostMapping("/technician/login")
+    public ResponseEntity<Technician> login(@RequestBody Technician existingUser) {
+        Technician loggedInUser = authService.login(existingUser);
         if (loggedInUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
