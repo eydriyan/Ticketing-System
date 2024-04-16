@@ -1,0 +1,1 @@
+--INSERT IGNORE INTO user (id, email, first_name, last_name, password, phone_number, program, student_number, skill_set, availability, staff_number) VALUES (0, "admin@gmail.com", "admin", "admin", "admin", "", "", "", "", "", "");
