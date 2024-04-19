@@ -31,5 +31,5 @@ public class Ticket {
     private String priority;
     private String status;
     private LocalDate dateCreated;
-    //private LocalDate dateResolved;
+    private LocalDate dateResolved;
 }

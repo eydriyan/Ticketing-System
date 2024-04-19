@@ -28,16 +28,6 @@ public class AuthService {
         return studentRepository.save(newAccount);
     }
 
-//    public User signUp(Technician newAccount) {
-//        // Check for duplicate email
-//        Optional<Technician> opt_account = technicianRepository.findByEmail(newAccount.getEmail());
-//        if (opt_account.isPresent())
-//            return null;
-//
-//        // Add and return
-//        return technicianRepository.save(newAccount);
-//    }
-
     // log in as Student
     public Student login(Student existingAccount) {
         // Check if email exists
@@ -60,7 +50,7 @@ public class AuthService {
         return studentRepository.save(student);
     }
 
-    // log in as Student
+    // log in as Technician
     public Technician login(Technician existingAccount) {
         // Check if email exists
         Optional<Technician> opt_account = technicianRepository.findByEmail(existingAccount.getEmail());
@@ -104,6 +94,7 @@ public class AuthService {
         return possiblyAdminAccount.getEmail().equals("admin@gmail.com");
     }
 
+    // Check if student is valid
     public boolean isValidStudent(Student possiblyValidUserAccount) {
         // Check if non-null
         if (possiblyValidUserAccount == null)

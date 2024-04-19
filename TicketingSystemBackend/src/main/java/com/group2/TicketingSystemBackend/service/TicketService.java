@@ -1,8 +1,10 @@
 package com.group2.TicketingSystemBackend.service;
 
 import com.group2.TicketingSystemBackend.model.Student;
+import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.Ticket;
 import com.group2.TicketingSystemBackend.model.User;
+import com.group2.TicketingSystemBackend.repository.TechnicianRepository;
 import com.group2.TicketingSystemBackend.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.List;
 public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private TechnicianRepository technicianRepository;
 
     // add ticket
     public Ticket addTicket(Ticket ticket) {
@@ -63,5 +67,16 @@ public class TicketService {
     }
 
     // assign ticket to technician
+    public Ticket assignTechnicianToTicket(Long ticketId, String technicianEmail) {
+        Ticket ticket = getTicketById(ticketId);
+
+        Technician technician = technicianRepository.findByEmail(technicianEmail)
+                .orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
+
+        ticket.setTechnician(technician);
+        ticket.setStatus("Assigned");
+
+        return ticketRepository.save(ticket);
+    }
 
 }
