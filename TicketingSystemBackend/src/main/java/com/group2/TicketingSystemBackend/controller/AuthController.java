@@ -22,7 +22,7 @@ public class AuthController {
     // Student sign up
     @PostMapping("/signup")
     public ResponseEntity<Student> signUpAsStudent(@RequestBody Student newUser) {
-        // Create a new Student entity associated with the user
+        // Create a new Student entity
         Student student = new Student();
 
         // Sign up the user (which now includes a student)
@@ -32,19 +32,6 @@ public class AuthController {
         }
         return ResponseEntity.ok(createdUser);
     }
-
-//    @PostMapping("/signup/technician")
-//    public ResponseEntity<User> signUpAsTechnician(@RequestBody Technician newUser) {
-//        // Create a new Student entity associated with the user
-//        Technician technician = new Technician();
-//
-//        // Sign up the user (which now includes a student)
-//        User createdUser = authService.signUp(newUser);
-//        if (createdUser == null) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        }
-//        return ResponseEntity.ok(createdUser);
-//    }
 
     // Log in as student
     @PostMapping("/student/login")

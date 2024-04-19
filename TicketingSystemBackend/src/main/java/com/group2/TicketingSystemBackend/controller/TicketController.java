@@ -26,6 +26,7 @@ public class TicketController {
     @Autowired
     private AuthService authService;
 
+    // add ticket
     @PostMapping("/add-ticket")
     public ResponseEntity<Ticket> addTicket(
             @RequestHeader(name = "email", required = false) String email,
@@ -53,30 +54,34 @@ public class TicketController {
         return ResponseEntity.ok(createdTicket);
     }
 
+    // get all tickets
     @GetMapping("/all")
     public ResponseEntity<List<Ticket>> getAllTickets() {
         List<Ticket> tickets = ticketService.getAllTickets();
         return ResponseEntity.ok(tickets);
     }
 
+    // get ticket by id
     @GetMapping("/get/{id}")
     public ResponseEntity<Ticket> getTicketById(@PathVariable Long id) {
         Ticket ticket = ticketService.getTicketById(id);
         return ResponseEntity.ok(ticket);
     }
 
+    // update ticket by id
     @PutMapping("/update/{id}")
     public ResponseEntity<Ticket> updateTicket(@PathVariable Long id, @RequestBody Ticket updatedTicket) {
         Ticket ticket = ticketService.updateTicket(id, updatedTicket);
         return ResponseEntity.ok(ticket);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
-        ticketService.deleteTicket(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+//        ticketService.deleteTicket(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
+    // get tickets of a specific students
     @GetMapping("/student-tickets/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketsByStudentId(@PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);

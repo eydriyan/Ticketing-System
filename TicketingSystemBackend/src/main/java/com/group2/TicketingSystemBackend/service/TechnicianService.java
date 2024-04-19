@@ -2,6 +2,7 @@ package com.group2.TicketingSystemBackend.service;
 
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.Technician;
+import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.repository.TechnicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,17 @@ import java.util.Optional;
 public class TechnicianService {
     @Autowired
     private TechnicianRepository technicianRepository;
+
+    // create a technician
+    public Technician createTechnician(Technician newAccount) {
+        // Check for duplicate email
+        Optional<Technician> opt_account = technicianRepository.findByEmail(newAccount.getEmail());
+        if (opt_account.isPresent())
+            return null;
+
+        // Add and return
+        return technicianRepository.save(newAccount);
+    }
 
     // get all technicians
     public List<Technician> getAllTechnicians() {
