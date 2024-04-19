@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model'; 
 
@@ -9,8 +9,9 @@ export class TicketserviceService {
 
   constructor(private http: HttpClient) {}
 
-  addTicket(ticket: Ticket): Observable<Ticket> { 
-    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, ticket);
+  addTicket(ticket: Ticket, studentEmail: string): Observable<Ticket> { 
+    const headers = new HttpHeaders({ email: studentEmail });  
+    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, ticket, { headers });
   }
 
   getAllTickets(): Observable<Ticket[]> {
@@ -33,5 +34,9 @@ export class TicketserviceService {
     return this.http.get<Ticket[]>(`${this.apiUrl}/student-tickets/${studentId}`);
   }
 
-  // You would likely add another method here to assign a ticket to a technician
+  assignTechnicianToTicket(ticketId: number, technicianEmail: string): Observable<Ticket> { 
+    // You will likely need to implement the necessary logic to send the ticketId and 
+    // technicianEmail to a dedicated endpoint on your Spring Boot backend
+    return this.http.post<Ticket>(`${this.apiUrl}/assign-technician`, { ticketId, technicianEmail }); 
+  }
 }

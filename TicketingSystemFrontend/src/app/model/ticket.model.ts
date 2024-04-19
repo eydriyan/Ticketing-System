@@ -1,15 +1,15 @@
-// ticket.model.ts
 import { Student } from './student.model';
-import { Technician } from './technician.model'; 
+import { Technician } from './technician.model';
 
 export interface Ticket {
-  id: number;
+  id: number; // Assuming the id is a number
   category: string;
-  student: Student;  
-  technician: Technician; 
+  student: Student;
+  technician: Technician | null; // Technician can now be assigned
   title: string;
   description: string;
   priority: string;
   status: string;
-  dateCreated: Date; // Or string if your backend sends a formatted date string
+  dateCreated: string; // Assuming this is a string representation of a date 
+  dateResolved: string; // Assuming this a string representation of a date
 }
