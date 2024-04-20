@@ -19,6 +19,8 @@ export class LoginComponent {
       (loginSuccessful) => {
         if (loginSuccessful) {
           this.router.navigate(['/user']);
+          this.authService.setCurrentUserEmail(this.email);
+
         } else {
 
           this.loginFailed = true;

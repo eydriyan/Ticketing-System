@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
 
@@ -11,12 +11,20 @@ export class TicketserviceService {
 
   constructor(private http: HttpClient) { }
 
-  addTicket(category: string, title: string, description: string, priority: string, email: string): Observable<Ticket> {
-    const headers = new HttpHeaders({ email });
-    const body = { category, title, description, priority };
-    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, body, { headers });
+  addTicket(category: string, title: string, description: string, priority: string, studentEmail: string): Observable<Ticket> { 
+    const headers = new HttpHeaders({ email: studentEmail });
+    
+    // Using HttpParams to construct query parameters
+    let params = new HttpParams()
+      .set('category', category)
+      .set('title', title)
+      .set('description', description)
+      .set('priority', priority);
+  
+    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, null, { headers, params });
   }
-
+  
+  
   getAllTickets(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/all`);
   }

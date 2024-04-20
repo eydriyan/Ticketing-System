@@ -10,6 +10,8 @@ import { Technician } from '../model/technician.model';
 export class AuthserviceService {
   private baseUrl = 'http://localhost:18080/api/auth'; 
 
+  currentUserEmail: string | null = null;
+
   constructor(private http: HttpClient) {}
 
   signUpAsStudent(studentData: Student): Observable<Student> {
@@ -27,4 +29,19 @@ export class AuthserviceService {
   logout(studentData: Student): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/logout`, studentData);
   }
+
+  // Method to set current user email upon login
+  setCurrentUserEmail(email: string) {
+    this.currentUserEmail = email;
+    console.log(this.currentUserEmail)
+  }
+
+  // Method to get current user email
+  getCurrentUserEmail(): string | null {
+
+    return this.currentUserEmail;
+  }
+  
 }
+
+

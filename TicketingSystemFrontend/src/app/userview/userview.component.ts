@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { StudentserviceService } from '../services/studentservice.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthserviceService } from '../services/authservice.service';
 import { TicketserviceService } from '../services/ticketservice.service';
 import { Ticket } from '../model/ticket.model';
-import { Student } from '../model/student.model';
 
 @Component({
   selector: 'app-user-view',
@@ -14,37 +13,56 @@ export class UserviewComponent {
   title: string = '';
   description: string = '';
   priority: string = '';
+  errorMessage: string = '';
+  showForm: boolean = false;
+  tickets: Ticket[] = [];
 
-  constructor(private studentService: StudentserviceService, private ticketService: TicketserviceService) {}
+  constructor(
+    // private authService: AuthserviceService,
+    private ticketService: TicketserviceService
+  ) {}
 
-  submitTicket() {
+  ngOnInit() {
+    this.fetchTickets();
+  }
 
-    const studentId = 0; 
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
 
-    this.studentService.getStudentById(studentId).subscribe(
-      (student: Student) => {
-    
-        const userEmail = student.email;
+  addTicket() {
+    if (!this.category || !this.title || !this.description || !this.priority) {
+      this.errorMessage = 'Please fill in all fields';
+      return;
+    }
 
-        if (!userEmail) {
-          console.error('User email is not available.');
-          return;
+    const userEmail = 'kurtianrumbaua@gmail.com';
+
+    // if (!userEmail) {
+    //   console.error('User email not found');
+    //   this.errorMessage = 'Failed to retrieve user email. Please try again later.';
+    //   return;
+    // }
+
+    this.ticketService.addTicket(this.category, this.title, this.description, this.priority, userEmail)
+      .subscribe(
+        (ticket: Ticket) => {
+          // Handle successful ticket submission, e.g., display a success message
+          console.log('Ticket added successfully:', ticket);
+        },
+        (error) => {
+          // Handle error, e.g., display an error message
+          console.error('Error adding ticket:', error);
+          this.errorMessage = 'Failed to add ticket. Please try again later.';
         }
+      );
+  }
 
-        // Submit the ticket with the user's email
-        this.ticketService.addTicket(this.category, this.title, this.description, this.priority, userEmail).subscribe(
-          (ticket: Ticket) => {
-            console.log('Ticket added successfully:', ticket);
-          },
-          (error) => {
-            console.error('Error adding ticket:', error);
-          }
-        );
-      },
-      (error) => {
-        // Handle error, e.g., display an error message
-        console.error('Error retrieving student details:', error);
-      }
-    );
+  fetchTickets() { 
+    const userID = 2;  
+    this.ticketService.getTicketsByStudentId(userID)  // Assuming getTicketsByUser exists
+       .subscribe(tickets => this.tickets = tickets); 
+       
+       
   }
 }
