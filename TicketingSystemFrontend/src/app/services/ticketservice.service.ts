@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Ticket } from '../model/ticket.model'; 
+import { Ticket } from '../model/ticket.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class TicketserviceService {
-  private apiUrl = 'http://localhost:8080/api/tickets';
+  private apiUrl = 'http://localhost:18080/api/tickets';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  addTicket(ticket: Ticket, studentEmail: string): Observable<Ticket> { 
-    const headers = new HttpHeaders({ email: studentEmail });  
-    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, ticket, { headers });
+  addTicket(category: string, title: string, description: string, priority: string, email: string): Observable<Ticket> {
+    const headers = new HttpHeaders({ email });
+    const body = { category, title, description, priority };
+    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, body, { headers });
   }
 
   getAllTickets(): Observable<Ticket[]> {
@@ -22,21 +25,19 @@ export class TicketserviceService {
     return this.http.get<Ticket>(`${this.apiUrl}/get/${id}`);
   }
 
-  updateTicket(id: number, ticket: Ticket): Observable<Ticket> {
-    return this.http.put<Ticket>(`${this.apiUrl}/update/${id}`, ticket); 
+  updateTicket(id: number, updatedTicket: Ticket): Observable<Ticket> {
+    return this.http.put<Ticket>(`${this.apiUrl}/update/${id}`, updatedTicket);
   }
 
   deleteTicket(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`); 
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
 
   getTicketsByStudentId(studentId: number): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/student-tickets/${studentId}`);
   }
 
-  assignTechnicianToTicket(ticketId: number, technicianEmail: string): Observable<Ticket> { 
-    // You will likely need to implement the necessary logic to send the ticketId and 
-    // technicianEmail to a dedicated endpoint on your Spring Boot backend
-    return this.http.post<Ticket>(`${this.apiUrl}/assign-technician`, { ticketId, technicianEmail }); 
+  assignTechnicianToTicket(ticketId: number, technicianEmail: string): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.apiUrl}/assign-technician`, { ticketId, technicianEmail });
   }
 }

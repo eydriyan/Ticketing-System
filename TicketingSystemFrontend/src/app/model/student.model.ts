@@ -1,7 +1,6 @@
-// student.model.ts
 import { User } from './user.model';
 
-export interface Student extends User { // Student inherits from User 
+export interface Student extends User {
   program: string;
   studentNumber: string;
 }

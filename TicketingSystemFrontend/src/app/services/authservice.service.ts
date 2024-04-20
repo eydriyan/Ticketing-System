@@ -1,51 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model'; 
+import { Student } from '../model/student.model';
+import { Technician } from '../model/technician.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthserviceService {
-  private apiUrl = 'http://localhost:8080/api/auth';
-  private currentUserSubject: BehaviorSubject<User | null>; 
+  private baseUrl = 'http://localhost:18080/api/auth'; 
 
-  constructor(private http: HttpClient) { 
-      this.currentUserSubject = new BehaviorSubject<User | null>(
-        JSON.parse(localStorage.getItem('currentUser') ?? '{}') 
-    );
+  constructor(private http: HttpClient) {}
+
+  signUpAsStudent(studentData: Student): Observable<Student> {
+    return this.http.post<Student>(`${this.baseUrl}/signup`, studentData);
   }
 
-  public get currentUserValue(): User | null {
-    return this.currentUserSubject.value;
+  loginAsStudent(studentData:   {email: string, password: string}): Observable<Student> {
+    return this.http.post<Student>(`${this.baseUrl}/student/login`, studentData);
   }
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/student/login`, { email, password })
-      .pipe(map(response => {
-   
-        if (response && response.token) { 
-          localStorage.setItem('currentUser', JSON.stringify(response.user)); 
-          this.currentUserSubject.next(response.user);
-        }
-        return response;
-      }));
+  loginAsTechnician(technicianData: {email: string, password: string}): Observable<Technician> {
+    return this.http.post<Technician>(`${this.baseUrl}/technician/login`, technicianData);
   }
 
-  signup(newUser: User): Observable<any> { 
-    return this.http.post<any>(`${this.apiUrl}/signup`, newUser)
-      .pipe(map(response => {
-        // If successful signup (Adapt based on backend response)
-        if (response && response.token) { 
-          localStorage.setItem('currentUser', JSON.stringify(response.user)); 
-          this.currentUserSubject.next(response.user);
-        }
-        return response;
-      }));
-  }
-
-  logout() {
-    // Include backend logout endpoint call if needed
-    localStorage.removeItem('currentUser'); 
-    this.currentUserSubject.next(null); 
+  logout(studentData: Student): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/logout`, studentData);
   }
 }

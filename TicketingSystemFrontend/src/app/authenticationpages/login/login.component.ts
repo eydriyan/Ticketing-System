@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthserviceService } from '../../services/authservice.service'; // Import your AuthService
+import { Component } from '@angular/core';
+import { AuthserviceService } from '../../services/authservice.service'; 
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-login',  
+  templateUrl: './login.component.html', 
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  credentials = {
-    email: '',
-    password: ''
-  };
+export class LoginComponent {
+  email = '';
+  password = '';
+  loginFailed = false;
 
-  constructor(private authService: AuthserviceService ) {} // Inject AuthService
+  constructor(private authService: AuthserviceService, private router: Router) {}
 
-  ngOnInit() {}
+  login() {
+    this.authService.loginAsStudent({ email: this.email, password: this.password }).subscribe(
+      (loginSuccessful) => {
+        if (loginSuccessful) {
+          this.router.navigate(['/user']);
+        } else {
 
-  onSubmit() {
-    // Call your AuthService login method and handle response
-    this.authService.login(this.credentials.email, this.credentials.password).subscribe(
-      (data) => {
-        // Login successful, navigate to desired route
-        console.log("Login successful!", data);
+          this.loginFailed = true;
+        }
       },
       (error) => {
-        // Login failed, handle error response
-        console.error("Login error:", error);
+        this.loginFailed = true;
       }
     );
   }

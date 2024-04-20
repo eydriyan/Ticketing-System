@@ -7,9 +7,9 @@ import { AdminviewComponent } from './adminview/adminview.component';
 import { TechnicianviewComponent } from './technicianview/technicianview.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'user', component: UserviewComponent },
+  { path: '', component: UserviewComponent },
   { path: 'admin', component: AdminviewComponent },
   { path: 'technician', component: TechnicianviewComponent },
 ];

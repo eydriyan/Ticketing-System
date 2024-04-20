@@ -4,28 +4,28 @@ import { Observable } from 'rxjs';
 import { Technician } from '../model/technician.model';
 
 @Injectable({ providedIn: 'root' })
-export class TechnicianService {
-  private apiUrl = 'http://localhost:8080/api/technicians'; 
+export class TechnicianserviceService {
+  private baseUrl = 'http://localhost:18080/api/technicians'; 
 
   constructor(private http: HttpClient) {}
 
-  createTechnician(technician: Technician): Observable<Technician> {
-    return this.http.post<Technician>(`${this.apiUrl}/create-technician`, technician);
+  createTechnician(newTechnician: Technician): Observable<Technician> {
+    return this.http.post<Technician>(`${this.baseUrl}/create-technician`, newTechnician);
   }
 
   getAllTechnicians(): Observable<Technician[]> {
-    return this.http.get<Technician[]>(`${this.apiUrl}/all`);
+    return this.http.get<Technician[]>(`${this.baseUrl}/all`);
   }
 
   getTechnicianById(id: number): Observable<Technician> {
-    return this.http.get<Technician>(`${this.apiUrl}/get/${id}`);
+    return this.http.get<Technician>(`${this.baseUrl}/get/${id}`);
   }
 
-  updateTechnician(id: number, technician: Technician): Observable<Technician> {
-    return this.http.put<Technician>(`${this.apiUrl}/update/${id}`, technician);
+  updateTechnician(id: number, updatedTechnician: Technician): Observable<Technician> {
+    return this.http.put<Technician>(`${this.baseUrl}/update/${id}`, updatedTechnician);
   }
 
-//  deleteTechnician(id: number): Observable<void> {
-//    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
-//  }
+  deleteTechnician(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
 }
