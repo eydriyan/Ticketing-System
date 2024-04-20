@@ -8,8 +8,8 @@ import { TechnicianviewComponent } from './technicianview/technicianview.compone
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: '', component: UserviewComponent },
+  { path: '', component: SignupComponent },
+  { path: 'user', component: UserviewComponent },
   { path: 'admin', component: AdminviewComponent },
   { path: 'technician', component: TechnicianviewComponent },
 ];

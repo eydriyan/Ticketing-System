@@ -34,11 +34,9 @@ export class UserviewComponent {
         // Submit the ticket with the user's email
         this.ticketService.addTicket(this.category, this.title, this.description, this.priority, userEmail).subscribe(
           (ticket: Ticket) => {
-            // Handle successful ticket submission, e.g., display a success message
             console.log('Ticket added successfully:', ticket);
           },
           (error) => {
-            // Handle error, e.g., display an error message
             console.error('Error adding ticket:', error);
           }
         );

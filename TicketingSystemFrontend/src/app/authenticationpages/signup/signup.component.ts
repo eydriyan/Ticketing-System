@@ -29,7 +29,7 @@ export class SignupComponent {
       .subscribe(
         (response) => {
           console.log('Signup successful:', response);
-          this.router.navigate(['/user']);
+          this.router.navigate(['/login']);
         },
         (error) => {
           console.error('Signup error:', error);

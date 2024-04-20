@@ -9,6 +9,7 @@ import { SignupComponent } from './authenticationpages/signup/signup.component';
 import { AdminviewComponent } from './adminview/adminview.component';
 import { TechnicianviewComponent } from './technicianview/technicianview.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],
