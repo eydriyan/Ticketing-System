@@ -15,6 +15,7 @@ export class UserviewComponent implements OnInit {
   priority: string = '';
   errorMessage: string = '';
   showForm: boolean = false;
+  selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
 
   constructor(
@@ -47,11 +48,10 @@ export class UserviewComponent implements OnInit {
     this.ticketService.addTicket(this.category, this.title, this.description, this.priority, userEmail)
       .subscribe(
         (ticket: Ticket) => {
-          // Handle successful ticket submission, e.g., display a success message
           console.log('Ticket added successfully:', ticket);
+          window.location.reload();
         },
         (error) => {
-          // Handle error, e.g., display an error message
           console.error('Error adding ticket:', error);
           this.errorMessage = 'Failed to add ticket. Please try again later.';
         }
@@ -59,15 +59,25 @@ export class UserviewComponent implements OnInit {
   }
 
   fetchTickets() {
-    const userID = 2; // Assuming you have the user's ID
+    const userID = 2; 
     this.ticketService.getTicketsByStudentId(userID).subscribe(
       (tickets: Ticket[]) => {
-        this.tickets = tickets;
+        this.tickets = tickets.map(ticket => ({
+          ...ticket,
+          technician: ticket.technician || 'Unassigned'
+        }));
       },
       (error) => {
         console.error('Error fetching tickets:', error);
-        // Handle error if needed
       }
     );
+  }
+
+  showTicketDetails(ticket: Ticket) {
+    this.selectedTicket = ticket;
+  }
+  
+  closeTicketDetails() {
+    this.selectedTicket = null;
   }
 }
