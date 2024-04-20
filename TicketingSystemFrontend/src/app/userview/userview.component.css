@@ -1,0 +1,12 @@
+.ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .ticket-summary {
+    width: 300px; /* Adjust width as needed */
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  

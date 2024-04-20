@@ -13,13 +13,14 @@
   </form>
 </div>
 
-<!-- <div class="ticket-summary">
-  <p><strong>Category:</strong> {{ category }}</p>
-  <p><strong>Priority:</strong> {{ priority }}</p>
-  <p><strong>Status:</strong> {{ status }}</p>
-  <button (click)="showDetails()">Ticket Details</button> 
+<div class="ticket-container">
+  <div *ngFor="let ticket of tickets" class="ticket-summary">
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    <p><strong>Category:</strong> {{ ticket.category }}</p>
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Date Created:</strong> {{ ticket.dateCreated }}</p>
+    <p><strong>Technician:</strong> {{ ticket.technician }}</p>
+    <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+  </div>
 </div>
 
-<div class="ticket-list">
-  <ticket-summary *ngFor="let ticket of tickets" [ticket]="ticket"></ticket-summary>
-</div> -->

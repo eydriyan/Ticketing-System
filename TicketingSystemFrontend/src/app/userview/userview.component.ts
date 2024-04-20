@@ -8,7 +8,7 @@ import { Ticket } from '../model/ticket.model';
   templateUrl: './userview.component.html',
   styleUrls: ['./userview.component.css']
 })
-export class UserviewComponent {
+export class UserviewComponent implements OnInit {
   category: string = '';
   title: string = '';
   description: string = '';
@@ -58,11 +58,16 @@ export class UserviewComponent {
       );
   }
 
-  fetchTickets() { 
-    const userID = 2;  
-    this.ticketService.getTicketsByStudentId(userID)  // Assuming getTicketsByUser exists
-       .subscribe(tickets => this.tickets = tickets); 
-       
-       
+  fetchTickets() {
+    const userID = 2; // Assuming you have the user's ID
+    this.ticketService.getTicketsByStudentId(userID).subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+      },
+      (error) => {
+        console.error('Error fetching tickets:', error);
+        // Handle error if needed
+      }
+    );
   }
 }
