@@ -1,6 +1,7 @@
 package com.group2.TicketingSystemBackend.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@DiscriminatorValue("STUDENT")
-public class Student extends User{
-    private String program;
-    private String studentNumber;
+@DiscriminatorValue("ADMIN")
+public class Admin extends User{
 }

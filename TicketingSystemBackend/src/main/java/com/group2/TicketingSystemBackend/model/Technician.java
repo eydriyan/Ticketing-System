@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Technicians")
+@DiscriminatorValue("TECHNICIAN")
 public class Technician extends User{
     private String staffNumber;
     private String skillSet;
