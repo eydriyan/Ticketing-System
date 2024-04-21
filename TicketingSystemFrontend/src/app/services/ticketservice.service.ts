@@ -24,7 +24,6 @@ export class TicketserviceService {
     return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, null, { headers, params });
   }
   
-  
   getAllTickets(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/all`);
   }

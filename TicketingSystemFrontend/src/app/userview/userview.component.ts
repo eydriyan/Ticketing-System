@@ -14,22 +14,38 @@ export class UserviewComponent implements OnInit {
   description: string = '';
   priority: string = '';
   errorMessage: string = '';
-  showForm: boolean = false;
+  showaddticketForm: boolean = false;
+  showFilterForm: boolean = false;
+  filterCategory: string = '';
+  filterPriority: string = '';
+  filterDate: string = '';
+  filterStatus: string = '';
+  filterTechnician: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
 
   constructor(
     // private authService: AuthserviceService,
-    private ticketService: TicketserviceService
+    private ticketService: TicketserviceService,
+    private authService: AuthserviceService
   ) {}
 
   ngOnInit() {
     this.fetchTickets();
   }
 
-  toggleForm() {
-    this.showForm = !this.showForm;
+  toggleaddticketForm() {
+    this.showaddticketForm = !this.showaddticketForm;
   }
+
+  toggleFilterForm() {
+    this.showFilterForm = !this.showFilterForm;
+  }
+
+  applyFilter() {
+
+  }
+  
 
   addTicket() {
     if (!this.category || !this.title || !this.description || !this.priority) {
@@ -79,5 +95,10 @@ export class UserviewComponent implements OnInit {
   
   closeTicketDetails() {
     this.selectedTicket = null;
+  }
+
+  logout() {
+  
+    console.log('Logout clicked');
   }
 }

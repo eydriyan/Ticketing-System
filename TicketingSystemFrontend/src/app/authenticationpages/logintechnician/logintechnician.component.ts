@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',  
-  templateUrl: './login.component.html', 
-  styleUrls: ['./login.component.css']
+  templateUrl: './logintechnician.component.html', 
+  styleUrls: ['./logintechnician.component.css']
 })
-export class LoginComponent {
+export class LogintechnicianComponent {
   email = '';
   password = '';
   loginFailed = false;
@@ -15,12 +15,10 @@ export class LoginComponent {
   constructor(private authService: AuthserviceService, private router: Router) {}
 
   login() {
-    this.authService.loginAsStudent({ email: this.email, password: this.password }).subscribe(
+    this.authService.loginAsTechnician({ email: this.email, password: this.password }).subscribe(
       (loginSuccessful) => {
         if (loginSuccessful) {
-          this.router.navigate(['/user']);
-          this.authService.setCurrentUserEmail(this.email);
-
+          this.router.navigate(['/technician']);
         } else {
 
           this.loginFailed = true;
