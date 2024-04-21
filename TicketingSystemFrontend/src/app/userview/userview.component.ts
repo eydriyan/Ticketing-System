@@ -53,7 +53,7 @@ export class UserviewComponent implements OnInit {
       return;
     }
 
-    const userEmail = 'kurtianrumbaua@gmail.com';
+    const userEmail = 'kurtrumbaua@gmail.com';
 
     // if (!userEmail) {
     //   console.error('User email not found');

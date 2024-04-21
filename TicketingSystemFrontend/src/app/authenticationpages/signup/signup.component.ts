@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Student } from '../../model/student.model';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+// import { UserRole } from '../../model/user-role.enum';
+
 
 @Component({
   templateUrl: './signup.component.html',
@@ -17,7 +19,8 @@ export class SignupComponent {
     password: '',
     program: '',
     phoneNumber: '',
-    studentNumber: ''
+    studentNumber: '',
+    user_type: 'STUDENT'
   };
   
   errorMessage: string = '';

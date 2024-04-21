@@ -11,7 +11,6 @@ import { TechnicianviewComponent } from './technicianview/technicianview.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { LogintechnicianComponent } from './authenticationpages/logintechnician/logintechnician.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { LogintechnicianComponent } from './authenticationpages/logintechnician/
     SignupComponent,
     AdminviewComponent,
     TechnicianviewComponent,
-    LogintechnicianComponent
   ],
   imports: [
     BrowserModule,

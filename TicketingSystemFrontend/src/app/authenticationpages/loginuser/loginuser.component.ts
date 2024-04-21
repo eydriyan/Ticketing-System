@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthserviceService } from '../../services/authservice.service'; 
 import { Router } from '@angular/router';
-
+import { User } from '../../model/user.model';
+ 
 @Component({
   selector: 'app-login',  
   templateUrl: './loginuser.component.html', 
@@ -15,18 +16,17 @@ export class LoginuserComponent {
   constructor(private authService: AuthserviceService, private router: Router) {}
 
   login() {
-    this.authService.loginAsStudent({ email: this.email, password: this.password }).subscribe(
-      (loginSuccessful) => {
-        if (loginSuccessful) {
-          this.router.navigate(['/user']);
-        } else {
-
-          this.loginFailed = true;
-        }
+    const loginData = { email: this.email, password: this.password };
+    
+    this.authService.login(loginData).subscribe(
+      (loggedInUser: User) => {
+        this.router.navigate(['/user']); // Redirect to user dashboard
       },
       (error) => {
         this.loginFailed = true;
+        console.error('Login error:', error);
       }
     );
   }
+  
 }

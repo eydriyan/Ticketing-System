@@ -5,4 +5,5 @@ export interface User {
   email: string;
   phoneNumber: string;
   password: string;
+  user_type: string; // Add discriminator column
 }

@@ -8,8 +8,8 @@ export interface Ticket {
   technician: Technician;
   title: string;
   description: string;
-  priority: string;
-  status: string;
-  dateCreated: Date;
-  dateResolved: Date;
+  priority: string; 
+  status: string; 
+  dateCreated: Date; 
+  dateResolved: Date; 
 }

@@ -12,13 +12,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("api/technician")
+@RequestMapping("api/technicians")
 public class TechnicianController {
     @Autowired
     private TechnicianService technicianService;
     @Autowired
     private TicketService ticketService;
+
+    // create technician
+    @PostMapping("/create-technician")
+    public ResponseEntity<Technician> createTechnician(@RequestBody Technician newUser) {
+        // Create a new Technician entity
+        Technician technician = new Technician();
+
+        Technician createdTechnician = technicianService.createTechnician(newUser);
+        if (createdTechnician == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.ok(createdTechnician);
+    }
 
     // get all technician
     @GetMapping("/all")
