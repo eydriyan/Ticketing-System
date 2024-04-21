@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tickets")
+@RequestMapping("/api/ticket")
 public class TicketController {
     @Autowired
     private TicketService ticketService;

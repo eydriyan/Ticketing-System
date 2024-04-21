@@ -5,6 +5,7 @@ import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.repository.StudentRepository;
 import com.group2.TicketingSystemBackend.repository.TechnicianRepository;
+import com.group2.TicketingSystemBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class AuthService {
     private StudentRepository studentRepository;
     @Autowired
     private TechnicianRepository technicianRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     // Sign up
     public Student signUp(Student newAccount) {
@@ -24,52 +27,26 @@ public class AuthService {
         if (opt_account.isPresent())
             return null;
 
-        // Add and return
+        // Add new student
         return studentRepository.save(newAccount);
     }
 
     // log in as Student
-    public Student login(Student existingAccount) {
-        // Check if email exists
-        Optional<Student> opt_account = studentRepository.findByEmail(existingAccount.getEmail());
-        if (opt_account.isEmpty())
-            return null;
-
-        // No Empty Passwords
-        if (existingAccount.getPassword().isEmpty()) {
+    public User login(User existingUser) {
+        // Find user by email
+        Optional<User> optUser = userRepository.findByEmail(existingUser.getEmail());
+        if (optUser.isEmpty()) {
             return null;
         }
 
-        Student student = opt_account.get();
+        User user = optUser.get();
 
-        // Compare Passwords
-        if (!student.getPassword().equals(existingAccount.getPassword())) {
+        // Check user type and password
+        if (!user.getPassword().equals(existingUser.getPassword())) {
             return null;
         }
 
-        return studentRepository.save(student);
-    }
-
-    // log in as Technician
-    public Technician login(Technician existingAccount) {
-        // Check if email exists
-        Optional<Technician> opt_account = technicianRepository.findByEmail(existingAccount.getEmail());
-        if (opt_account.isEmpty())
-            return null;
-
-        // No Empty Passwords
-        if (existingAccount.getPassword().isEmpty()) {
-            return null;
-        }
-
-        Technician technician = opt_account.get();
-
-        // Compare Passwords
-        if (!technician.getPassword().equals(existingAccount.getPassword())) {
-            return null;
-        }
-
-        return technicianRepository.save(technician);
+        return user;
     }
 
     // Log out

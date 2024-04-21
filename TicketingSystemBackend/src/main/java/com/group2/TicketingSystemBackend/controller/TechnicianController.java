@@ -11,23 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/technicians")
+@RequestMapping("api/technician")
 public class TechnicianController {
     @Autowired
     private TechnicianService technicianService;
-
-    // create technician
-    @PostMapping("/create-technician")
-    public ResponseEntity<Technician> createTechnician(@RequestBody Technician newUser) {
-        // Create a new Technician entity
-        Technician technician = new Technician();
-
-        Technician createdTechnician = technicianService.createTechnician(newUser);
-        if (createdTechnician == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(createdTechnician);
-    }
 
     // get all technician
     @GetMapping("/all")
