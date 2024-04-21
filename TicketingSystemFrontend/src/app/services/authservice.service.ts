@@ -33,12 +33,10 @@ export class AuthserviceService {
   // Method to set current user email upon login
   setCurrentUserEmail(email: string) {
     this.currentUserEmail = email;
-    console.log(this.currentUserEmail)
   }
 
   // Method to get current user email
   getCurrentUserEmail(): string | null {
-
     return this.currentUserEmail;
   }
   

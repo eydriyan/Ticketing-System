@@ -1,18 +1,31 @@
 <div>
-  <button (click)="toggleForm()">Add Ticket</button>
-  <form *ngIf="showForm" (ngSubmit)="addTicket()">
-    <label for="category">Category:</label>
-    <input type="text" id="category" [(ngModel)]="category" name="category" required><br><br>
-    <label for="title">Title:</label>
-    <input type="text" id="title" [(ngModel)]="title" name="title" required><br><br>
-    <label for="description">Description:</label>
-    <textarea id="description" [(ngModel)]="description" name="description" required></textarea><br><br>
-    <label for="priority">Priority:</label>
-    <input type="text" id="priority" [(ngModel)]="priority" name="priority" required><br><br>
-    <button type="submit">Submit</button>
-  </form>
-</div>
-
+  <div>
+    <button (click)="toggleaddticketForm()">Add Ticket</button>
+    <button (click)="logout()">Log Out</button>
+    <button (click)="toggleFilterForm()">Filter</button>
+  </div>
+  
+  <!-- add ticket popup -->
+  <div *ngIf="showaddticketForm" class="window-popup">
+    <div class="modal-content">
+      <span class="close" (click)="toggleaddticketForm()">&times;</span>
+      <form (ngSubmit)="addTicket()">
+        <h2>Support Ticket Form</h2>
+        <p>Create a new ticket for your issue.</p>
+        <label for="category">Category:</label>
+        <input type="text" id="category" [(ngModel)]="category" name="category" required><br><br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" [(ngModel)]="title" name="title" required><br><br>
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="description" name="description" required></textarea><br><br>
+        <label for="priority">Priority:</label>
+        <input type="text" id="priority" [(ngModel)]="priority" name="priority" required><br><br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  
+<!-- ticket info summary   -->
 <div class="ticket-container">
   <div *ngFor="let ticket of tickets" class="ticket-summary">
     <p><strong>Priority:</strong> {{ ticket.priority }}</p>
@@ -24,7 +37,8 @@
   </div>
 </div>
 
-<div *ngIf="selectedTicket" class="ticket-details-popup">
+<!-- ticket details popup  -->
+<div *ngIf="selectedTicket" class="window-popup">
   <div class="modal-content">
     <span class="close" (click)="closeTicketDetails()">&times;</span>
     <h2>Ticket Details</h2>
@@ -37,4 +51,24 @@
   </div>
 </div>
 
+<!-- filter form popup -->
+<div *ngIf="showFilterForm" class="window-popup">
+  <div class="modal-content">
+    <span class="close" (click)="toggleFilterForm()">&times;</span>
+    <h2>Filter Tickets</h2>
+    <form (ngSubmit)="applyFilter()">
+      <label for="filter-category">Category:</label>
+      <input type="text" id="filter-category" [(ngModel)]="filterCategory" name="filter-category"><br><br>
+      <label for="filter-priority">Priority:</label>
+      <input type="text" id="filter-priority" [(ngModel)]="filterPriority" name="filter-priority"><br><br>
+      <label for="filter-date">Date Created:</label>
+      <input type="date" id="filter-date" [(ngModel)]="filterDate" name="filter-date"><br><br>
+      <label for="filter-status">Status:</label>
+      <input type="text" id="filter-status" [(ngModel)]="filterStatus" name="filter-status"><br><br>
+      <label for="filter-technician">Technician:</label>
+      <input type="text" id="filter-technician" [(ngModel)]="filterTechnician" name="filter-technician"><br><br>
+      <button type="submit">Apply Filter</button>
+    </form>
+  </div>
+</div>
 
