@@ -1,10 +1,12 @@
 package com.group2.TicketingSystemBackend.controller;
 
 import com.group2.TicketingSystemBackend.model.Student;
+import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.Ticket;
 import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.service.AuthService;
 import com.group2.TicketingSystemBackend.service.StudentService;
+import com.group2.TicketingSystemBackend.service.TechnicianService;
 import com.group2.TicketingSystemBackend.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +25,8 @@ public class TicketController {
     private TicketService ticketService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private TechnicianService technicianService;
     @Autowired
     private AuthService authService;
 
@@ -81,11 +85,19 @@ public class TicketController {
 //        return ResponseEntity.noContent().build();
 //    }
 
-    // get tickets of a specific students
+    // get tickets of a specific student
     @GetMapping("/student-tickets/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketsByStudentId(@PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);
         List<Ticket> tickets = ticketService.getTicketsByStudent(student);
+        return ResponseEntity.ok(tickets);
+    }
+
+    // get tickets assigned to a specific technician
+    @GetMapping("/technician-tickets/{technicianId}")
+    public ResponseEntity<List<Ticket>> getTicketsByTechnicianId(@PathVariable Long technicianId) {
+        Technician technician = technicianService.getTechnicianById(technicianId);
+        List<Ticket> tickets = ticketService.getTicketsByTechnician(technician);
         return ResponseEntity.ok(tickets);
     }
 }

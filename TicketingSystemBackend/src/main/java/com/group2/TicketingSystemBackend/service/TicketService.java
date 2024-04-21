@@ -62,9 +62,14 @@ public class TicketService {
         ticketRepository.delete(ticket);
     }
 
-    // get ticket by student
+    // get tickets by student
     public List<Ticket> getTicketsByStudent(Student student) {
         return ticketRepository.findByStudent(student);
+    }
+
+    // get tickets assigned to a technician
+    public List<Ticket> getTicketsByTechnician(Technician technician) {
+        return ticketRepository.findByTechnician(technician);
     }
 
     // assign ticket to technician
