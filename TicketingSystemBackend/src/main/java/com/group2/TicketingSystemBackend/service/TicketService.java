@@ -89,7 +89,7 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    // Assign ticket to self
+    // Assign ticket to self(technician)
     public Ticket assignTicketToSelf(Long ticketId, String technicianEmail) {
         Ticket ticket = getTicketById(ticketId);
 
@@ -102,6 +102,20 @@ public class TicketService {
 
         ticket.setTechnician(technician);
         ticket.setStatus("Assigned");
+
+        return ticketRepository.save(ticket);
+    }
+
+    // Mark ticket as resolved
+    public Ticket markTicketResolved(Long ticketId) {
+        Ticket ticket = getTicketById(ticketId);
+
+        if (ticket.getStatus().equals("Resolved")) {
+            throw new RuntimeException("Ticket already marked as resolved");
+        }
+
+        ticket.setStatus("Resolved");
+        ticket.setDateResolved(LocalDate.now());
 
         return ticketRepository.save(ticket);
     }

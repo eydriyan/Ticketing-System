@@ -100,4 +100,15 @@ public class TicketController {
         List<Ticket> tickets = ticketService.getTicketsByTechnician(technician);
         return ResponseEntity.ok(tickets);
     }
+
+    // mark ticket as resolved
+    @PostMapping("/resolve/{ticketId}")
+    public ResponseEntity<Ticket> markTicketResolved(@PathVariable Long ticketId) {
+        Ticket resolvedTicket = ticketService.markTicketResolved(ticketId);
+        return ResponseEntity.ok(resolvedTicket);
+    }
+
+    // get resolved student tickets
+
+    // get resolved tickets associated to technician
 }
