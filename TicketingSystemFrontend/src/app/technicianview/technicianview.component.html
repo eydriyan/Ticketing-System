@@ -1,1 +1,80 @@
-<p>technicianview works!</p>
+<div>
+    <div>
+      <button (click)="logout()">Log Out</button>
+      <button (click)="toggleFilterForm()">Filter</button>
+    </div>
+    
+    <!-- add ticket popup -->
+    <!-- Same as before -->
+    
+<!-- ticket info summary -->
+<div class="ticket-container">
+    <div *ngFor="let ticket of tickets" class="ticket-summary">
+        <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+        <p><strong>Category:</strong> {{ ticket.category }}</p>
+        <p><strong>Status:</strong> {{ ticket.status }}</p>
+        <p><strong>Date Created:</strong> {{ ticket.dateCreated }}</p>
+        <p><strong>Requester:</strong> </p>
+        <!-- Button to toggle the update form -->
+        <button (click)="showTicketDetails(ticket)">View Details</button>
+        <button (click)="toggleUpdateForm(ticket)">Update</button>
+        <!-- Update form -->
+        <div *ngIf="showUpdateForm" class="window-popup">
+            <div class = "modal-content">
+                <span class="close" (click)="toggleUpdateForm(ticket)">&times;</span>
+                <form (ngSubmit)="updateTicket(ticket)">
+                    <label for="category">Category:</label>
+                    <input type="text" id="category" name="category" [(ngModel)]="ticket.category" required>
+                    <br>
+                    <label for="priority">Priority:</label>
+                    <input type="text" id="priority" name="priority" [(ngModel)]="ticket.priority" required>
+                    <br>
+                    <label for="status">Status:</label>
+                    <input type="text" id="status" name="status" [(ngModel)]="ticket.status" required>
+                    <br>
+                    <button type="submit" >Update Ticket</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ticket details popup  -->
+<div *ngIf="selectedTicket" class="window-popup">
+    <div class="modal-content">
+      <span class="close" (click)="closeTicketDetails()">&times;</span>
+      <h2>Ticket Details</h2>
+      <p><strong>Date Created:</strong> {{ selectedTicket.dateCreated }}</p>
+      <p><strong>Category:</strong> {{ selectedTicket.category }}</p>
+      <p><strong>Priority:</strong> {{ selectedTicket.priority }}</p>
+      <p><strong>Requester:</strong> </p>
+      <p><strong>Status:</strong> {{ selectedTicket.status }}</p>
+      <p><strong>Description:</strong> {{ selectedTicket.description }}</p>
+    </div>
+  </div>
+  
+  <!-- filter form popup -->
+  <div *ngIf="showFilterForm" class="window-popup">
+    <div class="modal-content">
+      <span class="close" (click)="toggleFilterForm()">&times;</span>
+      <h2>Filter Tickets</h2>
+      <form (ngSubmit)="applyFilter()">
+        <label for="filter-category">Category:</label>
+        <input type="text" id="filter-category" [(ngModel)]="filterCategory" name="filter-category"><br><br>
+        <label for="filter-priority">Priority:</label>
+        <input type="text" id="filter-priority" [(ngModel)]="filterPriority" name="filter-priority"><br><br>
+        <label for="filter-date">Date Created:</label>
+        <input type="date" id="filter-date" [(ngModel)]="filterDate" name="filter-date"><br><br>
+        <label for="filter-status">Status:</label>
+        <input type="text" id="filter-status" [(ngModel)]="filterStatus" name="filter-status"><br><br>
+        <label for="filter-technician">Technician:</label>
+        <input type="text" id="filter-technician" [(ngModel)]="filterTechnician" name="filter-technician"><br><br>
+        <button type="submit">Apply Filter</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+  
