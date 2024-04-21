@@ -120,4 +120,18 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
+    // get all resolved tickets
+    public List<Ticket> getAllResolvedTickets() {
+        return ticketRepository.findByStatus("Resolved");
+    }
+
+    // get resolved tickets associated to a student
+    public List<Ticket> getResolvedTicketsByStudent(Student student) {
+        return ticketRepository.findByStudentAndStatus(student, "Resolved");
+    }
+
+    // get resolved tickets associated to technician
+    public List<Ticket> getResolvedTicketsByTechnician(Technician technician) {
+        return ticketRepository.findByTechnicianAndStatus(technician, "Resolved");
+    }
 }

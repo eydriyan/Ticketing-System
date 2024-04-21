@@ -14,4 +14,10 @@ public interface TicketRepository extends CrudRepository<Ticket, Long> {
     List<Ticket> findByStudent(Student student);
 
     List<Ticket> findByTechnician(Technician technician);
+
+    List<Ticket> findByStatus(String resolved);
+
+    List<Ticket> findByStudentAndStatus(Student student, String status);
+
+    List<Ticket> findByTechnicianAndStatus(Technician technician, String status);
 }

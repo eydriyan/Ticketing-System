@@ -102,13 +102,36 @@ public class TicketController {
     }
 
     // mark ticket as resolved
-    @PostMapping("/resolve/{ticketId}")
+    @PostMapping("/resolve-ticket/{ticketId}")
     public ResponseEntity<Ticket> markTicketResolved(@PathVariable Long ticketId) {
         Ticket resolvedTicket = ticketService.markTicketResolved(ticketId);
         return ResponseEntity.ok(resolvedTicket);
     }
 
-    // get resolved student tickets
+    // get all resolved tickets (for admin history)
+    @GetMapping("/resolved-tickets")
+    public ResponseEntity<List<Ticket>> getAllResolvedTickets() {
+        List<Ticket> resolvedTickets = ticketService.getAllResolvedTickets();
+        return ResponseEntity.ok(resolvedTickets);
+    }
 
-    // get resolved tickets associated to technician
+    // get resolved tickets associated to a student (for student history)
+    @GetMapping("/resolved-student-tickets/{studentId}")
+    public ResponseEntity<List<Ticket>> getResolvedTicketsByStudentId(@PathVariable Long studentId) {
+        Student student = new Student();
+        student.setId(studentId);
+
+        List<Ticket> resolvedTickets = ticketService.getResolvedTicketsByStudent(student);
+        return ResponseEntity.ok(resolvedTickets);
+    }
+
+    // get resolved tickets associated to technician (for technician history)
+    @GetMapping("/resolved-technician-tickets/{technicianId}")
+    public ResponseEntity<List<Ticket>> getResolvedTicketsByTechnicianId(@PathVariable Long technicianId) {
+        Technician technician = new Technician();
+        technician.setId(technicianId);
+
+        List<Ticket> resolvedTickets = ticketService.getResolvedTicketsByTechnician(technician);
+        return ResponseEntity.ok(resolvedTickets);
+    }
 }
