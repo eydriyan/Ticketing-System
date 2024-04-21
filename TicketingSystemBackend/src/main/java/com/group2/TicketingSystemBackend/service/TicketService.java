@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -70,8 +71,29 @@ public class TicketService {
     public Ticket assignTechnicianToTicket(Long ticketId, String technicianEmail) {
         Ticket ticket = getTicketById(ticketId);
 
-        Technician technician = technicianRepository.findByEmail(technicianEmail)
-                .orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
+        if (ticket.getTechnician() != null) {
+            throw new RuntimeException("Ticket already assigned to a technician");
+        }
+
+        Optional<Technician> technicianOptional = technicianRepository.findByEmail(technicianEmail);
+        Technician technician = technicianOptional.orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
+
+        ticket.setTechnician(technician);
+        ticket.setStatus("Assigned");
+
+        return ticketRepository.save(ticket);
+    }
+
+    // Assign ticket to self
+    public Ticket assignTicketToSelf(Long ticketId, String technicianEmail) {
+        Ticket ticket = getTicketById(ticketId);
+
+        if (ticket.getTechnician() != null) {
+            throw new RuntimeException("Ticket already assigned to a technician");
+        }
+
+        Optional<Technician> technicianOptional = technicianRepository.findByEmail(technicianEmail);
+        Technician technician = technicianOptional.orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
 
         ticket.setTechnician(technician);
         ticket.setStatus("Assigned");

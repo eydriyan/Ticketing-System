@@ -17,6 +17,7 @@ public class AdminController {
     @Autowired
     private TechnicianService technicianService;
 
+    //Assign technician to a ticket
     @PostMapping("/assign-technician/{ticketId}")
     public ResponseEntity<Ticket> assignTechnicianToTicket(
             @PathVariable Long ticketId,
