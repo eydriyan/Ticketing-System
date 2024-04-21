@@ -8,7 +8,7 @@ import { AdminviewComponent } from './adminview/adminview.component';
 import { TechnicianviewComponent } from './technicianview/technicianview.component';
 
 const routes: Routes = [
-  { path: '', component: LoginuserComponent },
+  { path: 'login', component: LoginuserComponent },
   { path: 'logintechnician', component: LogintechnicianComponent},
   { path: 'signup', component: SignupComponent },
   { path: 'user', component: UserviewComponent },
