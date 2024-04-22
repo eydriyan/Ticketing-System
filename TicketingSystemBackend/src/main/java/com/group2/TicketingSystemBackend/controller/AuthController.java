@@ -1,5 +1,6 @@
 package com.group2.TicketingSystemBackend.controller;
 
+import com.group2.TicketingSystemBackend.enums.UserRole;
 import com.group2.TicketingSystemBackend.model.Student;
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
@@ -28,8 +29,11 @@ public class AuthController {
         // Create a new Student entity
         Student student = new Student();
 
+        newUser.setRole(UserRole.STUDENT);
+
         // Sign up the user (which now includes a student)
         Student createdUser = authService.signUp(newUser);
+
         if (createdUser == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
