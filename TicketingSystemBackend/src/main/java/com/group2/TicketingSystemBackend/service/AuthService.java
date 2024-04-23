@@ -7,6 +7,11 @@ import com.group2.TicketingSystemBackend.repository.StudentRepository;
 import com.group2.TicketingSystemBackend.repository.TechnicianRepository;
 import com.group2.TicketingSystemBackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,37 +21,79 @@ public class AuthService {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired
-    private TechnicianRepository technicianRepository;
-    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    // Sign up
-    public Student signUp(Student newAccount) {
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtService jwtService;
+
+//    // Sign up
+//    public Student signUp(Student newAccount) {
+//        // Check for duplicate email
+//        Optional<Student> opt_account = studentRepository.findByEmail(newAccount.getEmail());
+//        if (opt_account.isPresent())
+//            return null;
+//
+//        // Add new student
+//        return studentRepository.save(newAccount);
+//    }
+//
+//    // log in as Student
+//    public User login(User existingUser) {
+//        // Find user by email
+//        Optional<User> optUser = userRepository.findByEmail(existingUser.getEmail());
+//        if (optUser.isEmpty()) {
+//            return null;
+//        }
+//
+//        User user = optUser.get();
+//
+//        // Check user type and password
+//        if (!user.getPassword().equals(existingUser.getPassword())) {
+//            return null;
+//        }
+//
+//        return user;
+//    }
+
+    public Student signup(Student newAccount) {
         // Check for duplicate email
         Optional<Student> opt_account = studentRepository.findByEmail(newAccount.getEmail());
         if (opt_account.isPresent())
             return null;
 
+        newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
+
         // Add new student
         return studentRepository.save(newAccount);
     }
 
-    // log in as Student
-    public User login(User existingUser) {
-        // Find user by email
-        Optional<User> optUser = userRepository.findByEmail(existingUser.getEmail());
-        if (optUser.isEmpty()) {
-            return null;
+    public String login(User existingUser) {
+        String token = "";
+
+        // Attempt Authentication
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            existingUser.getEmail(),
+                            existingUser.getPassword()
+                    )
+            );
+
+            // Create JWT
+            token = jwtService.generateToken(
+                    (UserDetails) authentication.getPrincipal()
+            );
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
-
-        User user = optUser.get();
-
-        // Check user type and password
-        if (!user.getPassword().equals(existingUser.getPassword())) {
-            return null;
-        }
-
-        return user;
+        return token;
     }
 
     // Log out

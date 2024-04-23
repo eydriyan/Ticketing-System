@@ -53,7 +53,7 @@ export class UserviewComponent implements OnInit {
       return;
     }
 
-    const userEmail = 'kurtrumbaua@gmail.com';
+    const userEmail = 'samplestudent@gmail.com';
 
     // if (!userEmail) {
     //   console.error('User email not found');
@@ -75,7 +75,7 @@ export class UserviewComponent implements OnInit {
   }
 
   fetchTickets() {
-    const userID = 2; 
+    const userID = 152; 
     this.ticketService.getTicketsByStudentId(userID).subscribe(
       (tickets: Ticket[]) => {
         this.tickets = tickets.map(ticket => ({

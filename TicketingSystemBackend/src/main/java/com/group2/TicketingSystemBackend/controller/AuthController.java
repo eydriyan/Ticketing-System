@@ -4,7 +4,10 @@ import com.group2.TicketingSystemBackend.enums.UserRole;
 import com.group2.TicketingSystemBackend.model.Student;
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
+import com.group2.TicketingSystemBackend.model.dto.loginDTO;
 import com.group2.TicketingSystemBackend.service.AuthService;
+import com.group2.TicketingSystemBackend.service.EmailService;
+import com.group2.TicketingSystemBackend.service.VerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,6 +25,10 @@ public class AuthController {
     
     @Autowired
     private AuthService authService;
+    @Autowired
+    private EmailService emailService;
+    @Autowired
+    private VerificationService verificationService;
 
     // Student sign up
     @PostMapping("/signup")
@@ -32,24 +39,27 @@ public class AuthController {
         newUser.setRole(UserRole.STUDENT);
 
         // Sign up the user (which now includes a student)
-        Student createdUser = authService.signUp(newUser);
+        Student createdUser = authService.signup(newUser);
 
         if (createdUser == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+
+        // Send Verification Code
+        verificationService.sendVerificationCode(createdUser);
         return ResponseEntity.ok(createdUser);
     }
 
     // login
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User loginUser) {
-        User loggedInUser = authService.login(loginUser);
+    public ResponseEntity<loginDTO> login(@RequestBody User loginUser) {
+        String loggedInUser = authService.login(loginUser);
 
         if (loggedInUser == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return ResponseEntity.ok(loggedInUser);
+        return ResponseEntity.ok(loginDTO.builder().token(loggedInUser).build());
     }
 
     //Log out

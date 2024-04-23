@@ -19,8 +19,11 @@ export class LoginuserComponent {
     const loginData = { email: this.email, password: this.password };
     
     this.authService.login(loginData).subscribe(
-      (loggedInUser: User) => {
-        this.router.navigate(['/user']); // Redirect to user dashboard
+      (loginDTO) => {
+        if(loginDTO.token.length > 0){
+          this.router.navigate(['/user']); // Redirect to user dashboard
+        }
+        
       },
       (error) => {
         this.loginFailed = true;

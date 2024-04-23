@@ -7,6 +7,11 @@ import { AdminviewComponent } from './adminview/adminview.component';
 import { TechnicianviewComponent } from './technicianview/technicianview.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
   { path: 'login', component: LoginuserComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'user', component: UserviewComponent },
