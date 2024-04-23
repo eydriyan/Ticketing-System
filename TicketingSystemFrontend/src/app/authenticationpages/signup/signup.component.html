@@ -126,20 +126,17 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" required
-                               [(ngModel)]="studentData.lastName" name="lastName">
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" [(ngModel)]="studentData.lastName" name="lastName" required>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter Email Address" required
-                       [(ngModel)]="studentData.email" name="email">
+                <input type="email" class="form-control" id="email" placeholder="Enter Email Address" [(ngModel)]="studentData.email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter Password" required
-                       [(ngModel)]="studentData.password" name="password">
+                <input type="password" class="form-control" id="password" placeholder="Enter Password" [(ngModel)]="studentData.password" name="password" required>
             </div>
             <div class="form-group">
                 <label for="confirmPassword" class="form-label">Confirm Password</label>
@@ -147,18 +144,16 @@
             </div>
             <div class="form-group">
                 <label for="program" class="form-label">Program</label>
-                <input type="text" class="form-control" id="program" placeholder="Enter Program" required
-                       [(ngModel)]="studentData.program" name="program">
+                <input type="text" class="form-control" id="program" placeholder="Enter Program" [(ngModel)]="studentData.program" name="program" required>
             </div>
             <div class="form-group">
                 <label for="studentNumber" class="form-label">Student Number</label>
-                <input type="text" class="form-control" id="studentNumber" placeholder="Enter Student Number" required
-                       [(ngModel)]="studentData.studentNumber" name="studentNumber">
+                <input type="text" class="form-control" id="studentNumber" placeholder="Enter Student Number" [(ngModel)]
+                ="studentData.studentNumber" name="studentNumber" required>
             </div>
             <div class="form-group">
                 <label for="phoneNumber" class="form-label">Phone Number</label>
-                <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number"
-                       [(ngModel)]="studentData.phoneNumber" name="phoneNumber">
+                <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number" [(ngModel)]="studentData.phoneNumber" name="phoneNumber" required>
             </div>
             <button type="submit" class="btn btn-primary">Continue</button>
         </form>
