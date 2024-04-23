@@ -5,7 +5,7 @@
   </div> -->
   
   <!-- add ticket popup -->
-  <!-- <div *ngIf="showaddticketForm" class="window-popup">
+  <div *ngIf="showaddticketForm" class="window-popup">
     <div class="modal-content">
       <span class="close" (click)="toggleaddticketForm()">&times;</span>
       <form (ngSubmit)="addTicket()">
@@ -18,11 +18,17 @@
         <label for="description">Description:</label>
         <textarea id="description" [(ngModel)]="description" name="description" required></textarea><br><br>
         <label for="priority">Priority:</label>
-        <input type="text" id="priority" [(ngModel)]="priority" name="priority" required><br><br>
+        <select id="priority" [(ngModel)]="priority" name="priority" required>
+          <option value="priority">Select Priority</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select><br><br>
         <button type="submit">Submit</button>
       </form>
     </div>
-  </div> -->
+  </div>
+  
   
 <!-- ticket info summary   -->
 <!-- <div class="ticket-container">
@@ -106,13 +112,18 @@
             <button (click)="toggleaddticketForm()">
               <img src="../../assets/images/addTicketButton.png">
             </button>
+            <!-- <button (click)="toggleaddticketForm()">
+              <img src="../../assets/images/addTicketButton.png">
+            </button> -->
           </td>
           <!-- <td class="filter-container">
               <a href="toggleFilterForm()"><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
           </td> -->
+          <td>
           <button (click)="toggleFilterForm()" >
-            <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">>
+            <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
           </button>
+          </td>
           <td class="search-container">
               <label for="search">Search:</label>
               <input type="text" id="search" placeholder="Search tickets...">
@@ -122,28 +133,47 @@
   </table>
   
 <!--Add a Ticket Form as a modal window-->
-<div class="modal" *ngIf="showaddticketForm">
+<!-- <div id="ticket-form-container" class="modal">
   <div class="modal-content">
-    <span class="close" (click)="toggleaddticketForm()">&times;</span>
-    <form (ngSubmit)="addTicket()">
-      <h2>Support Ticket Form</h2>
-      <p>Create a new ticket for your issue.</p>
-      <label for="title">Title:</label><br>
-      <input type="text" id="title" name="title" [(ngModel)]="title" required><br><br>
-      <label for="category">Category:</label><br>
-      <input type="text" id="category" name="category" [(ngModel)]="category" required><br><br>
-      <select id="priority" name="priority" [(ngModel)]="priority" required>
-        <option value="Priority">Select Priority</option>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value= "Low">Low</option>
-      </select><br><br>
-      <label for="description">Description:</label><br>
-      <textarea id="description" name="description" [(ngModel)]="description" required></textarea><br><br>
-      <button type="submit">Submit</button>
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h1 class="form-title">Ticket Details</h1>
+    <h4>Comprehensive information about the ticket.</h4>
+    <form class="form"(ngSubmit)="addTicket()">
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="subject">Subject:</label>
+          <input class="form-input" type="text" id="subject" name="subject" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="category">Category:</label>
+          <select class="form-select" id="category" name="category" required [(ngModel)]="category">
+            <option value="PC Malfunction">PC Malfunction</option>
+            <option value="Printer Issue">Printer Issue</option>
+            <option value="Network Problem">Network Problem</option>
+          </select>
+        </div>
+        <div class="form-col">
+          <label class="form-label" for="priority">Priority:</label>
+          <select class="form-select" id="priority" name="priority" required [(ngModel)]="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="description">Description:</label>
+          <textarea class="form-textarea" id="description" name="description" required [(ngModel)]="description"></textarea>
+        </div>
+      </div>
+      <button class="form-button" type="submit">Add Ticket</button>
     </form>
   </div>
-</div>
+</div> -->
+
   
   <!--Left Container for Profile, Dashboard and History-->
   <div class="leftcontainer">
@@ -190,11 +220,29 @@
     </table>
   </div>
 
-  
-  
   <!--footer-->
   <div class="footer">
       <p>Copyright © 2024</p>
   </div>
+
+  <!-- for add a ticket form -->
+  <script>
+    // JavaScript for handling modal functionality
+    // Get the modal
+    var modal = document.getElementById('ticket-form-container');
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+
   </body>
 </html>

@@ -107,12 +107,6 @@ th {
    
 }
 
-
-tr:hover {
-    background-color: grey;
-}
-
-
 .high {
     color: white;
 }
@@ -239,49 +233,15 @@ tr:hover {
   border: none;
   color: white;
   cursor: pointer;
-  padding: 0 5px;
+  padding: 5 5px;
   margin: 0;
 }
 
 /*Form for Add a Ticket*/
-.ticket-form {
-  display: none;
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid black;
-}
 
-.ticket-form form {
-  display: flex;
-  flex-direction: column;
-}
-
-.ticket-form label {
-  margin-bottom: 5px;
-}
-
-.ticket-form input,
-.ticket-form textarea,
-.ticket-form select {
-  margin-bottom: 10px;
-}
-
-#add-ticket-button:focus {
-  outline: none;
-}
-
-#add-ticket-button:focus + .ticket-form,
-.ticket-form:hover {
-  display: block;
-}
-
-/* Modal container */
-.window-popup {
+/*
+/* Modal container*/
+/* .window-popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -290,21 +250,21 @@ tr:hover {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-}
+  background-color: rgba(0, 0, 0, 0.5); 
+} */
 
-/* Modal content */
+/* Modal content
 .modal-content {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
-  max-width: 80%; /* Adjust the width as needed */
-  max-height: 80%; /* Adjust the height as needed */
-  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
-}
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+  max-width: 80%; 
+  max-height: 80%; 
+  overflow-y: auto; 
+} */
 
-/* Close button */
+/* Close button
 .close {
   position: absolute;
   top: 10px;
@@ -315,17 +275,16 @@ tr:hover {
 }
 
 .close:hover {
-  color: #000; /* Change color on hover */
+  color: #000; /* Change color on hover
 }
 
-/* Heading */
+/* Heading 
 h2 {
   font-size: 24px;
   margin-bottom: 10px;
 }
 
-/* Ticket details */
-p {
+/* Ticket details 
   margin-bottom: 5px;
 }
 
@@ -333,16 +292,164 @@ strong {
   font-weight: bold;
 }
 
-/* Close button */
+/* Close button 
 .close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
   font-size: 24px;
   cursor: pointer;
-  color: #555; /* Adjust color as needed */
+  color: #555; /* Adjust color as needed 
 }
 
 .close-btn:hover {
-  color: #000; /* Adjust hover color as needed */
+  color: #000; /* Adjust hover color as needed 
+} 
+ */
+
+ /* Modal Container */
+.modal-container {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* Ensure it's on top of other elements */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+}
+
+/* Ensure the modal container covers the entire viewport */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* Ensure it's on top of other elements */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+}
+
+/* Center the modal content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* Centered vertically and horizontally */
+  padding: 10px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 5px;
+  position: relative;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* Add a Ticket Form inside the Modal */
+.ticket-form {
+  width: 100%;
+}
+
+.ticket-form label,
+.ticket-form select,
+.ticket-form textarea,
+.ticket-form input[type="text"] {
+  width: calc(50% - 5px); /* Adjusted width for two columns with 5px spacing */
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Adjusted width for submit button */
+.ticket-form input[type="submit"] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%; /* Full width */
+}
+
+.ticket-form input[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+/* Additional styles for form rows and columns */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px; /* Reduced margin bottom to 10px */
+}
+
+.form-col {
+  flex: 1;
+  margin-right: 10px; /* Adjust margin between columns */
+}
+
+.form-col:last-child {
+  margin-right: 0;
+}
+
+.form-label {
+  display: block; /* Change display to block */
+  margin-bottom: 5px; /* Add margin bottom for spacing between label and input */
+  margin-right: auto;
+  text-align: left; /* Align label text to left */
+  flex-basis: 100px; /* Set fixed width for label column */
+margin-top: 5px;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: calc(100% - 110px); /* Calculate width for input column */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.form-button {
+background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+/* Ticket Details Header */
+.ticket-details-header {
+text-align: center;
+margin-bottom: 20px;
+}
+
+.ticket-details-header h2 {
+margin: 0;
+font-size: 24px;
+font-weight: bold;
 }
