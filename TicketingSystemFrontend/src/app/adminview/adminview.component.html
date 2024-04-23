@@ -1,1 +1,193 @@
-<p>adminview works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Ticketing System</title>
+</head>
+<body>
+<!-- Navigation Bar -->
+    <nav class="navbar">
+	<img src="logo.png" alt="Logo" class="templogo"> 
+    <div class="title">IT Ticketing System</div>
+    <div class="buttons">
+      <button class="button notification">Notification</button>
+      <button class="button exit">Exit</button>
+      <button class="button profile">Profile</button>
+    </div>
+  </nav>
+ 
+<!-- (logo)Ticket Requests(Title) - (Button)Filter - (Searchbar)-->  
+	   
+			<table class="rightcontainer">
+		  <tr>
+			<td class="title-container">
+			  <h3>Request Tickets</h3>
+			</td>
+			<td class="filter-container">
+			  <button class="filter-button red-button">Filter</button>
+			</td>
+			<td class="search-container">
+			  <label for="search">Search:</label>
+			  <input type="text" id="search" placeholder="Search tickets...">
+			  <button class="search-button red-button">Search</button>
+			</td>
+		  </tr>
+		</table>
+		
+<!--Left Container for Profile, Dashboard and History-->   
+   <div class="leftcontainer">
+	  <div class="profile-container">
+		<img src="tempprofile.png" alt="Profile" class="tempprofile">
+		<div class="userdata">
+		  <h4>Adrian Oraya</h4>
+		  <h4>Student</h4>
+		</div>
+	  </div>
+	  <div class="line-division"></div>
+	  <div class="buttons-nav">
+		<button class="nav-button">Dashboard</button>
+		<button class="nav-button">History</button>
+		<button class="nav-button">Analytics</button>
+	  </div>
+	</div>
+		
+<!-- table for tickets-->
+	<div class="cont-tickets">
+			<table>
+					<tr>
+						<th class="color-priority"></th>
+						<th></th>
+						<th>Priority</th>
+						<th>Category</th>
+						<th>Status</th>
+						<th>Date Created</th>
+						<th>Requester</th>
+						<th>Technician</th>
+						<th></th>
+						</tr>
+					
+				</table>
+					<table class="tickets">
+						<tr>
+						<td class="color-high"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">High</td>
+						<td>Pe Malfunction</td>
+						<td>In-progress</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>Mang Kanor</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+					<tr>
+						<td class="color-high"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">High</td>
+						<td>Network Issues</td>
+						<td>Pending</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>
+						<button class="unassigned-button">Unassigned</button>
+						</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+					<tr>
+						<td class="color-high"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">High</td>
+						<td>Password reset</td>
+						<td>In-progress</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>
+						<button class="unassigned-button">Unassigned</button>
+						</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+					<tr>
+						<td class="color-med"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">Medium</td>
+						<td>Pc Malfunction</td>
+						<td>In-progress</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>Mang Kanor</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+					<tr>
+						<td class="color-med"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">Medium</td>
+						<td>Pc Malfunction</td>
+						<td>Pending</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>
+						<button class="unassigned-button">Unassigned</button>
+						</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+					<tr>
+						<td class="color-low"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">Low</td>
+						<td>Password reset</td>
+						<td>In-progress</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>Mang Edgar</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+					<tr>
+						<td class="color-low"></td>
+						<td><input type="checkbox"></td>
+						<td class="priority">Low</td>
+						<td>Pc Malfunction</td>
+						<td>In-progress</td>
+						<td>03/20/24</td>
+						<td>Adrian Oraya</td>
+						<td>
+						<button class="unassigned-button">Unassigned</button>
+						</td>
+						<td>
+							<button class="vertical-ellipsis-button">
+							  <span class="ellipsis">...</span>
+							</button>
+						  </td>
+					</tr>
+				</table>
+    </div>
+
+<!--footer-->
+    <div class="footer">
+        <p>Copyright © 2024</p>
+    </div>
+</body>
+</html>

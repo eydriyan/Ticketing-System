@@ -160,6 +160,10 @@ tr:hover {
 	margin-right: 25px;
 }
 
+.container {
+    padding: 20px;
+}
+
 /*left div*/
 .leftcontainer {
   width: 20%;

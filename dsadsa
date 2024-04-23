@@ -1,0 +1,21 @@
+ TicketingSystemBackend/pom.xml                     |  8 [32m+++[m[31m---[m
+ .../controller/AdminController.java                |  1 [32m+[m
+ .../controller/AuthController.java                 |  3 [32m++[m
+ .../controller/StudentController.java              |  1 [32m+[m
+ .../controller/TechnicianController.java           | 16 [32m++++++++++[m[31m-[m
+ .../controller/TicketController.java               |  1 [32m+[m
+ .../service/TicketService.java                     |  1 [31m-[m
+ .../src/main/resources/application.properties      |  7 [32m+++[m[31m--[m
+ .../src/app/app-routing.module.ts                  |  2 [31m--[m
+ TicketingSystemFrontend/src/app/app.module.ts      |  2 [31m--[m
+ .../logintechnician/logintechnician.component.css  |  0
+ .../logintechnician/logintechnician.component.html | 18 [31m------------[m
+ .../logintechnician.component.spec.ts              | 21 [31m--------------[m
+ .../logintechnician/logintechnician.component.ts   | 32 [31m----------------------[m
+ .../loginuser/loginuser.component.ts               | 11 [32m++[m[31m------[m
+ .../authenticationpages/signup/signup.component.ts |  3 [32m++[m
+ .../src/app/model/ticket.model.ts                  | 10 [32m+++[m[31m----[m
+ .../src/app/model/user-role.enum.ts                |  6 [32m++++[m
+ .../src/app/model/user.model.ts                    |  4 [32m+[m[31m--[m
+ .../src/app/services/authservice.service.ts        | 30 [32m+++++++[m[31m-------------[m
+ 20 files changed, 59 insertions(+), 118 deletions(-)
