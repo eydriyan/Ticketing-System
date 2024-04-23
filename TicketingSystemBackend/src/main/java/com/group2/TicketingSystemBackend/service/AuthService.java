@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,41 +25,10 @@ public class AuthService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private JwtService jwtService;
-
-//    // Sign up
-//    public Student signUp(Student newAccount) {
-//        // Check for duplicate email
-//        Optional<Student> opt_account = studentRepository.findByEmail(newAccount.getEmail());
-//        if (opt_account.isPresent())
-//            return null;
-//
-//        // Add new student
-//        return studentRepository.save(newAccount);
-//    }
-//
-//    // log in as Student
-//    public User login(User existingUser) {
-//        // Find user by email
-//        Optional<User> optUser = userRepository.findByEmail(existingUser.getEmail());
-//        if (optUser.isEmpty()) {
-//            return null;
-//        }
-//
-//        User user = optUser.get();
-//
-//        // Check user type and password
-//        if (!user.getPassword().equals(existingUser.getPassword())) {
-//            return null;
-//        }
-//
-//        return user;
-//    }
 
     public Student signup(Student newAccount) {
         // Check for duplicate email
@@ -116,6 +86,16 @@ public class AuthService {
 
         // Check email
         return possiblyAdminAccount.getEmail().equals("admin@gmail.com");
+    }
+
+
+    // Method to get currently authenticated user's email
+    public String getCurrentUserEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        return authentication.getName();
     }
 
     // Check if student is valid

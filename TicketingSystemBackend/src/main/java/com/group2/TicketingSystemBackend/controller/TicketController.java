@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,30 +33,53 @@ public class TicketController {
     private AuthService authService;
 
     // add ticket
+//    @PostMapping("/add-ticket")
+//    public ResponseEntity<Ticket> addTicket(
+//            @RequestHeader(name = "email", required = false) String email,
+//            @RequestParam("category") String category,
+//            @RequestParam("title") String title,
+//            @RequestParam("description") String description,
+//            @RequestParam("priority") String priority
+//    ) {
+//        Ticket ticket = new Ticket();
+//
+//        ticket.setCategory(category);
+//        ticket.setTitle(title);
+//        ticket.setDescription(description);
+//        ticket.setPriority(priority);
+//
+//        Student reqStudent = studentService.getStudentByEmail(email);
+//
+//        if (!authService.isValidStudent(reqStudent)) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//
+//        ticket.setStudent(reqStudent);
+//
+//        Ticket createdTicket = ticketService.addTicket(ticket);
+//        return ResponseEntity.ok(createdTicket);
+//    }
+
     @PostMapping("/add-ticket")
     public ResponseEntity<Ticket> addTicket(
-            @RequestHeader(name = "email", required = false) String email,
-            @RequestParam("category") String category,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("priority") String priority
+            @RequestBody Ticket newTicket,
+            @RequestHeader(name = "Authorization") String token
     ) {
-        Ticket ticket = new Ticket();
-
-        ticket.setCategory(category);
-        ticket.setTitle(title);
-        ticket.setDescription(description);
-        ticket.setPriority(priority);
-
-        Student reqStudent = studentService.getStudentByEmail(email);
-
-        if (!authService.isValidStudent(reqStudent)) {
+        String currentUserEmail = authService.getCurrentUserEmail();
+        if (currentUserEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        ticket.setStudent(reqStudent);
+        Student student = studentService.getStudentByEmail(currentUserEmail);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
-        Ticket createdTicket = ticketService.addTicket(ticket);
+        // Associate the student with the new ticket
+        newTicket.setStudent(student);
+
+        // Add the ticket
+        Ticket createdTicket = ticketService.addTicket(newTicket);
         return ResponseEntity.ok(createdTicket);
     }
 
@@ -90,6 +114,24 @@ public class TicketController {
     @GetMapping("/student-tickets/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketsByStudentId(@PathVariable Long studentId) {
         Student student = studentService.getStudentById(studentId);
+        List<Ticket> tickets = ticketService.getTicketsByStudent(student);
+        return ResponseEntity.ok(tickets);
+    }
+
+    // get the tickets of the currently logged in student
+    @GetMapping("/my-tickets")
+    public ResponseEntity<List<Ticket>> getTicketsOfLoggedInUser(Authentication authentication) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String userEmail = authentication.getName(); // Get the email of the authenticated user
+        Student student = studentService.getStudentByEmail(userEmail);
+
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
+        }
+
         List<Ticket> tickets = ticketService.getTicketsByStudent(student);
         return ResponseEntity.ok(tickets);
     }

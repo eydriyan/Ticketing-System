@@ -10,6 +10,7 @@ import com.group2.TicketingSystemBackend.service.EmailService;
 import com.group2.TicketingSystemBackend.service.VerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,11 +65,9 @@ public class AuthController {
 
     //Log out
     @PostMapping("/logout")
-    public ResponseEntity<User> logout(@RequestBody Student existingUser) {
-        User loggedOutUser = authService.logout(existingUser);
-        if (loggedOutUser == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.ok(loggedOutUser);
+    public ResponseEntity<String> logout() {
+        SecurityContextHolder.clearContext();
+
+        return ResponseEntity.ok("Logout successful");
     }
 }

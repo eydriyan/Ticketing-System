@@ -33,6 +33,8 @@ public class SecurityConfig {
                         req -> req
                                 .requestMatchers("/api/auth/signup").permitAll()
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/auth/logout").permitAll()
+                                .requestMatchers("/api/ticket/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(
