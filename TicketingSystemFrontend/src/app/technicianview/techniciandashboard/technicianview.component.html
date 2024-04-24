@@ -515,22 +515,66 @@
 
 <!--Update Tickets-->		
 		 
-		<div id="update-form-container" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h1 class="form-title">Update Ticket</h1>
-                <h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
-                <form class="form" action="/submit_ticket.php" method="post">
-                   
-                        <div class="form-row">
-                            <label class="form-label" for="subject">Subject:</label>
-                            <select class="form-select" id="subject" name="subject" required>
-                                <option value="select subject">Select Subject:</option>
-								  <option value="Account Lockout">Blackboard Account failed log-in</option>
-								  <option value="Account Lockout">Mymapua Account failed log-in</option>
-								  <option value="Network Problem">Wi-fi Connectivity Problem</option>
-								  <option value="Network Security">Network Security Concern</option>
-			
+    <div id="update-form-container" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h1 class="form-title">Update Ticket</h1>
+          <h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
+          <form class="form" action="/submit_ticket.php" method="post">
+            
+                  <div class="form-row">
+                      <label class="form-label" for="subject">Subject:</label>
+                      <select class="form-select" id="subject" name="subject" required>
+                          <option value="select subject">Select Subject:</option>
+            <option value="Account Lockout">Blackboard Account failed log-in</option>
+            <option value="Account Lockout">Mymapua Account failed log-in</option>
+            <option value="Network Problem">Wi-fi Connectivity Problem</option>
+            <option value="Network Security">Network Security Concern</option>
+            <option value="E-mail">E-mail: Spam Filtering</option>
+            <option value="E-mail">E-mail: Security</option>
+            <option value="School Computer">PC Malfunctioning</option>
+            <option value="School Computer">Keyboard not working</option>
+            <option value="School Computer">Monitor not turning on</option>
+        </select>
+                  </div>
+                  <div class="form-row">
+          <div class="form-col">
+          <label class="form-label" for="category">Category:</label>
+          <select class="form-select" id="category" name="category" required>
+            <option value="select subject">Selecty Category:</option>
+            <option value="Account Lockout">Blackboard Account failed log-in</option>
+            <option value="Mymail Account Failed log-in">Mymail Account Failed log-in</option>
+            <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+            <option value="Network Security Concern">Network Security Concern</option>
+            <option value="Printer Issue">Printer Issue</option>
+          </select>
+          </div>
+          <div class="form-col">
+          <label class="form-label" for="priority">Priority:</label>
+          <select class="form-select" id="priority" name="priority" required>
+            <option value="select subject">Select Priority:</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          </div>
+        </div>
+          <div class="form-row">
+          <label class="form-label" for="status">Status:</label>
+            <select class="form-select" id="status" name="status" required [(ngModel)]="status">
+                <option value="status type:">Select a status:</option>
+                <option value="On Hold">Low</option>
+                <option value="Pending">Medium</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+        </div>
+
+              <button class="submit-button" type="submit">Update Ticket</button>
+    <button class="cancel-button" type="button" onclick="closeModal()">Cancel</button>
+    </form>
+      </div>
+    </div>
 
 <!--footer-->
     <div class="footer">
