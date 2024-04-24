@@ -235,8 +235,8 @@ cursor: pointer;
 margin-left: 20px;
 }
 
-.search-container input{
-  width: 454px;
+.searchbar{
+  width: 400px;
   height: 50px;
   border-radius: 15px;
 }

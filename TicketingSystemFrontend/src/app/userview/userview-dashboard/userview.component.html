@@ -17,7 +17,7 @@
 </div> -->
 
   <!-- OLD add ticket popup -->
-  <!-- for testing purposes only, use mo ung bagong add ticket pop up -->
+  <!-- for testing purposes only, use mo ung bagong add ticket pop up 
   <div *ngIf="showaddticketForm" class="window-popup">
     <div class="modal-content">
       <span class="close" (click)="toggleaddticketForm()">&times;</span>
@@ -40,7 +40,7 @@
         <button type="submit">Submit</button>
       </form>
     </div>
-  </div>
+  </div>-->
   
 <!-- OLD ticket details popup -->
 <!-- for testing purposes only, use mo ung bagong details ticket pop up -->
@@ -58,7 +58,7 @@
 </div>
 
 <!-- OLD filter form popup -->
-<!-- OLD filter form popup -->
+<!-- OLD filter form popup 
 <div *ngIf="showFilterForm" class="window-popup">
   <div class="modal-content">
     <span class="close" (click)="toggleFilterForm()">&times;</span>
@@ -77,7 +77,7 @@
       <button type="submit">Apply Filter</button>
     </form>
   </div>
-</div>
+</div>-->
 
 
 <!DOCTYPE html>
@@ -127,13 +127,13 @@
           </button>
           </td>
           <td class="search-container">
-            <input type="text" id="search" placeholder="" style="width: 454px; height: 50px;">
+            <input type="text" id="search"  style="width: 300px; height: 50px;">
             <button class="search-button red-button">Search</button>
           </td>
       </tr>
   </table>
   
-<!--Add a Ticket Form as a modal window-->
+<!--Add a Ticket Form as a modal window
 <div id="ticket-form-container" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
@@ -173,8 +173,141 @@
       <button class="form-button" type="submit">Add Ticket</button>
     </form>
   </div>
+</div>-->
+
+<!--Updated Add Ticket Form only with subject(select), date(automatic) and description-->
+<div id="ticket-form-container" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h1 class="form-title">Support Ticket Form</h1>
+      <h4 class="form-title2">Create a new ticket for your issue.</h4>
+      <form class="form" action="/submit_ticket.php" method="post">
+              <div class="form-row">
+                  <label class="form-label" for="subject">Subject:</label>
+                  <select class="form-select" id="subject" name="subject" required>
+                      <option value="select subject">Select Subject:</option>
+                      <option value="Account Lockout">Blackboard Account failed log-in</option>
+                      <option value="Account Lockout">Mymapua Account failed log-in</option>
+                      <option value="Network Problem">Wi-fi Connectivity Problem</option>
+                      <option value="Network Security">Network Security Concern</option>
+                      <option value="E-mail">E-mail: Spam Filtering</option>
+                      <option value="E-mail">E-mail: Security</option>
+                      <option value="School Computer">PC Malfunctioning</option>
+                      <option value="School Computer">Keyboard not working</option>
+                      <option value="School Computer">Monitor not turning on</option>
+                  </select>
+              </div>
+              <div class="form-row">
+                  <label class="form-label" for="date-created">Date Created:</label>
+                  <input class="form-input" type="text" id="date-created" name="date-created" readonly>
+          </div>
+          <div class="form-row">
+                  <label class="form-label" for="description">Description:</label>
+                  <textarea class="form-textarea" id="description" name="description" required></textarea>
+          </div>
+          <button class="submit-button" type="submit">Submit Request</button>
+<button class="cancel-button" type="cancel" onclick="closeModal()">Cancel</button>
+
+</form>
+  </div>
 </div>
 
+<!--Updated Filter Form-->
+<div id="Filter-form-container" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeFilterModal()">&times;</span>
+      <h1 class="form-title">Filter Tickets</h1>
+      <h4 class="form-title2">Find the exact tickets you need quickly.</h4>
+      <form class="form" action="/submit_ticket.php" method="post">
+          <div class="form-row">
+      <div class="form-col">
+      <label class="form-label" for="category">Category:</label>
+      <select class="form-select" id="category" name="category" required>
+        <option value="select subject">Selecty Category:</option>
+        <option value="Account Lockout">Blackboard Account failed log-in</option>
+        <option value="Mymail Account Failed log-in">Mymail Account Failed log-in</option>
+        <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+        <option value="Network Security Concern">Network Security Concern</option>
+        <option value="Printer Issue">Printer Issue</option>
+      </select>
+      </div>
+      <div class="form-col">
+      <label class="form-label" for="priority">Priority:</label>
+      <select class="form-select" id="priority" name="priority" required>
+        <option value="select subject">Select Priority:</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      </div>
+    </div>
+          <div class="form-row">
+      <div class="form-col">
+        <label class="form-label" for="date-created">Date Created:</label>
+        <input class="form-input" type="date" id="date-created" name="date-created">    
+      </div>
+      <div class="form-col">
+        <label class="form-label" for="status">Status:</label>
+        <select class="form-select" id="status" name="status" required>
+            <option value="status type:">Select status:</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Resolved">Resolved</option>
+        </select>
+      </div>
+    </div>
+          <button class="submit-button" type="submit">Filter Tickets</button>
+          <button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+      </form>
+  </div>
+</div>
+
+<!--Updated Ticket Details-->
+    <!--Ticket Details-->
+		<div id="ticket-details-container" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeFilterModal()">&times;</span>
+          <h1 class="form-title">Ticket Details</h1>
+          <h4 class="form-title2">Comprehensive information about the ticket.</h4>
+          <form class="form" action="/submit_ticket.php" method="post">
+      <div class="form-row">
+          <div class="form-col">
+            <label class="form-label" for="subject">Subject:</label>
+            <input class="form-input" type="text" id="subject" name="subject" readonly>
+          </div>
+          <div class="form-col">
+            <label class="form-label" for="date-created">Date Created:</label>
+            <input class="form-input" type="date" id="date-created" name="date-created" readonly>    
+          </div>
+        </div>
+              <div class="form-row">
+          <div class="form-col">
+          <label class="form-label" for="category">Category:</label>
+           <input class="form-input" type="text" id="category" name="category" readonly>
+          </div>
+          <div class="form-col">
+          <label class="form-label" for="priority">Priority:</label>
+          <input class="form-input" type="text" id="priority" name="priority" readonly>
+          </div>
+        </div>
+              <div class="form-row">
+          <div class="form-col">
+          <label class="form-label" for="technician">Technician:</label>
+           <input class="form-input" type="text" id="technician" name="technician" readonly>
+          </div>
+          <div class="form-col">
+          <label class="form-label" for="status">Status:</label>
+          <input class="form-input" type="text" id="status" name="status" readonly>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="description">Description:</label>
+          <textarea class="form-textarea" id="description" name="description" readonly></textarea>
+      </div>
+          </form>
+      </div>
+  </div>
   
   <!--Left Container for Profile, Dashboard and History-->
   <div class="leftcontainer">
@@ -226,23 +359,71 @@
       <p>Copyright © 2024</p>
   </div>
 
-  <!-- for add a ticket form -->
-  <script>
-    // JavaScript for handling modal functionality
-    // Get the modal
-    var modal = document.getElementById('ticket-form-container');
 
-    // Function to close the modal
-    function closeModal() {
+<!--To display buttons: add ticket, filter || for cancel buttons add ticket form(closeModal()), Filter form(closeFilterModal())-->
+  <script>
+    // Function to display the modal
+    function displayModal(modalId) {
+      var modals = document.querySelectorAll('.modal');
+      modals.forEach(function(modal) {
         modal.style.display = "none";
+      });
+      var modal = document.getElementById(modalId);
+      if (modal) {
+        modal.style.display = "block";
+      }
+    }
+
+    // Function to close the Add Ticket Form modal
+    function closeModal() {
+      var modal = document.getElementById('ticket-form-container');
+      if (modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Function to close the Filter Form modal
+    function closeFilterModal() {
+      var modal = document.getElementById('Filter-form-container');
+      if (modal) {
+        modal.style.display = "none";
+      }
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
+      var modals = document.querySelectorAll('.modal');
+      modals.forEach(function(modal) {
         if (event.target == modal) {
-            closeModal();
+          modal.style.display = "none";
         }
+      });
     }
+  </script>
+
+
+<script>
+  // JavaScript to set the current date in the "Date Created" input field
+  document.addEventListener("DOMContentLoaded", function() {
+      var currentDate = new Date().toISOString().split('T')[0];
+      document.getElementById('date-created').value = currentDate;
+  });
+</script>
+
+<!--For Filter Ticket-->
+<script>
+  function getCurrentDate(offset) {
+      const currentDate = new Date();
+      const year = currentDate.getFullYear() + (parseInt(offset) || 0);
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+      const dateInput = document.getElementById('date-created');
+      dateInput.value = getCurrentDate();
+  });
 </script>
 
   </body>

@@ -266,39 +266,118 @@ tr:hover {
   margin: 0;
 }
 
-/*Form for Add a Ticket*/
-.ticket-form {
+/* For Forms */
+/* Modal Container */
+.modal-container {
   display: none;
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
   padding: 20px;
-  background-color: white;
-  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
 }
 
-.ticket-form form {
-  display: flex;
-  flex-direction: column;
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.ticket-form label {
-  margin-bottom: 5px;
+.close:hover {
+  color: #333;
 }
 
-.ticket-form input,
-.ticket-form textarea,
-.ticket-form select {
-  margin-bottom: 10px;
+/* Form */
+.form {
+  text-align: left;
 }
 
-#add-ticket-button:focus {
-  outline: none;
+/* Form Inputs */
+.form-input,
+.form-select,
+.form-textarea {
+  width: calc(100% - 24px);
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-#add-ticket-button:focus + .ticket-form,
-.ticket-form:hover {
-  display: block;
+.form-row {
+width: 100%;
+overflow: hidden;
+}
+
+.form-col {
+float: left;
+width: 50%;
+padding: 5px;
+box-sizing: border-box;
+}
+
+.form-row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* Submit Button */
+.submit-button {
+  background-color: #94d571;
+  color: white;
+  padding: 12px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 25%;
+  margin-left: 130px;
+margin-right: 0;
+}
+
+.cancel-button {
+background-color: #94d571;
+  color: white;
+  padding: 12px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 25%;
+}
+
+.cancel-button:hover,
+.submit-button:hover {
+  background-color: #048554;
 }
