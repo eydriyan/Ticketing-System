@@ -202,6 +202,12 @@ th {
 	margin-right: 25px;
 }
 
+.search-container input{
+  width: 454px;
+  height: 50px;
+  border-radius: 15px;
+}
+
 .red-button {
   background-color: red;
   color: white;
