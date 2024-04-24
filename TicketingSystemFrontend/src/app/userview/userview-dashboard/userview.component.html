@@ -2,9 +2,22 @@
   <div>
     <button (click)="logout()">Log Out</button>
     <button (click)="toggleFilterForm()">Filter</button>
-  </div> -->
+  </div> -->  
   
-  <!-- add ticket popup -->
+<!-- ticket info summary   -->
+<!-- <div class="ticket-container">
+  <div *ngFor="let ticket of tickets" class="ticket-summary">
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    <p><strong>Category:</strong> {{ ticket.category }}</p>
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Date Created:</strong> {{ ticket.dateCreated }}</p>
+    <p><strong>Technician:</strong> {{ ticket.technician }}</p>
+    <button (click)="showTicketDetails(ticket)">View Details</button>
+  </div>
+</div> -->
+
+  <!-- OLD add ticket popup -->
+  <!-- for testing purposes only, use mo ung bagong add ticket pop up -->
   <div *ngIf="showaddticketForm" class="window-popup">
     <div class="modal-content">
       <span class="close" (click)="toggleaddticketForm()">&times;</span>
@@ -29,20 +42,8 @@
     </div>
   </div>
   
-  
-<!-- ticket info summary   -->
-<!-- <div class="ticket-container">
-  <div *ngFor="let ticket of tickets" class="ticket-summary">
-    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
-    <p><strong>Category:</strong> {{ ticket.category }}</p>
-    <p><strong>Status:</strong> {{ ticket.status }}</p>
-    <p><strong>Date Created:</strong> {{ ticket.dateCreated }}</p>
-    <p><strong>Technician:</strong> {{ ticket.technician }}</p>
-    <button (click)="showTicketDetails(ticket)">View Details</button>
-  </div>
-</div> -->
-
-<!-- ticket details popup -->
+<!-- OLD ticket details popup -->
+<!-- for testing purposes only, use mo ung bagong details ticket pop up -->
 <div *ngIf="selectedTicket" class="window-popup">
   <span class="close-btn" (click)="closeTicketDetails()">&times;</span>
   <div class="modal-content">
@@ -56,7 +57,8 @@
   </div>
 </div>
 
-<!-- filter form popup -->
+<!-- OLD filter form popup -->
+<!-- OLD filter form popup -->
 <div *ngIf="showFilterForm" class="window-popup">
   <div class="modal-content">
     <span class="close" (click)="toggleFilterForm()">&times;</span>
