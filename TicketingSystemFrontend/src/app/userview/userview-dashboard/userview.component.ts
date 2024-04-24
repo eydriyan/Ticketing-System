@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthserviceService } from '../services/authservice.service';
-import { TicketserviceService } from '../services/ticketservice.service';
-import { Ticket } from '../model/ticket.model';
+import { AuthserviceService } from '../../services/authservice.service';
+import { TicketserviceService } from '../../services/ticketservice.service';
+import { Ticket } from '../../model/ticket.model';
 
 @Component({
   selector: 'app-user-view',
   templateUrl: './userview.component.html',
   styleUrls: ['./userview.component.css']
 })
-export class UserviewComponent implements OnInit {
+export class UserviewComponent {
   category: string = '';
   title: string = '';
   description: string = '';
@@ -101,4 +101,18 @@ export class UserviewComponent implements OnInit {
   
     console.log('Logout clicked');
   }
+
+  getPriorityColor(priority: string): string {
+    switch (priority) {
+      case 'High':
+        return 'color-high';
+      case 'Medium':
+        return 'color-med';
+      case 'Low':
+        return 'color-low';
+      default:
+        return ''; // Default class if priority is not recognized
+    }
+  }
+  
 }

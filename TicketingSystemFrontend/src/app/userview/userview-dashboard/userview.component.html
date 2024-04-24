@@ -1,0 +1,250 @@
+<!-- <div>
+  <div>
+    <button (click)="logout()">Log Out</button>
+    <button (click)="toggleFilterForm()">Filter</button>
+  </div> -->  
+  
+<!-- ticket info summary   -->
+<!-- <div class="ticket-container">
+  <div *ngFor="let ticket of tickets" class="ticket-summary">
+    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
+    <p><strong>Category:</strong> {{ ticket.category }}</p>
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Date Created:</strong> {{ ticket.dateCreated }}</p>
+    <p><strong>Technician:</strong> {{ ticket.technician }}</p>
+    <button (click)="showTicketDetails(ticket)">View Details</button>
+  </div>
+</div> -->
+
+  <!-- OLD add ticket popup -->
+  <!-- for testing purposes only, use mo ung bagong add ticket pop up -->
+  <div *ngIf="showaddticketForm" class="window-popup">
+    <div class="modal-content">
+      <span class="close" (click)="toggleaddticketForm()">&times;</span>
+      <form (ngSubmit)="addTicket()">
+        <h2>Support Ticket Form</h2>
+        <p>Create a new ticket for your issue.</p>
+        <label for="category">Category:</label>
+        <input type="text" id="category" [(ngModel)]="category" name="category" required><br><br>
+        <label for="title">Title:</label>
+        <input type="text" id="title" [(ngModel)]="title" name="title" required><br><br>
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="description" name="description" required></textarea><br><br>
+        <label for="priority">Priority:</label>
+        <select id="priority" [(ngModel)]="priority" name="priority" required>
+          <option value="priority">Select Priority</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select><br><br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  
+<!-- OLD ticket details popup -->
+<!-- for testing purposes only, use mo ung bagong details ticket pop up -->
+<div *ngIf="selectedTicket" class="window-popup">
+  <span class="close-btn" (click)="closeTicketDetails()">&times;</span>
+  <div class="modal-content">
+    <h2>Ticket Details</h2>
+    <p><strong>Date Created:</strong> {{ selectedTicket.dateCreated }}</p>
+    <p><strong>Category:</strong> {{ selectedTicket.category }}</p>
+    <p><strong>Priority:</strong> {{ selectedTicket.priority }}</p>
+    <p><strong>Technician:</strong> {{ selectedTicket.technician }}</p>
+    <p><strong>Status:</strong> {{ selectedTicket.status }}</p>
+    <p><strong>Description:</strong> {{ selectedTicket.description }}</p>
+  </div>
+</div>
+
+<!-- OLD filter form popup -->
+<!-- OLD filter form popup -->
+<div *ngIf="showFilterForm" class="window-popup">
+  <div class="modal-content">
+    <span class="close" (click)="toggleFilterForm()">&times;</span>
+    <h2>Filter Tickets</h2>
+    <form (ngSubmit)="applyFilter()">
+      <label for="filter-category">Category:</label>
+      <input type="text" id="filter-category" [(ngModel)]="filterCategory" name="filter-category"><br><br>
+      <label for="filter-priority">Priority:</label>
+      <input type="text" id="filter-priority" [(ngModel)]="filterPriority" name="filter-priority"><br><br>
+      <label for="filter-date">Date Created:</label>
+      <input type="date" id="filter-date" [(ngModel)]="filterDate" name="filter-date"><br><br>
+      <label for="filter-status">Status:</label>
+      <input type="text" id="filter-status" [(ngModel)]="filterStatus" name="filter-status"><br><br>
+      <label for="filter-technician">Technician:</label>
+      <input type="text" id="filter-technician" [(ngModel)]="filterTechnician" name="filter-technician"><br><br>
+      <button type="submit">Apply Filter</button>
+    </form>
+  </div>
+</div>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Ticketing System</title>
+	<link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+      <img src="../../assets/images/systemicon.png" alt="systemIcon" class="Ticketing System Icon">
+      <div class="title">IT Ticketing System</div>
+      <div class="buttons">
+          <a href=""><img src="../../assets/images/bellIcon.png" class="bellIcon" alt="Bell Icon"></a>
+          <a href=""><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
+          <a href=""><img src="../../assets/images/userImage.png" class="userImage" alt="User Icon"></a>
+      </div>
+  </nav>
+  
+  <!-- (logo)All Tickets(Title) - (Buttton)AddTicket - (Button)Filter - (Searchbar)-->
+  <table class="rightcontainer">
+      <tr>
+          <td class="title-container">
+              <img src="../../assets/images/allTickets.png" alt="All Tickets" class="allTickets">
+          </td>
+          <td class="filter-container">
+            <!-- <a href="#" (click)="toggleaddticketForm()">
+              <img src="../../assets/images/addTicketButton.png" class="addTicketButton" alt="Add a Ticket">
+            </a> -->
+            <button (click)="toggleaddticketForm()">
+              <img src="../../assets/images/addTicketButton.png">
+            </button>
+            <!-- <button (click)="toggleaddticketForm()">
+              <img src="../../assets/images/addTicketButton.png">
+            </button> -->
+          </td>
+          <!-- <td class="filter-container">
+              <a href="toggleFilterForm()"><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
+          </td> -->
+          <td>
+          <button (click)="toggleFilterForm()" >
+            <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+          </button>
+          </td>
+          <td class="search-container">
+              <label for="search">Search:</label>
+              <input type="text" id="search" placeholder="Search tickets...">
+              <button class="search-button red-button">Search</button>
+          </td>
+      </tr>
+  </table>
+  
+<!--Add a Ticket Form as a modal window-->
+<div id="ticket-form-container" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h1 class="form-title">Ticket Details</h1>
+    <h4>Comprehensive information about the ticket.</h4>
+    <form class="form"(ngSubmit)="addTicket()">
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="subject">Subject:</label>
+          <input class="form-input" type="text" id="subject" name="subject" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="category">Category:</label>
+          <select class="form-select" id="category" name="category" required [(ngModel)]="category">
+            <option value="PC Malfunction">PC Malfunction</option>
+            <option value="Printer Issue">Printer Issue</option>
+            <option value="Network Problem">Network Problem</option>
+          </select>
+        </div>
+        <div class="form-col">
+          <label class="form-label" for="priority">Priority:</label>
+          <select class="form-select" id="priority" name="priority" required [(ngModel)]="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="description">Description:</label>
+          <textarea class="form-textarea" id="description" name="description" required [(ngModel)]="description"></textarea>
+        </div>
+      </div>
+      <button class="form-button" type="submit">Add Ticket</button>
+    </form>
+  </div>
+</div>
+
+  
+  <!--Left Container for Profile, Dashboard and History-->
+  <div class="leftcontainer">
+      <div class="profile-container">
+          <img src="../../assets/images/tempprofile.png" alt="Profile" class="tempprofile">
+          <div class="userdata">
+              <h4>Adrian Oraya</h4>
+              <h4>Student</h4>
+          </div>
+      </div>
+      <div class="line-division"></div>
+      <div class="buttons-nav">
+          <a href="/user"><img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard"></a>
+          <a href="/userhistory"><img src="../../assets/images/historyButton.png" class="history" alt="History"></a>
+      </div>
+  </div>
+  
+  <!-- table for tickets-->
+  <div class="cont-tickets">
+    <table>
+      <tr>
+        <th class="color-priority"></th>
+        <th>Priority</th>
+        <th>Category</th>
+        <th>Date Created</th>
+        <th>Technician</th>
+        <th></th>
+      </tr>
+    </table>
+    <table class="tickets">
+      <tr *ngFor="let ticket of tickets">
+        <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+        <td class="priority">{{ ticket.priority }}</td>
+        <td>{{ ticket.category }}</td>
+        <td>{{ ticket.dateCreated }}</td>
+        <td>{{ ticket.technician }}</td>
+        <td>
+          <button class="vertical-ellipsis-button" (click)="showTicketDetails(ticket)">
+            <span class="ellipsis">...</span>
+          </button>
+          <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!--footer-->
+  <div class="footer">
+      <p>Copyright © 2024</p>
+  </div>
+
+  <!-- for add a ticket form -->
+  <script>
+    // JavaScript for handling modal functionality
+    // Get the modal
+    var modal = document.getElementById('ticket-form-container');
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+
+  </body>
+</html>

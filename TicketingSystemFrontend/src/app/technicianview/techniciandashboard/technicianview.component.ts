@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TicketserviceService } from '../services/ticketservice.service';
+import { TicketserviceService } from '../../services/ticketservice.service';
 import { Router } from '@angular/router'; 
-import { Ticket } from '../model/ticket.model';
+import { Ticket } from '../../model/ticket.model';
 
 @Component({
   selector: 'app-technicianview',
