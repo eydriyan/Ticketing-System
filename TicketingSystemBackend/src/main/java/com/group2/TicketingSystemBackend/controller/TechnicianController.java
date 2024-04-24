@@ -8,6 +8,7 @@ import com.group2.TicketingSystemBackend.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,23 @@ public class TechnicianController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(createdTechnician);
+    }
+
+    @GetMapping("/my-tickets")
+    public ResponseEntity<List<Ticket>> getTicketsOfLoggedInTechnician(Authentication authentication) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String userEmail = authentication.getName(); // Get the email of the authenticated user
+        Technician technician = technicianService.getTechnicianByEmail(userEmail);
+
+        if (technician == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
+        }
+
+        List<Ticket> tickets = ticketService.getTicketsByTechnician(technician);
+        return ResponseEntity.ok(tickets);
     }
 
     // get all technician
@@ -63,6 +81,11 @@ public class TechnicianController {
         Ticket assignedTicket = ticketService.assignTicketToSelf(ticketId, technicianEmail);
         return ResponseEntity.ok(assignedTicket);
     }
+
+    // Assign ticket to the currently logged-in technician
+
+
+
 
 //    @DeleteMapping("/delete/{id}")
 //    public ResponseEntity<Void> deleteTechnician(@PathVariable Long id) {

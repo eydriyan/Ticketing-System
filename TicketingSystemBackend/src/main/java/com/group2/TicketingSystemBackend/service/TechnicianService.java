@@ -1,10 +1,13 @@
 package com.group2.TicketingSystemBackend.service;
 
+import com.group2.TicketingSystemBackend.model.Student;
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.repository.TechnicianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,9 @@ import java.util.Optional;
 public class TechnicianService {
     @Autowired
     private TechnicianRepository technicianRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     // create a technician
     public Technician createTechnician(Technician newAccount) {
@@ -22,7 +28,9 @@ public class TechnicianService {
         if (opt_account.isPresent())
             return null;
 
-        // Add and return
+        newAccount.setPassword(passwordEncoder.encode(newAccount.getPassword()));
+
+        // Add new student
         return technicianRepository.save(newAccount);
     }
 
@@ -58,4 +66,9 @@ public class TechnicianService {
         technicianRepository.delete(technician);
     }
 
+    // get technician by email
+    public Technician getTechnicianByEmail(String email) {
+        Optional<Technician> technicianOptional = technicianRepository.findByEmail(email);
+        return technicianOptional.orElseThrow(() -> new RuntimeException("Technician not found with email: " + email));
+    }
 }

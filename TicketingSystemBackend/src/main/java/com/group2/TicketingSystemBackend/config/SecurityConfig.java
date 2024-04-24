@@ -35,6 +35,9 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/auth/logout").permitAll()
                                 .requestMatchers("/api/ticket/**").permitAll()
+                                .requestMatchers("/api/student/**").permitAll()
+                                .requestMatchers("/api/technician/**").permitAll()
+                                .requestMatchers("/api/admin/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(

@@ -32,34 +32,6 @@ public class TicketController {
     @Autowired
     private AuthService authService;
 
-    // add ticket
-//    @PostMapping("/add-ticket")
-//    public ResponseEntity<Ticket> addTicket(
-//            @RequestHeader(name = "email", required = false) String email,
-//            @RequestParam("category") String category,
-//            @RequestParam("title") String title,
-//            @RequestParam("description") String description,
-//            @RequestParam("priority") String priority
-//    ) {
-//        Ticket ticket = new Ticket();
-//
-//        ticket.setCategory(category);
-//        ticket.setTitle(title);
-//        ticket.setDescription(description);
-//        ticket.setPriority(priority);
-//
-//        Student reqStudent = studentService.getStudentByEmail(email);
-//
-//        if (!authService.isValidStudent(reqStudent)) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//
-//        ticket.setStudent(reqStudent);
-//
-//        Ticket createdTicket = ticketService.addTicket(ticket);
-//        return ResponseEntity.ok(createdTicket);
-//    }
-
     @PostMapping("/add-ticket")
     public ResponseEntity<Ticket> addTicket(
             @RequestBody Ticket newTicket,
@@ -118,24 +90,6 @@ public class TicketController {
         return ResponseEntity.ok(tickets);
     }
 
-    // get the tickets of the currently logged in student
-    @GetMapping("/my-tickets")
-    public ResponseEntity<List<Ticket>> getTicketsOfLoggedInUser(Authentication authentication) {
-        if (authentication == null || authentication.getPrincipal() == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        String userEmail = authentication.getName(); // Get the email of the authenticated user
-        Student student = studentService.getStudentByEmail(userEmail);
-
-        if (student == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
-        }
-
-        List<Ticket> tickets = ticketService.getTicketsByStudent(student);
-        return ResponseEntity.ok(tickets);
-    }
-
     // get tickets assigned to a specific technician
     @GetMapping("/technician-tickets/{technicianId}")
     public ResponseEntity<List<Ticket>> getTicketsByTechnicianId(@PathVariable Long technicianId) {
@@ -143,6 +97,9 @@ public class TicketController {
         List<Ticket> tickets = ticketService.getTicketsByTechnician(technician);
         return ResponseEntity.ok(tickets);
     }
+
+    // get tickets associated to the currently logged in technician
+
 
     // mark ticket as resolved
     @PostMapping("/resolve-ticket/{ticketId}")
