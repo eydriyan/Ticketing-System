@@ -35,6 +35,7 @@ public class TechnicianController {
         return ResponseEntity.ok(createdTechnician);
     }
 
+    // get all tickets associated to logged in technician
     @GetMapping("/my-tickets")
     public ResponseEntity<List<Ticket>> getTicketsOfLoggedInTechnician(Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null) {
