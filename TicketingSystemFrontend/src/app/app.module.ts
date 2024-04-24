@@ -6,12 +6,15 @@ import { AppComponent } from './app.component';
 import { UserviewComponent } from './userview/userview-dashboard/userview.component'
 import { LoginuserComponent } from './authenticationpages/loginuser/loginuser.component';
 import { SignupComponent } from './authenticationpages/signup/signup.component';
-import { AdminviewComponent } from './adminview/adminview.component';
-import { TechnicianviewComponent } from './technicianview/technicianview.component';
+import { AdminviewComponent } from './adminview/admindashboard/adminview.component';
+import { TechnicianviewComponent } from './technicianview/techniciandashboard/technicianview.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserviewHistoryComponent } from './userview/userview-history/userview-history.component';
+import { TechnicianhistoryComponent } from './technicianview/technicianhistory/technicianhistory.component';
+import { AdminhistoryComponent } from './adminview/adminhistory/adminhistory.component';
+import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalytics.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { UserviewHistoryComponent } from './userview/userview-history/userview-h
     AdminviewComponent,
     TechnicianviewComponent,
     UserviewHistoryComponent,
+    TechnicianhistoryComponent,
+    AdminhistoryComponent,
+    AdminanalyticsComponent,
   ],
   imports: [
     BrowserModule,

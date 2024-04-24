@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginuserComponent } from './authenticationpages/loginuser/loginuser.component';
 import { SignupComponent } from './authenticationpages/signup/signup.component';
 import { UserviewComponent } from './userview/userview-dashboard/userview.component';
-import { AdminviewComponent } from './adminview/adminview.component';
-import { TechnicianviewComponent } from './technicianview/technicianview.component';
+import { AdminviewComponent } from './adminview/admindashboard/adminview.component';
+import { TechnicianviewComponent } from './technicianview/techniciandashboard/technicianview.component';
 import { UserviewHistoryComponent } from './userview/userview-history/userview-history.component';
 
 const routes: Routes = [
