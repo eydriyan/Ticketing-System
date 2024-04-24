@@ -1,5 +1,6 @@
 package com.group2.TicketingSystemBackend.initiaizer;
 
+import com.group2.TicketingSystemBackend.enums.UserRole;
 import com.group2.TicketingSystemBackend.model.Admin;
 import com.group2.TicketingSystemBackend.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class AdminInitializer implements CommandLineRunner {
             admin.setPhoneNumber("09999999");
             admin.setEmail("admin@gmail.com");
             admin.setPassword("adminPassword");
+            admin.setRole(UserRole.ADMIN);
 
             // Save the admin user to the database
             adminRepository.save(admin);
