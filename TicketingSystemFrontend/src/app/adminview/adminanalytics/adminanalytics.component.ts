@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-adminanalytics',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./adminanalytics.component.css']
 })
 export class AdminanalyticsComponent {
+  showFilterForm: boolean = false;
 
+  toggleFilterForm() {
+    this.showFilterForm = !this.showFilterForm;
+  }
 }

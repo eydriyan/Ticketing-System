@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./adminview.component.css']
 })
 export class AdminviewComponent {
+  showFilterForm: boolean = false;
 
+  toggleFilterForm() {
+    this.showFilterForm = !this.showFilterForm;
+  }
 }
