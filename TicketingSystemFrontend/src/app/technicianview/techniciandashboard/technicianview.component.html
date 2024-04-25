@@ -210,7 +210,7 @@
     <title>IT Ticketing System</title>
     <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-
+    <link href="technicianview.component.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -232,7 +232,9 @@
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-				<a href=""><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
+        <button class="invisible-button modal-buttons" data-modal="Filter-form-container">
+          <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+        </button>
 			</td>
 			<td class="search-container">
 				<input type="text" id="search" class="searchbar">
@@ -274,7 +276,7 @@
 					
 				</table>
         <table class="tickets">
-          <tr *ngFor="let ticket of tickets">
+          <tr *ngFor="let ticket of tickets" data-modal="ticket-details-container" class="modal-buttons">
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td class="priority">{{ ticket.priority }}</td>
             <td>{{ ticket.category }}</td>
@@ -283,7 +285,7 @@
             <td>{{ ticket.student.email }}</td>
             <td>{{ ticket.technician.email }}</td>
             <td>
-              <button class="vertical-ellipsis-button" (click)="showTicketDetails(ticket)">
+              <button class="vertical-ellipsis-button" data-modal="update-form-container">
                 <span class="ellipsis">...</span>
               </button>
               <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->

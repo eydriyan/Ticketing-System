@@ -112,6 +112,7 @@ th, td {
     text-align: center;
     border: 1px solid #ddd;
 	border: none;
+  outline: solid red 1px;
 }
 
 th {
@@ -365,6 +366,13 @@ clear: both;
   width: 25%;
   margin-left: 130px;
 margin-right: 0;
+}
+
+.invisible-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .cancel-button {

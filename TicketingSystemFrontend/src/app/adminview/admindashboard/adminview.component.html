@@ -6,7 +6,7 @@
     <title>IT Ticketing System</title>
 	<link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-
+	<link href="adminview.component.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -28,7 +28,9 @@
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-				<a href=""><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
+			         <button (click)="toggleFilterForm()" class="invisible-button modal-buttons" data-modal="Filter-form-container">
+					<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+				  </button>
 			</td>
 			<td class="search-container">
 				<input type="text" id="search" placeholder="" style="width: 454px; height: 50px;">
@@ -57,7 +59,8 @@
 <!-- table for tickets-->
 	<div class="cont-tickets">
 			<table>
-					<tr>
+				
+					<tr >
 						<th class="color-priority"></th>
 						<th></th>
 						<th>Priority</th>
@@ -71,7 +74,9 @@
 					
 				</table>
 					<table class="tickets">
-						<tr>
+						<!-- note: pag coconnect nio na sa database ung table pakilagay nlng to sa tr. parang ganto (nasa baba)
+				<tr *ngFor="let ticket of tickets" onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons"></tr> -->
+						<tr data-modal="ticket-details-container" class="modal-buttons">
 						<td class="color-high"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">High</td>
@@ -81,12 +86,12 @@
 						<td>Adrian Oraya</td>
 						<td>Mang Kanor</td>
 						<td>
-							<button class="vertical-ellipsis-button">
+							<button class="vertical-ellipsis-button  modal-buttons" data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
 					</tr>
-					<tr>
+					<tr  data-modal="ticket-details-container" class="modal-buttons">
 						<td class="color-high"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">High</td>
@@ -98,12 +103,12 @@
 						<button class="unassigned-button">Unassigned</button>
 						</td>
 						<td>
-							<button class="vertical-ellipsis-button">
+							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
 					</tr>
-					<tr>
+					<tr data-modal="ticket-details-container" class="modal-buttons">
 						<td class="color-high"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">High</td>
@@ -115,12 +120,12 @@
 						<button class="unassigned-button">Unassigned</button>
 						</td>
 						<td>
-							<button class="vertical-ellipsis-button">
+							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
 					</tr>
-					<tr>
+					<!-- <tr onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons">
 						<td class="color-med"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">Medium</td>
@@ -130,12 +135,12 @@
 						<td>Adrian Oraya</td>
 						<td>Mang Kanor</td>
 						<td>
-							<button class="vertical-ellipsis-button">
+							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
 					</tr>
-					<tr>
+					<tr onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons">
 						<td class="color-med"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">Medium</td>
@@ -147,7 +152,7 @@
 						<button class="unassigned-button">Unassigned</button>
 						</td>
 						<td>
-							<button class="vertical-ellipsis-button">
+							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
@@ -179,11 +184,11 @@
 						<button class="unassigned-button">Unassigned</button>
 						</td>
 						<td>
-							<button class="vertical-ellipsis-button">
+							<button class="vertical-ellipsis-button modal-buttons">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
-					</tr>
+					</tr> -->
 				</table>
     </div>
 
@@ -407,17 +412,28 @@
 
 <!-- FOR FORMS handling of modals -->
 <script>
+
 	// Function to display the modal
-	function displayModal(modalId) {
-		var modals = document.querySelectorAll('.modal');
-		modals.forEach(function(modal) {
-			modal.style.display = "none";
-		});
-		var modal = document.getElementById(modalId);
-		if (modal) {
-			modal.style.display = "block";
-		}
-	}
+
+	// var buttonTicket = document.querySelectorAll('.modal-buttons');
+
+	// buttonTicket.forEach(function(btn) {
+	// 	btn.addEventListener('click', function() {
+	// 	var modalId = this.getAttribute('data-modal');
+	// 	displayModal(modalId);
+	// 	});
+	// });
+
+	// function displayModal(modalId) {
+	// 	var modals = document.querySelectorAll('.modal');
+	// 	modals.forEach(function(modal) {
+	// 		modal.style.display = "none";
+	// 	});
+	// 	var modal = document.getElementById(modalId);
+	// 	if (modal) {
+	// 		modal.style.display = "block";
+	// 	}
+	// }
 
 	// Function to close the Add Ticket Form modal
 	function closeModal() {
@@ -435,15 +451,60 @@
 		}
 	}
 
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		var modals = document.querySelectorAll('.modal');
-		modals.forEach(function(modal) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		});
-	}
+	// // When the user clicks anywhere outside of the modal, close it
+	// window.onclick = function(event) {
+	// 	var modals = document.querySelectorAll('.modal');
+	// 	modals.forEach(function(modal) {
+	// 		if (event.target == modal) {
+	// 			modal.style.display = "none";
+	// 		}
+	// 	});
+	// }
+	
+// Function to display the correct modal based on the clicked element
+document.addEventListener("DOMContentLoaded", function() {
+    // Attach event listeners to all elements marked to trigger modals
+    var modalTriggers = document.querySelectorAll('.modal-buttons');
+
+    modalTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevents the event from bubbling up the event chain
+            var modalId = this.getAttribute('data-modal');
+            displayModal(modalId);
+        });
+    });
+
+    function displayModal(modalId) {
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'block';
+        } else {
+            console.error('No modal found with ID:', modalId);
+        }
+    }
+
+    // Attach event listeners to close buttons within modals
+    document.querySelectorAll('.modal .close').forEach(function(closeButton) {
+        closeButton.addEventListener('click', function() {
+            var modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+
+    // Optionally, add a listener for clicking outside the modal to close it
+    document.querySelectorAll('.modal').forEach(function(modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+});
+
+
 </script>
 
 
