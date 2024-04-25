@@ -44,7 +44,7 @@
   
 <!-- OLD ticket details popup -->
 <!-- for testing purposes only, use mo ung bagong details ticket pop up -->
-<div *ngIf="selectedTicket" class="window-popup">
+<!-- <div *ngIf="selectedTicket" class="window-popup">
   <span class="close-btn" (click)="closeTicketDetails()">&times;</span>
   <div class="modal-content">
     <h2>Ticket Details</h2>
@@ -55,7 +55,7 @@
     <p><strong>Status:</strong> {{ selectedTicket.status }}</p>
     <p><strong>Description:</strong> {{ selectedTicket.description }}</p>
   </div>
-</div>
+</div> -->
 
 <!-- OLD filter form popup -->
 <!-- OLD filter form popup 
@@ -88,6 +88,7 @@
     <title>IT Ticketing System</title>
 	  <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="userview.component.css" rel="stylesheet">
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -111,8 +112,8 @@
             <!-- <a href="#" (click)="toggleaddticketForm()">
               <img src="../../assets/images/addTicketButton.png" class="addTicketButton" alt="Add a Ticket">
             </a> -->
-            <button (click)="toggleaddticketForm()" class="invisible-button">
-              <img src="../../assets/images/addTicketButton.png">
+            <button class="invisible-button modal-buttons" data-modal="ticket-form-container">
+              <img src="../../assets/images/addTicketButton.png" alt="addTicket">
             </button>
               <!-- <button (click)="toggleaddticketForm()">
               <img src="../../assets/images/addTicketButton.png">
@@ -122,7 +123,7 @@
               <a href="toggleFilterForm()"><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
           </td> -->
           <td>
-            <button (click)="toggleFilterForm()" class="invisible-button">
+            <button class="invisible-button modal-buttons" data-modal="Filter-form-container">
               <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
             </button>
           </td>
@@ -351,22 +352,20 @@
         <th class="color-priority"></th>
         <th>Priority</th>
         <th>Category</th>
-        <th>Status</th>
         <th>Date Created</th>
         <th>Technician</th>
         <th></th>
       </tr>
     </table>
     <table class="tickets">
-      <tr *ngFor="let ticket of tickets">
+      <tr *ngFor="let ticket of tickets" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>
-        <td>{{ ticket.status }}</td>
         <td>{{ ticket.dateCreated }}</td>
-        <td>{{ ticket.technician.email }}</td>
+        <td>{{ ticket.technician }}</td>
         <td>
-          <button class="vertical-ellipsis-button" (click)="showTicketDetails(ticket)">
+          <button class="vertical-ellipsis-button">
             <span class="ellipsis">...</span>
           </button>
           <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
@@ -383,43 +382,96 @@
 
 <!--To display buttons: add ticket, filter || for cancel buttons add ticket form(closeModal()), Filter form(closeFilterModal())-->
   <script>
-    // Function to display the modal
+	// Function to display the modal
+
+	// var buttonTicket = document.querySelectorAll('.modal-buttons');
+
+	// buttonTicket.forEach(function(btn) {
+	// 	btn.addEventListener('click', function() {
+	// 	var modalId = this.getAttribute('data-modal');
+	// 	displayModal(modalId);
+	// 	});
+	// });
+
+	// function displayModal(modalId) {
+	// 	var modals = document.querySelectorAll('.modal');
+	// 	modals.forEach(function(modal) {
+	// 		modal.style.display = "none";
+	// 	});
+	// 	var modal = document.getElementById(modalId);
+	// 	if (modal) {
+	// 		modal.style.display = "block";
+	// 	}
+	// }
+
+	// Function to close the Add Ticket Form modal
+	function closeModal() {
+		var modal = document.getElementById('update-form-container');
+		if (modal) {
+			modal.style.display = "none";
+		}
+	}
+
+	// Function to close the Filter Form modal
+	function closeFilterModal() {
+		var modal = document.getElementById('Filter-form-container');
+		if (modal) {
+			modal.style.display = "none";
+		}
+	}
+
+	// // When the user clicks anywhere outside of the modal, close it
+	// window.onclick = function(event) {
+	// 	var modals = document.querySelectorAll('.modal');
+	// 	modals.forEach(function(modal) {
+	// 		if (event.target == modal) {
+	// 			modal.style.display = "none";
+	// 		}
+	// 	});
+	// }
+	
+// Function to display the correct modal based on the clicked element
+document.addEventListener("DOMContentLoaded", function() {
+    // Attach event listeners to all elements marked to trigger modals
+    var modalTriggers = document.querySelectorAll('.modal-buttons');
+
+    modalTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevents the event from bubbling up the event chain
+            var modalId = this.getAttribute('data-modal');
+            displayModal(modalId);
+        });
+    });
+
     function displayModal(modalId) {
-      var modals = document.querySelectorAll('.modal');
-      modals.forEach(function(modal) {
-        modal.style.display = "none";
-      });
-      var modal = document.getElementById(modalId);
-      if (modal) {
-        modal.style.display = "block";
-      }
-    }
-
-    // Function to close the Add Ticket Form modal
-    function closeModal() {
-      var modal = document.getElementById('ticket-form-container');
-      if (modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    // Function to close the Filter Form modal
-    function closeFilterModal() {
-      var modal = document.getElementById('Filter-form-container');
-      if (modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      var modals = document.querySelectorAll('.modal');
-      modals.forEach(function(modal) {
-        if (event.target == modal) {
-          modal.style.display = "none";
+        var modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'block';
+        } else {
+            console.error('No modal found with ID:', modalId);
         }
-      });
     }
+
+    // Attach event listeners to close buttons within modals
+    document.querySelectorAll('.modal .close').forEach(function(closeButton) {
+        closeButton.addEventListener('click', function() {
+            var modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+
+    // Optionally, add a listener for clicking outside the modal to close it
+    document.querySelectorAll('.modal').forEach(function(modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+});
   </script>
 
 
