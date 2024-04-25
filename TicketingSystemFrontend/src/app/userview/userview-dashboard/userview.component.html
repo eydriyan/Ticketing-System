@@ -111,10 +111,10 @@
             <!-- <a href="#" (click)="toggleaddticketForm()">
               <img src="../../assets/images/addTicketButton.png" class="addTicketButton" alt="Add a Ticket">
             </a> -->
-            <button (click)="toggleaddticketForm()">
+            <button (click)="toggleaddticketForm()" class="invisible-button">
               <img src="../../assets/images/addTicketButton.png">
             </button>
-            <!-- <button (click)="toggleaddticketForm()">
+              <!-- <button (click)="toggleaddticketForm()">
               <img src="../../assets/images/addTicketButton.png">
             </button> -->
           </td>
@@ -122,9 +122,9 @@
               <a href="toggleFilterForm()"><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
           </td> -->
           <td>
-          <button (click)="toggleFilterForm()" >
-            <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
-          </button>
+            <button (click)="toggleFilterForm()" class="invisible-button">
+              <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+            </button>
           </td>
           <td class="search-container">
             <input type="text" id="search"  style="width: 300px; height: 50px;">
