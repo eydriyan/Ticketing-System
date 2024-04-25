@@ -208,33 +208,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Ticketing System</title>
+    <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
 </head>
 <body>
 <!-- Navigation Bar -->
-    <nav class="navbar">
-	<img src="logo.png" alt="Logo" class="templogo"> 
+<nav class="navbar">
+	  <img src="../../assets/images/systemicon.png" alt="Ticketing System Icon" class="systemIcon"> 
     <div class="title">IT Ticketing System</div>
     <div class="buttons">
-      <button class="button notification">Notification</button>
-      <button class="button exit">Exit</button>
-      <button class="button profile">Profile</button>
-    </div>
-  </nav>
+      <a href=""><img src="../../assets/images/bellIcon.png" class="bellIcon" alt="Bell Icon"></a>
+      <a href=""><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
+      <a href=""><img src="../../assets/images/userImage.png" class="userImage" alt="User Icon"></a>
+  </div>
+</nav>
  
 <!-- (logo)All Tickets(Title) - (Buttton)AddTicket - (Button)Filter - (Searchbar)-->  
 	   
 			<table class="rightcontainer">
 		  <tr>
 			<td class="title-container">
-			  <h3>Request Tickets</h3>
+				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-			  <button class="filter-button red-button">Filter</button>
+				<a href=""><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
 			</td>
 			<td class="search-container">
-			  <label for="search">Search:</label>
-			  <input type="text" id="search" placeholder="Search tickets...">
-			  <button class="search-button red-button">Search</button>
+				<input type="text" id="search" class="searchbar">
+				<button class="search-button red-button">Search</button>
 			</td>
 		  </tr>
 		</table>
@@ -242,16 +244,16 @@
 <!--Left Container for Profile, Dashboard and History-->   
    <div class="leftcontainer">
 	  <div class="profile-container">
-		<img src="tempprofile.png" alt="Profile" class="tempprofile">
+      <img src="../../assets/images/tempprofile.png" alt="Profile" class="tempprofile">
 		<div class="userdata">
 		  <h4>Adrian Oraya</h4>
-		  <h4>Student</h4>
+		  <h4>Technician</h4>
 		</div>
 	  </div>
 	  <div class="line-division"></div>
 	  <div class="buttons-nav">
-		<button class="nav-button">Dashboard</button>
-		<button class="nav-button">History</button>
+      <a href="/user"><img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard"></a>
+      <a href="/userhistory"><img src="../../assets/images/historyButton.png" class="history" alt="History"></a>
 	  </div>
 	</div>
 		
@@ -388,9 +390,265 @@
 				</table>
     </div>
 
+
+<!--FORMS-->
+    <!--FORM buttons
+    -----Filter
+          <button onclick="displayModal('Filter-form-container')" style="width:auto;">Filter</button>
+	  -----Ticket Details
+			  <button onclick="displayModal('ticket-details-container')" style="width:auto;">Ticket Details:</button>
+		-----Update Ticket	  
+        <button onclick="document.getElementById('update-form-container').style.display='block'" style="width:auto;">Update Ticket</button>
+    -->
+		
+<!--Filter Ticket Form-->	
+
+		<div id="Filter-form-container" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeFilterModal()">&times;</span>
+				<h1 class="form-title">Filter Tickets</h1>
+				<h4 class="form-title2">Find the exact tickets you need quickly.</h4>
+				<form class="form" action="/submit_ticket.php" method="post">
+					<div class="form-row">
+					  <div class="form-col">
+						<label class="form-label" for="category">Category:</label>
+						<select class="form-select" id="category" name="category" required>
+						  <option value="select subject">Selecty Category:</option>
+						  <option value="Account Lockout">Blackboard Account failed log-in</option>
+						  <option value="Mymail Account Failed log-in">Mymail Account Failed log-in</option>
+						  <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+						  <option value="Network Security Concern">Network Security Concern</option>
+						  <option value="Printer Issue">Printer Issue</option>
+						</select>
+					  </div>
+					  <div class="form-col">
+						<label class="form-label" for="priority">Priority:</label>
+						<select class="form-select" id="priority" name="priority" required>
+						  <option value="select subject">Select Priority:</option>
+						  <option value="Low">Low</option>
+						  <option value="Medium">Medium</option>
+						  <option value="High">High</option>
+						</select>
+					  </div>
+					</div>
+					<div class="form-row">
+						<div class="form-col">
+							<label class="form-label" for="date-created">Date Created:</label>
+							<input class="form-input" type="date" id="date-created" name="date-created">    
+						</div>
+						<div class="form-col">
+							<label class="form-label" for="status">Status:</label>
+							<select class="form-select" id="status" name="status" required>
+								  <option value="status type:">Select status:</option>
+								  <option value="On Hold">Low</option>
+								  <option value="Pending">Medium</option>
+								  <option value="In Progress">In Progress</option>
+								  <option value="Resolved">Resolved</option>
+							</select>
+						</div>
+					</div>
+							  <div class="form-row">
+								<label class="form-label" for="requester">Requester:</label>
+									<select class="form-select" id="requester" name="requester" required>
+										  <option value="status type:">Select Requester:</option>
+										  <option value="Adrian Oraya">Adrian Oraya</option>
+										  <option value="Kurt Rumbaua">Kurt Rumbaua</option>
+										  <option value="Josh Jacala">Josh Jacala</option>
+										  <option value="Griel Mangahis">Griel Mangahis</option>
+										  <option value="Mackleine Espino">Mackleine Espino</option>
+									</select>
+							  </div>
+							
+					<button class="submit-button" type="submit">Filter Tickets</button>
+					<button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+				</form>
+			</div>
+		</div>
+
+<!--Ticket Details-->	
+
+<div id="ticket-details-container" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeFilterModal()">&times;</span>
+        <h1 class="form-title">Ticket Details</h1>
+        <h4 class="form-title2">Comprehensive information about the ticket.</h4>
+        <form class="form" action="/submit_ticket.php" method="post">
+		<div class="form-row">
+				<div class="form-col">
+					<label class="form-label" for="subject">Subject:</label>
+					<input class="form-input" type="text" id="subject" name="subject" readonly>
+				</div>
+				<div class="form-col">
+					<label class="form-label" for="date-created">Date Created:</label>
+					<input class="form-input" type="date" id="date-created" name="date-created" readonly>    
+				</div>
+			</div>
+            <div class="form-row">
+			  <div class="form-col">
+				<label class="form-label" for="category">Category:</label>
+				 <input class="form-input" type="text" id="category" name="category" readonly>
+			  </div>
+			  <div class="form-col">
+				<label class="form-label" for="priority">Priority:</label>
+				<input class="form-input" type="text" id="priority" name="priority" readonly>
+			  </div>
+			</div>
+            <div class="form-row">
+				<div class="form-col">
+				<label class="form-label" for="requester">Requester:</label>
+				 <input class="form-input" type="text" id="requester" name="requester" readonly>
+			  </div>
+			  <div class="form-col">
+				<label class="form-label" for="status">Status:</label>
+				<input class="form-input" type="text" id="status" name="status" readonly>
+			  </div>
+			</div>
+			
+			<div class="form-row">
+                <label class="form-label" for="description">Description:</label>
+                <textarea class="form-textarea" id="description" name="description" readonly></textarea>
+            </div>
+ 
+        </form>
+    </div>
+</div>
+
+<!--Update Tickets-->		
+		 
+    <div id="update-form-container" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <h1 class="form-title">Update Ticket</h1>
+          <h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
+          <form class="form" action="/submit_ticket.php" method="post">
+            
+                  <div class="form-row">
+                      <label class="form-label" for="subject">Subject:</label>
+                      <select class="form-select" id="subject" name="subject" required>
+                          <option value="select subject">Select Subject:</option>
+            <option value="Account Lockout">Blackboard Account failed log-in</option>
+            <option value="Account Lockout">Mymapua Account failed log-in</option>
+            <option value="Network Problem">Wi-fi Connectivity Problem</option>
+            <option value="Network Security">Network Security Concern</option>
+            <option value="E-mail">E-mail: Spam Filtering</option>
+            <option value="E-mail">E-mail: Security</option>
+            <option value="School Computer">PC Malfunctioning</option>
+            <option value="School Computer">Keyboard not working</option>
+            <option value="School Computer">Monitor not turning on</option>
+        </select>
+                  </div>
+                  <div class="form-row">
+          <div class="form-col">
+          <label class="form-label" for="category">Category:</label>
+          <select class="form-select" id="category" name="category" required>
+            <option value="select subject">Selecty Category:</option>
+            <option value="Account Lockout">Blackboard Account failed log-in</option>
+            <option value="Mymail Account Failed log-in">Mymail Account Failed log-in</option>
+            <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+            <option value="Network Security Concern">Network Security Concern</option>
+            <option value="Printer Issue">Printer Issue</option>
+          </select>
+          </div>
+          <div class="form-col">
+          <label class="form-label" for="priority">Priority:</label>
+          <select class="form-select" id="priority" name="priority" required>
+            <option value="select subject">Select Priority:</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          </div>
+        </div>
+          <div class="form-row">
+          <label class="form-label" for="status">Status:</label>
+            <select class="form-select" id="status" name="status" required [(ngModel)]="status">
+                <option value="status type:">Select a status:</option>
+                <option value="On Hold">Low</option>
+                <option value="Pending">Medium</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+        </div>
+
+              <button class="submit-button" type="submit">Update Ticket</button>
+    <button class="cancel-button" type="button" onclick="closeModal()">Cancel</button>
+    </form>
+      </div>
+    </div>
+
 <!--footer-->
     <div class="footer">
         <p>Copyright © 2024</p>
     </div>
+
+
+<!-- JavaScript for handling modals -->
+<script>
+  // Function to display the modal
+  function displayModal(modalId) {
+    var modals = document.querySelectorAll('.modal');
+    modals.forEach(function(modal) {
+      modal.style.display = "none";
+    });
+    var modal = document.getElementById(modalId);
+    if (modal) {
+      modal.style.display = "block";
+    }
+  }
+
+  // Function to close the Add Ticket Form modal
+  function closeModal() {
+    var modal = document.getElementById('update-form-container');
+    if (modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Function to close the Filter Form modal
+  function closeFilterModal() {
+    var modal = document.getElementById('Filter-form-container');
+    if (modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    var modals = document.querySelectorAll('.modal');
+    modals.forEach(function(modal) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+</script>
+
+
+<script>
+// JavaScript to set the current date in the "Date Created" input field
+document.addEventListener("DOMContentLoaded", function() {
+    var currentDate = new Date().toISOString().split('T')[0];
+    document.getElementById('date-created').value = currentDate;
+});
+</script>
+
+<!--For Filter Ticket-->
+
+<script>
+function getCurrentDate(offset) {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear() + (parseInt(offset) || 0);
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const dateInput = document.getElementById('date-created');
+    dateInput.value = getCurrentDate();
+});
+</script>
+
+
 </body>
 </html>

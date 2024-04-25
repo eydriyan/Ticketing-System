@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'adminhistory', component: AdminhistoryComponent},
   { path: 'adminanalytics', component: AdminanalyticsComponent},
   { path: 'techniciandashboard', component: TechnicianviewComponent },
-  { path: "technicianhistory", component: TechnicianhistoryComponent}
+  { path: 'technicianhistory', component: TechnicianhistoryComponent}
 ];
 
 @NgModule({

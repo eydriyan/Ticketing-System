@@ -202,6 +202,12 @@ th {
 	margin-right: 25px;
 }
 
+.search-container input{
+  width: 454px;
+  height: 50px;
+  border-radius: 15px;
+}
+
 .red-button {
   background-color: red;
   color: white;
@@ -309,39 +315,40 @@ strong {
 
  /* Modal Container */
 .modal-container {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
-  z-index: 1000; /* Ensure it's on top of other elements */
+  z-index: 1000;
   left: 0;
   top: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Ensure the modal container covers the entire viewport */
+/* Modal */
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
-  z-index: 1000; /* Ensure it's on top of other elements */
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Center the modal content */
+/* Modal Content */
 .modal-content {
   background-color: #fefefe;
-  margin: 5% auto; /* Centered vertically and horizontally */
-  padding: 10px;
-  border: 1px solid #888;
-  width: 80%;
-  border-radius: 5px;
-  position: relative;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
 }
 
 /* Close Button */
@@ -350,106 +357,77 @@ strong {
   top: 10px;
   right: 10px;
   color: #888;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 24px;
   cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+.close:hover {
+  color: #333;
 }
 
-
-/* Add a Ticket Form inside the Modal */
-.ticket-form {
-  width: 100%;
+/* Form */
+.form {
+  text-align: left;
 }
 
-.ticket-form label,
-.ticket-form select,
-.ticket-form textarea,
-.ticket-form input[type="text"] {
-  width: calc(50% - 5px); /* Adjusted width for two columns with 5px spacing */
-  padding: 10px;
-  margin-bottom: 16px;
+/* Form Inputs */
+.form-input,
+.form-select,
+.form-textarea {
+  width: calc(100% - 24px);
+  padding: 12px;
+  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-/* Adjusted width for submit button */
-.ticket-form input[type="submit"] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin-top: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%; /* Full width */
-}
-
-.ticket-form input[type="submit"]:hover {
-  opacity: 0.8;
-}
-
-/* Additional styles for form rows and columns */
 .form-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 10px; /* Reduced margin bottom to 10px */
+width: 100%;
+overflow: hidden;
 }
 
 .form-col {
-  flex: 1;
-  margin-right: 10px; /* Adjust margin between columns */
+float: left;
+width: 50%;
+padding: 5px;
+box-sizing: border-box;
 }
 
-.form-col:last-child {
-  margin-right: 0;
+.form-row:after {
+content: "";
+display: table;
+clear: both;
 }
 
-.form-label {
-  display: block; /* Change display to block */
-  margin-bottom: 5px; /* Add margin bottom for spacing between label and input */
-  margin-right: auto;
-  text-align: left; /* Align label text to left */
-  flex-basis: 100px; /* Set fixed width for label column */
-margin-top: 5px;
-}
-
-.form-input,
-.form-textarea,
-.form-select {
-  width: calc(100% - 110px); /* Calculate width for input column */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
-
-.form-button {
-background-color: red;
+/* Submit Button */
+.submit-button {
+  background-color: #94d571;
   color: white;
+  padding: 12px 12px;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-left: 10px;
+  width: 25%;
+  margin-left: 130px;
+margin-right: 0;
 }
 
-/* Ticket Details Header */
-.ticket-details-header {
-text-align: center;
-margin-bottom: 20px;
+.cancel-button {
+background-color: #94d571;
+  color: white;
+  padding: 12px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 25%;
 }
 
-.ticket-details-header h2 {
-margin: 0;
-font-size: 24px;
-font-weight: bold;
+.cancel-button:hover,
+.submit-button:hover {
+  background-color: #048554;
 }
+
+
+
+
