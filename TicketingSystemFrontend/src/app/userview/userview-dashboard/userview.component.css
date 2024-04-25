@@ -202,6 +202,13 @@ th {
 	margin-right: 25px;
 }
 
+.invisible-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .search-container input{
   width: 454px;
   height: 50px;
