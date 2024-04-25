@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthserviceService } from '../../services/authservice.service';
 import { TicketserviceService } from '../../services/ticketservice.service';
+import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
 
 @Component({
@@ -8,7 +9,7 @@ import { Ticket } from '../../model/ticket.model';
   templateUrl: './userview.component.html',
   styleUrls: ['./userview.component.css']
 })
-export class UserviewComponent {
+export class UserviewComponent implements OnInit{
   category: string = '';
   title: string = '';
   description: string = '';
@@ -26,12 +27,24 @@ export class UserviewComponent {
 
   constructor(
     // private authService: AuthserviceService,
+    private studentService: StudentserviceService,
     private ticketService: TicketserviceService,
     private authService: AuthserviceService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchTickets();
+  }
+
+  fetchTickets(): void {
+    this.studentService.getAllTicketsForCurrentStudent().subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+      },
+      (error) => {
+        console.error('Failed to load user tickets:', error);
+      }
+    );
   }
 
   toggleaddticketForm() {
@@ -72,21 +85,6 @@ export class UserviewComponent {
           this.errorMessage = 'Failed to add ticket. Please try again later.';
         }
       );
-  }
-
-  fetchTickets() {
-    const userID = 152; 
-    this.ticketService.getTicketsByStudentId(userID).subscribe(
-      (tickets: Ticket[]) => {
-        this.tickets = tickets.map(ticket => ({
-          ...ticket,
-          technician: ticket.technician || 'Unassigned'
-        }));
-      },
-      (error) => {
-        console.error('Error fetching tickets:', error);
-      }
-    );
   }
 
   showTicketDetails(ticket: Ticket) {

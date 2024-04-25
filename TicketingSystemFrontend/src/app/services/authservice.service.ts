@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class AuthserviceService {
   private baseUrl = 'http://localhost:18080/api/auth'; 
+  private tokenKey = 'jwt_token';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -31,5 +32,22 @@ export class AuthserviceService {
   isValidStudent(student: Student): boolean {
     // Placeholder - You'll need backend support to fully implement this
     return student != null; 
+  }
+
+  /////////////////// test lang //////////////////////////
+
+  // Store JWT token in local storage
+  storeToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  // Retrieve JWT token from local storage
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  // Remove JWT token from local storage (logout)
+  clearToken(): void {
+    localStorage.removeItem(this.tokenKey);
   }
 }

@@ -343,7 +343,7 @@
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>
         <td>{{ ticket.dateCreated }}</td>
-        <td>{{ ticket.technician }}</td>
+        <td>{{ ticket.technician.email }}</td>
         <td>
           <button class="vertical-ellipsis-button" (click)="showTicketDetails(ticket)">
             <span class="ellipsis">...</span>

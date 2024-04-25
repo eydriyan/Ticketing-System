@@ -21,7 +21,13 @@ export class LoginuserComponent {
     this.authService.login(loginData).subscribe(
       (loginDTO) => {
         if(loginDTO.token.length > 0){
-          this.router.navigate(['/user']); // Redirect to user dashboard
+          const token = loginDTO.token;
+
+          // Store JWT token in local storage
+          this.authService.storeToken(token);
+
+          // Redirect or perform other actions after successful login
+          this.router.navigate(['/userdashboard']);
         }
         
       },

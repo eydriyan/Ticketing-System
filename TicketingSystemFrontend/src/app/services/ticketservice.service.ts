@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
+import { AuthserviceService } from '../services/authservice.service'; 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TicketserviceService {
   private apiUrl = 'http://localhost:18080/api/ticket';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthserviceService) { }
 
   addTicket(category: string, title: string, description: string, priority: string, studentEmail: string): Observable<Ticket> { 
     const headers = new HttpHeaders({ email: studentEmail });
