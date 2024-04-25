@@ -352,6 +352,7 @@
         <th class="color-priority"></th>
         <th>Priority</th>
         <th>Category</th>
+        <th>Status</th>
         <th>Date Created</th>
         <th>Technician</th>
         <th></th>
@@ -362,8 +363,9 @@
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>
+        <td>{{ ticket.status }}</td>
         <td>{{ ticket.dateCreated }}</td>
-        <td>{{ ticket.technician }}</td>
+        <td>{{ ticket.technician.email }}</td>
         <td>
           <button class="vertical-ellipsis-button">
             <span class="ellipsis">...</span>
