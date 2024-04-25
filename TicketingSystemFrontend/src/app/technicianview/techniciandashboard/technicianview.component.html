@@ -273,121 +273,23 @@
 						</tr>
 					
 				</table>
-					<table class="tickets">
-						<tr>
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Pe Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Kanor</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Network Issues</td>
-						<td>Pending</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Password reset</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-med"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Medium</td>
-						<td>Pc Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Kanor</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-med"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Medium</td>
-						<td>Pc Malfunction</td>
-						<td>Pending</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-low"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Low</td>
-						<td>Password reset</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Edgar</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-low"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Low</td>
-						<td>Pc Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-				</table>
+        <table class="tickets">
+          <tr *ngFor="let ticket of tickets">
+            <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+            <td class="priority">{{ ticket.priority }}</td>
+            <td>{{ ticket.category }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.dateCreated }}</td>
+            <td>{{ ticket.student.email }}</td>
+            <td>{{ ticket.technician.email }}</td>
+            <td>
+              <button class="vertical-ellipsis-button" (click)="showTicketDetails(ticket)">
+                <span class="ellipsis">...</span>
+              </button>
+              <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+            </td>
+          </tr>
+        </table>
     </div>
 
 

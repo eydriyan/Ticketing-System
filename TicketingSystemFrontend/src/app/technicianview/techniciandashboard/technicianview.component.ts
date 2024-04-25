@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TicketserviceService } from '../../services/ticketservice.service';
 import { Router } from '@angular/router'; 
 import { Ticket } from '../../model/ticket.model';
+import { TechnicianserviceService } from '../../services/technicianservice.service';
 
 @Component({
   selector: 'app-technicianview',
@@ -20,10 +21,21 @@ export class TechnicianviewComponent implements OnInit {
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
 
-  constructor(private router: Router, private ticketService: TicketserviceService) {}
+  constructor(private technicianService: TechnicianserviceService, private router: Router, private ticketService: TicketserviceService) {}
 
   ngOnInit(): void {
-    this.loadAllTickets();
+    this.fetchTickets();
+  }
+
+  fetchTickets(): void {
+    this.technicianService.getAllTicketsForCurrentTechnician().subscribe(
+      (tickets: Ticket[]) => {
+        this.tickets = tickets;
+      },
+      (error) => {
+        console.error('Failed to load user tickets:', error);
+      }
+    );
   }
 
   toggleFilterForm() {
@@ -53,17 +65,6 @@ export class TechnicianviewComponent implements OnInit {
     );
   }
   
-  loadAllTickets() {
-    this.ticketService.getAllTickets().subscribe(
-      (tickets: Ticket[]) => {
-        this.tickets = tickets;
-      },
-      (error) => {
-        console.error('Error loading tickets:', error);
-      }
-    );
-  }
-  
 
   showTicketDetails(ticket: Ticket) {
     this.selectedTicket = ticket;
@@ -71,6 +72,19 @@ export class TechnicianviewComponent implements OnInit {
   
   closeTicketDetails() {
     this.selectedTicket = null;
+  }
+
+  getPriorityColor(priority: string): string {
+    switch (priority) {
+      case 'High':
+        return 'color-high';
+      case 'Medium':
+        return 'color-med';
+      case 'Low':
+        return 'color-low';
+      default:
+        return ''; // Default class if priority is not recognized
+    }
   }
 
   logout() {
