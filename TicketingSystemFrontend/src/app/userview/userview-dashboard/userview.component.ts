@@ -42,7 +42,13 @@ export class UserviewComponent implements OnInit{
   fetchTickets(): void {
     this.studentService.getAllTicketsForCurrentStudent().subscribe(
       (tickets: Ticket[]) => {
-        this.tickets = tickets;
+        // Sort tickets by priority (High > Medium > Low)
+        this.tickets = tickets.sort((a, b) => {
+          if (a.priority === 'High') return -1;
+          if (a.priority === 'Medium' && b.priority !== 'High') return -1;
+          if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
+          return 1;
+        });
       },
       (error) => {
         console.error('Failed to load user tickets:', error);
