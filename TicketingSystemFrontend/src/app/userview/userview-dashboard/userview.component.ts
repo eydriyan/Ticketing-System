@@ -182,4 +182,5 @@ export class UserviewComponent implements OnInit{
       this.closeModal(modalId);
     }
   }
+
 }
