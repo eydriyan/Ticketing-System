@@ -112,7 +112,7 @@
             <!-- <a href="#" (click)="toggleaddticketForm()">
               <img src="../../assets/images/addTicketButton.png" class="addTicketButton" alt="Add a Ticket">
             </a> -->
-            <button class="invisible-button modal-buttons" data-modal="ticket-form-container">
+            <button class="invisible-button modal-buttons"  (click)="displayModal('ticket-form-container')" data-modal="ticket-form-container">
               <img src="../../assets/images/addTicketButton.png" alt="addTicket">
             </button>
               <!-- <button (click)="toggleaddticketForm()">
@@ -123,7 +123,7 @@
               <a href="toggleFilterForm()"><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
           </td> -->
           <td>
-            <button class="invisible-button modal-buttons" data-modal="Filter-form-container">
+            <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
               <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
             </button>
           </td>
@@ -177,9 +177,9 @@
 </div>-->
 
 <!--Updated Add Ticket Form only with subject(select), date(automatic) and description-->
-<div id="ticket-form-container" class="modal">
-  <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
+<div *ngIf="showaddticketForm" id="ticket-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'ticket-form-container')">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal('ticket-form-container')">&times;</span>
       <h1 class="form-title">Support Ticket Form</h1>
       <h4 class="form-title2">Create a new ticket for your issue.</h4>
       <form class="form" action="/submit_ticket.php" method="post">
@@ -228,15 +228,15 @@
                   <textarea class="form-textarea" id="description" name="description" required></textarea>
           </div>
           <button class="submit-button" type="submit">Submit Request</button>
-          <button class="cancel-button" type="cancel" onclick="closeModal()">Cancel</button>
+          <button class="cancel-button" type="cancel" (click)="closeModal('ticket-form-container')">Cancel</button>
 </form>
   </div>
 </div>
 
 <!--Updated Filter Form-->
-<div id="Filter-form-container" class="modal">
-  <div class="modal-content">
-      <span class="close" onclick="closeFilterModal()">&times;</span>
+<div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
       <h1 class="form-title">Filter Tickets</h1>
       <h4 class="form-title2">Find the exact tickets you need quickly.</h4>
       <form class="form" action="/submit_ticket.php" method="post">
@@ -278,16 +278,16 @@
       </div>
     </div>
           <button class="submit-button" type="submit">Filter Tickets</button>
-          <button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+          <button class="cancel-button" type="button" (click)="closeModal('Filter-form-container')">Cancel</button>
       </form>
   </div>
 </div>
 
 <!--Updated Ticket Details-->
     <!--Ticket Details-->
-		<div id="ticket-details-container" class="modal">
-      <div class="modal-content">
-          <span class="close" onclick="closeFilterModal()">&times;</span>
+		<div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
+      <div class="modal-content"  (click)="$event.stopPropagation()">
+          <span class="close"  (click)="closeModal('ticket-details-container')">&times;</span>
           <h1 class="form-title">Ticket Details</h1>
           <h4 class="form-title2">Comprehensive information about the ticket.</h4>
           <form class="form" action="/submit_ticket.php" method="post">
@@ -380,8 +380,7 @@
   </div>
 
 
-<!--To display buttons: add ticket, filter || for cancel buttons add ticket form(closeModal()), Filter form(closeFilterModal())-->
-  <script>
+  <!-- <script>
 	// Function to display the modal
 
 	// var buttonTicket = document.querySelectorAll('.modal-buttons');
@@ -483,7 +482,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 </script>
 
-<!--For Filter Ticket-->
+< For Filter Ticket
 <script>
   function getCurrentDate(offset) {
       const currentDate = new Date();
@@ -496,8 +495,8 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("DOMContentLoaded", function() {
       const dateInput = document.getElementById('date-created');
       dateInput.value = getCurrentDate();
-  });
-</script>
+  }); 
+</script> -->
 
   </body>
 </html>

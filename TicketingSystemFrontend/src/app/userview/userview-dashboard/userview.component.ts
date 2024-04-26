@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { AuthserviceService } from '../../services/authservice.service';
 import { TicketserviceService } from '../../services/ticketservice.service';
 import { StudentserviceService } from '../../services/studentservice.service';
@@ -29,11 +29,14 @@ export class UserviewComponent implements OnInit{
     // private authService: AuthserviceService,
     private studentService: StudentserviceService,
     private ticketService: TicketserviceService,
-    private authService: AuthserviceService
+    private authService: AuthserviceService,
+    private renderer: Renderer2, 
+    private el: ElementRef
   ) {}
 
   ngOnInit(): void {
     this.fetchTickets();
+    this.currentDate = this.getCurrentDate();
   }
 
   fetchTickets(): void {
@@ -47,13 +50,13 @@ export class UserviewComponent implements OnInit{
     );
   }
 
-  toggleaddticketForm() {
-    this.showaddticketForm = !this.showaddticketForm;
-  }
+  // toggleaddticketForm() {
+  //   this.showaddticketForm = !this.showaddticketForm;
+  // }
 
-  toggleFilterForm() {
-    this.showFilterForm = !this.showFilterForm;
-  }
+  // toggleFilterForm() {
+  //   this.showFilterForm = !this.showFilterForm;
+  // }
 
   applyFilter() {
 
@@ -87,13 +90,13 @@ export class UserviewComponent implements OnInit{
       );
   }
 
-  showTicketDetails(ticket: Ticket) {
-    this.selectedTicket = ticket;
-  }
+  // showTicketDetails(ticket: Ticket) {
+  //   this.selectedTicket = ticket;
+  // }
   
-  closeTicketDetails() {
-    this.selectedTicket = null;
-  }
+  // closeTicketDetails() {
+  //   this.selectedTicket = null;
+  // }
 
   logout() {
   
@@ -113,4 +116,70 @@ export class UserviewComponent implements OnInit{
     }
   }
   
+  currentDate: string = this.getCurrentDate();
+  showUpdateModal: boolean = false;
+  showFilterModal: boolean = false;
+  showTicketDetailsModal: boolean = false;
+  showModal: boolean = false;
+
+
+  displayModal(modalId: string): void {
+    this.closeAllModals();
+    switch(modalId) {
+      case 'Filter-form-container':
+        this.showFilterModal = true;
+        break;
+      case 'ticket-details-container':
+        this.showTicketDetailsModal = true;
+        break;
+      case 'update-form-container':
+        this.showUpdateModal = true;
+        break;
+      case 'ticket-form-container':
+        this.showaddticketForm = true;
+    }
+  }
+  displayUpdateModal(event: MouseEvent): void {
+    event.stopPropagation();
+    this.displayModal('update-form-container');
+  }
+  
+  closeModal(modalId: string): void {
+    switch(modalId) {
+      case 'Filter-form-container':
+        this.showFilterModal = false;
+        break;
+      case 'ticket-details-container':
+        this.showTicketDetailsModal = false;
+        break;
+      case 'update-form-container':
+        this.showUpdateModal = false;
+        break;
+      case 'ticket-form-container':
+        this.showaddticketForm = false;
+    }
+  }
+
+  private closeAllModals(): void {
+    this.showFilterModal = false;
+    this.showTicketDetailsModal = false;
+    this.showUpdateModal = false;
+  }
+
+  getCurrentDate(offset: number | undefined = undefined): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear() + (parseInt(offset?.toString() || '0') || 0);
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeOnOutsideClick(event: MouseEvent, modalId: string): void {
+    const modal = this.el.nativeElement.querySelector('#' + modalId);
+    const modalContent = modal.querySelector('.modal-content');
+    if (!modalContent.contains(event.target as Node)) {
+      this.closeModal(modalId);
+    }
+  }
 }
