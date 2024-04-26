@@ -42,6 +42,10 @@ export class UserviewComponent implements OnInit{
   fetchTickets(): void {
     this.studentService.getAllTicketsForCurrentStudent().subscribe(
       (tickets: Ticket[]) => {
+
+        // Filter out resolved tickets
+        tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        
         // Sort tickets by priority (High > Medium > Low)
         this.tickets = tickets.sort((a, b) => {
           if (a.priority === 'High') return -1;
