@@ -30,6 +30,7 @@ export class AdminviewComponent implements OnInit {
     event.stopPropagation();
     this.displayModal('update-form-container');
   }
+  
   closeModal(modalId: string): void {
     switch(modalId) {
       case 'Filter-form-container':
