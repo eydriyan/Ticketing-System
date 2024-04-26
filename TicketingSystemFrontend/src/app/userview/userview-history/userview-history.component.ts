@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
+import { TicketserviceService } from 'src/app/services/ticketservice.service';
 
 @Component({
   selector: 'app-userview-history',
@@ -27,7 +28,8 @@ export class UserviewHistoryComponent implements OnInit{
   constructor(
     // private authService: AuthserviceService,
     private studentService: StudentserviceService,
-    private el: ElementRef
+    private el: ElementRef,
+    private ticketService: TicketserviceService
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +74,8 @@ export class UserviewHistoryComponent implements OnInit{
   applyFilter() {
 
   }
+
+  // Inside your UserviewComponent 
 
   logout() {
   

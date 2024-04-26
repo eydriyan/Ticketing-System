@@ -33,7 +33,7 @@ export class UserviewComponent implements OnInit{
     private renderer: Renderer2, 
     private el: ElementRef
   ) {}
-
+  
   ngOnInit(): void {
     this.fetchTickets();
     this.currentDate = this.getCurrentDate();
@@ -60,19 +60,22 @@ export class UserviewComponent implements OnInit{
     );
   }
 
-  // toggleaddticketForm() {
-  //   this.showaddticketForm = !this.showaddticketForm;
-  // }
-
-  // toggleFilterForm() {
-  //   this.showFilterForm = !this.showFilterForm;
-  // }
-
   applyFilter() {
 
   }
-  
 
+  showTicketDetails(ticketId: number) {
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+      .subscribe(ticket => {
+        this.selectedTicket = ticket;
+        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        console.log(this.selectedTicket)
+      }, error => {
+        console.error("Error fetching ticket details", error);
+        // Handle the error appropriately
+      });
+    }
+  
   addTicket() {
     if (!this.title || !this.priority || !this.category || !this.description) {
       this.errorMessage = 'Please fill in all fields';
@@ -91,14 +94,6 @@ export class UserviewComponent implements OnInit{
         }
       );
   }
-
-  // showTicketDetails(ticket: Ticket) {
-  //   this.selectedTicket = ticket;
-  // }
-  
-  // closeTicketDetails() {
-  //   this.selectedTicket = null;
-  // }
 
   logout() {
   

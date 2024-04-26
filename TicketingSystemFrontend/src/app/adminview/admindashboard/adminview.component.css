@@ -112,7 +112,6 @@ th, td {
     text-align: center;
     border: 1px solid #ddd;
 	border: none;
-  outline: solid red 1px;
 }
 
 th {
@@ -389,3 +388,87 @@ background-color: #94d571;
 .submit-button:hover {
   background-color: #048554;
 }
+
+/* Modal Container */
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #333;
+}
+
+/* Technician List */
+.modal-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.modal-content li {
+  background-color: #f9f9f9; /* light grey background */
+  margin-bottom: 10px; /* margin between technician rows */
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modal-content li:hover {
+  background-color: #ddd; /* darker grey background on hover */
+}
+
+/* Close Button */
+.close-button {
+  background-color: #d9291c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.close-button:hover {
+  background-color: #c62116;
+}
+

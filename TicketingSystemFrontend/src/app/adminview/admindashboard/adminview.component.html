@@ -61,143 +61,65 @@
 		</div>
 	</div>
 		
-<!-- table for tickets-->
-	<div class="cont-tickets">
-			<table>
-				
-					<tr >
-						<th class="color-priority"></th>
-						<th></th>
-						<th>Priority</th>
-						<th>Category</th>
-						<th>Status</th>
-						<th>Date Created</th>
-						<th>Requester</th>
-						<th>Technician</th>
-						<th></th>
-						</tr>
-					
-				</table>
-					<table class="tickets">
-						<!-- note: pag coconnect nio na sa database ung table pakilagay nlng to sa tr. parang ganto (nasa baba)
-				<tr *ngFor="let ticket of tickets" onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons"></tr> -->
-						<tr (click)="displayModal('ticket-details-container')" data-modal="ticket-details-container" class="modal-buttons">
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Pe Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Kanor</td>
-						<td>
-							<button class="vertical-ellipsis-button  modal-buttons" (click)="displayUpdateModal($event)" data-modal="update-form-container">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr (click)="displayModal('ticket-details-container')">
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Network Issues</td>
-						<td>Pending</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button" (click)="displayUpdateModal($event)" data-modal="update-form-container">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr data-modal="ticket-details-container" class="modal-buttons">
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Password reset</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<!-- <tr onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons">
-						<td class="color-med"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Medium</td>
-						<td>Pc Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Kanor</td>
-						<td>
-							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons">
-						<td class="color-med"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Medium</td>
-						<td>Pc Malfunction</td>
-						<td>Pending</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-low"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Low</td>
-						<td>Password reset</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Edgar</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-low"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Low</td>
-						<td>Pc Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button modal-buttons">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr> -->
-				</table>
+<!-- table for tickets -->
+<div class="cont-tickets" *ngIf="tickets.length > 0">
+    <table>
+        <thead>
+            <tr>
+                <th class="color-priority"></th>
+                <th></th>
+                <th>Priority</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Requester</th>
+                <th>Technician</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket of tickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
+                <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+                <td><input type="checkbox"></td>
+                <td class="priority">{{ ticket.priority }}</td>
+                <td>{{ ticket.category }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.dateCreated | date: 'MM/dd/yy' }}</td>
+                <td>{{ ticket.student.email }}</td>
+                <td>
+                    <!-- Display technician name if assigned, otherwise show Unassigned button -->
+                    <ng-container *ngIf="ticket.technician">
+                        {{ ticket.technician.email }}
+                    </ng-container>
+                    <ng-container *ngIf="!ticket.technician">
+					<!-- Open technician assignment popup -->
+					<button class="unassigned-button" (click)="openAssignTechnicianPopup(ticket.id, $event)" data-modal="all-technician">Unassigned</button>
+                    </ng-container>
+                </td>
+                <td>
+                    <button class="vertical-ellipsis-button" (click)="displayUpdateModal($event)" data-modal="update-form-container">
+                        <span class="ellipsis">...</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" *ngIf="showTechnicianPopup">
+    <div class="modal-content">
+        <span class="close" (click)="closeTechnicianPopup()">&times;</span>
+        <h2>Assign Technician</h2>
+        <ul>
+            <li *ngFor="let technician of technicians" (click)="assignTechnician(technician)">
+                {{ technician.firstName }} {{ technician.lastName }} - Availability: {{ technician.availability }} - Skillset: {{ technician.skillSet }}
+            </li>
+        </ul>
+        <button class="close-button" (click)="closeTechnicianPopup()">Close</button>
     </div>
+</div>
 
-
+  
 
 <!--FORMS-->
 
@@ -285,55 +207,55 @@
 
 <!--Ticket Details Form-->	
 
-<div *ngIf="showTicketDetailsModal" id="ticket-details-container" class="modal" (click)="closeOnOutsideClick($event, 'ticket-details-container')">
-<div class="modal-content" (click)="$event.stopPropagation()">
-<span #ticketDetailsModalContent class="close" (click)="closeModal('ticket-details-container')">&times;</span>
-<h1 class="form-title">Ticket Details</h1>
-<h4 class="form-title2">Comprehensive information about the ticket.</h4>
-<form class="form" action="/submit_ticket.php" method="post">
-<div class="form-row">
-		<div class="form-col">
-			<label class="form-label" for="subject">Subject:</label>
-			<input class="form-input" type="text" id="subject" name="subject" readonly>
-		</div>
-		<div class="form-col">
-			<label class="form-label" for="date-created">Date Created:</label>
-			<input class="form-input" type="date" id="date-created" name="date-created" readonly>    
-		</div>
+<!--Updated Ticket Details-->
+<!--Ticket Details-->
+<div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
+		<h1 class="form-title">Ticket Details</h1>
+		<h4 class="form-title2">Comprehensive information about the ticket.</h4>
+		<form class="form" action="/submit_ticket.php" method="post">
+		  <div class="form-row">
+			  <div class="form-col">
+				<label class="form-label" for="subject">Subject:</label>
+				<input class="form-input" type="text" id="subject" name="subject" [value]="selectedTicket?.title" readonly>
+			  </div>
+			  <div class="form-col">
+				<label class="form-label" for="date-created">Date Created:</label>
+				<input class="form-input" type="date" id="date-created" name="date-created" [value]="selectedTicket?.dateCreated" readonly>    
+			  </div>
+			</div>
+			<div class="form-row">
+			  <div class="form-col">
+			  <label class="form-label" for="category">Category:</label>
+			   <input class="form-input" type="text" id="category" name="category" [value]="selectedTicket?.category" readonly>
+			  </div>
+			  <div class="form-col">
+			  <label class="form-label" for="priority">Priority:</label>
+			  <input class="form-input" type="text" id="priority" name="priority" [value]="selectedTicket?.priority" readonly>
+			  </div>
+			</div>
+			<div class="form-row">
+				<div class="form-col">
+					<label class="form-label" for="technician">Requester:</label>
+					<input class="form-input" type="text" id="technician" name="technician" [value]="selectedTicket?.student?.email" readonly>
+				  </div> 
+			  <div class="form-col">
+				<label class="form-label" for="technician">Technician:</label>
+				<input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician?.email || 'Unassigned')" readonly>
+			  </div>                      
+			  <div class="form-col">
+			  <label class="form-label" for="status">Status:</label>
+			  <input class="form-input" type="text" id="status" name="status" [value]="selectedTicket?.status" readonly>
+			  </div>
+			</div>
+			<div class="form-row">
+			  <label class="form-label" for="description">Description:</label>
+			  <textarea class="form-textarea" id="description" name="description" readonly>{{ selectedTicket?.description }}</textarea>
+		  </div>
+		</form>
 	</div>
-	<div class="form-row">
-	  <div class="form-col">
-		<label class="form-label" for="category">Category:</label>
-		 <input class="form-input" type="text" id="category" name="category" readonly>
-	  </div>
-	  <div class="form-col">
-		<label class="form-label" for="priority">Priority:</label>
-		<input class="form-input" type="text" id="priority" name="priority" readonly>
-	  </div>
-	</div>
-	<div class="form-row">
-		<div class="form-col">
-		<label class="form-label" for="requester">Requester:</label>
-		 <input class="form-input" type="text" id="requester" name="requester" readonly>
-	  </div>
-	  <div class="form-col">
-		<label class="form-label" for="technician">Technician:</label>
-		 <input class="form-input" type="text" id="technician" name="technician" readonly>
-	  </div>
-	  
-	</div>
-	<div class="form-row">
-		<label class="form-label" for="status">Status:</label>
-		<input class="form-input" type="text" id="status" name="status" readonly>
-	  </div>
-	<div class="form-row">
-		<label class="form-label" for="description">Description:</label>
-		<textarea class="form-textarea" id="description" name="description" readonly></textarea>
-	</div>
-
-</form>
-</div>
-</div>
+  </div>
 
 <!--Update Tickets Form-->		
  

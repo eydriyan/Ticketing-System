@@ -152,50 +152,51 @@
 </div>
 
 <!--Updated Ticket Details-->
-    <!--Ticket Details-->
-		<div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
-      <div class="modal-content"  (click)="$event.stopPropagation()">
-          <span class="close"  (click)="closeModal('ticket-details-container')">&times;</span>
-          <h1 class="form-title">Ticket Details</h1>
-          <h4 class="form-title2">Comprehensive information about the ticket.</h4>
-          <form class="form" action="/submit_ticket.php" method="post">
-      <div class="form-row">
-          <div class="form-col">
-            <label class="form-label" for="subject">Subject:</label>
-            <input class="form-input" type="text" id="subject" name="subject" readonly>
-          </div>
-          <div class="form-col">
-            <label class="form-label" for="date-created">Date Created:</label>
-            <input class="form-input" type="date" id="date-created" name="date-created" readonly>    
-          </div>
-        </div>
-              <div class="form-row">
-          <div class="form-col">
-          <label class="form-label" for="category">Category:</label>
-           <input class="form-input" type="text" id="category" name="category" readonly>
-          </div>
-          <div class="form-col">
-          <label class="form-label" for="priority">Priority:</label>
-          <input class="form-input" type="text" id="priority" name="priority" readonly>
-          </div>
-        </div>
-              <div class="form-row">
-          <div class="form-col">
-          <label class="form-label" for="technician">Technician:</label>
-           <input class="form-input" type="text" id="technician" name="technician" readonly>
-          </div>
-          <div class="form-col">
-          <label class="form-label" for="status">Status:</label>
-          <input class="form-input" type="text" id="status" name="status" readonly>
-          </div>
-        </div>
+<!--Ticket Details-->
+<div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
+      <h1 class="form-title">Ticket Details</h1>
+      <h4 class="form-title2">Comprehensive information about the ticket.</h4>
+      <form class="form" action="/submit_ticket.php" method="post">
         <div class="form-row">
-          <label class="form-label" for="description">Description:</label>
-          <textarea class="form-textarea" id="description" name="description" readonly></textarea>
-      </div>
-          </form>
-      </div>
+            <div class="form-col">
+              <label class="form-label" for="subject">Subject:</label>
+              <input class="form-input" type="text" id="subject" name="subject" [value]="selectedTicket?.title" readonly>
+            </div>
+            <div class="form-col">
+              <label class="form-label" for="date-created">Date Created:</label>
+              <input class="form-input" type="date" id="date-created" name="date-created" [value]="selectedTicket?.dateCreated" readonly>    
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+            <label class="form-label" for="category">Category:</label>
+             <input class="form-input" type="text" id="category" name="category" [value]="selectedTicket?.category" readonly>
+            </div>
+            <div class="form-col">
+            <label class="form-label" for="priority">Priority:</label>
+            <input class="form-input" type="text" id="priority" name="priority" [value]="selectedTicket?.priority" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <label class="form-label" for="technician">Technician:</label>
+              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician || 'Unassigned')" readonly>
+            </div>                      
+            <div class="form-col">
+            <label class="form-label" for="status">Status:</label>
+            <input class="form-input" type="text" id="status" name="status" [value]="selectedTicket?.status" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="description">Description:</label>
+            <textarea class="form-textarea" id="description" name="description" readonly>{{ selectedTicket?.description }}</textarea>
+        </div>
+      </form>
   </div>
+</div>
+
   
   <!--Left Container for Profile, Dashboard and History-->
   <div class="leftcontainer">
@@ -208,9 +209,13 @@
       </div>
       <div class="line-division"></div>
       <div class="buttons-nav">
-          <a href="/user"><img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard"></a>
-          <a href="/userhistory"><img src="../../assets/images/historyButton.png" class="history" alt="History"></a>
-      </div>
+        <a onclick="window.location.href='/userdashboard'">
+            <img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard">
+        </a>
+        <a onclick="window.location.href='/userhistory'">
+            <img src="../../assets/images/historyButton.png" class="history" alt="History">
+        </a>
+    </div>    
   </div>
   
   <!-- table for tickets-->
@@ -227,7 +232,7 @@
       </tr>
     </table>
     <table class="tickets">
-      <tr *ngFor="let ticket of tickets" (click)="displayModal('ticket-details-container')" data-modal="ticket-details-container" class="modal-buttons">
+      <tr *ngFor="let ticket of tickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>

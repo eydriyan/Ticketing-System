@@ -17,7 +17,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'login', component: LoginuserComponent },
-  { path: '', component: SignupComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'userdashboard', component: UserviewComponent },
   { path: 'userhistory', component: UserviewHistoryComponent},
   { path: 'admindashboard', component: AdminviewComponent },
