@@ -74,7 +74,7 @@ export class UserviewComponent implements OnInit{
     //   return;
     // }
 
-    this.ticketService.addTicket(this.category, this.title, this.description, this.priority, userEmail)
+    this.ticketService.addTicket(this.category, this.title, this.description, this.priority)
       .subscribe(
         (ticket: Ticket) => {
           console.log('Ticket added successfully:', ticket);
