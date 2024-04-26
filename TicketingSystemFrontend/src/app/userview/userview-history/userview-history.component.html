@@ -60,8 +60,8 @@
             <th class="color-priority"></th>
             <th>Priority</th>
             <th>Category</th>
-            <th>Date Resolved</th>
             <th>Date Created</th>
+            <th>Date Resolved</th>
             <th>Requester</th>
             <th>Technician</th>
             <th></th>
@@ -72,8 +72,8 @@
               <td [ngClass]="getPriorityColor(ticket.priority)"></td>
               <td class="priority">{{ ticket.priority }}</td>
               <td>{{ ticket.category }}</td>
-              <td>{{ ticket.dateResolved }}</td>
               <td>{{ ticket.dateCreated }}</td>
+              <td>{{ ticket.dateResolved }}</td>
               <td>{{ ticket.student.email }}</td>
               <td>{{ ticket.technician.email }}</td>
               <td>
