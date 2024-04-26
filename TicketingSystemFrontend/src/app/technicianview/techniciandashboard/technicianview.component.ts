@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { TicketserviceService } from '../../services/ticketservice.service';
 import { Router } from '@angular/router'; 
 import { Ticket } from '../../model/ticket.model';
@@ -21,10 +21,11 @@ export class TechnicianviewComponent implements OnInit {
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
 
-  constructor(private technicianService: TechnicianserviceService, private router: Router, private ticketService: TicketserviceService) {}
+  constructor(private technicianService: TechnicianserviceService, private router: Router, private ticketService: TicketserviceService, private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
     this.fetchTickets();
+    this.currentDate = this.getCurrentDate(); 
   }
 
   fetchTickets(): void {
@@ -38,17 +39,17 @@ export class TechnicianviewComponent implements OnInit {
     );
   }
 
-  toggleFilterForm() {
-    this.showFilterForm = !this.showFilterForm;
-  }
+  // toggleFilterForm() {
+  //   this.showFilterForm = !this.showFilterForm;
+  // }
 
   applyFilter() {
     // Implement filtering logic here
   }
 
-  toggleUpdateForm(ticket: Ticket) {
-    this.showUpdateForm = !this.showUpdateForm;
-  }
+  // toggleUpdateForm(ticket: Ticket) {
+  //   this.showUpdateForm = !this.showUpdateForm;
+  // }
 
   updateTicket(ticket: Ticket) {
     // Implement logic to update ticket details
@@ -66,13 +67,13 @@ export class TechnicianviewComponent implements OnInit {
   }
   
 
-  showTicketDetails(ticket: Ticket) {
-    this.selectedTicket = ticket;
-  }
+  // showTicketDetails(ticket: Ticket) {
+  //   this.selectedTicket = ticket;
+  // }
   
-  closeTicketDetails() {
-    this.selectedTicket = null;
-  }
+  // closeTicketDetails() {
+  //   this.selectedTicket = null;
+  // }
 
   getPriorityColor(priority: string): string {
     switch (priority) {
@@ -90,5 +91,73 @@ export class TechnicianviewComponent implements OnInit {
   logout() {
     // Implement logout logic here
   }
+
+  currentDate: string = this.getCurrentDate();
+  showUpdateModal: boolean = false;
+  showFilterModal: boolean = false;
+  showTicketDetailsModal: boolean = false;
+  showModal: boolean = false;
+
+
+  displayModal(modalId: string): void {
+    this.closeAllModals();
+    switch(modalId) {
+      case 'Filter-form-container':
+        this.showFilterModal = true;
+        break;
+      case 'ticket-details-container':
+        this.showTicketDetailsModal = true;
+        break;
+      case 'update-form-container':
+        this.showUpdateModal = true;
+        break;
+      case 'ticket-form-container':
+        this.showaddticketForm = true;
+    }
+  }
+  displayUpdateModal(event: MouseEvent): void {
+    event.stopPropagation();
+    this.displayModal('update-form-container');
+  }
+  
+  closeModal(modalId: string): void {
+    switch(modalId) {
+      case 'Filter-form-container':
+        this.showFilterModal = false;
+        break;
+      case 'ticket-details-container':
+        this.showTicketDetailsModal = false;
+        break;
+      case 'update-form-container':
+        this.showUpdateModal = false;
+        break;
+      case 'ticket-form-container':
+        this.showaddticketForm = false;
+    }
+  }
+
+  private closeAllModals(): void {
+    this.showFilterModal = false;
+    this.showTicketDetailsModal = false;
+    this.showUpdateModal = false;
+  }
+
+  getCurrentDate(offset: number | undefined = undefined): string {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear() + (parseInt(offset?.toString() || '0') || 0);
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeOnOutsideClick(event: MouseEvent, modalId: string): void {
+    const modal = this.el.nativeElement.querySelector('#' + modalId);
+    const modalContent = modal.querySelector('.modal-content');
+    if (!modalContent.contains(event.target as Node)) {
+      this.closeModal(modalId);
+    }
+  }
+
 }
 

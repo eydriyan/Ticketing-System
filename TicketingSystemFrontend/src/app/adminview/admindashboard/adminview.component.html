@@ -6,7 +6,7 @@
     <title>IT Ticketing System</title>
 	<link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-	<link href="adminview.component.css" rel="stylesheet">
+	
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -19,7 +19,12 @@
         <a href=""><img src="../../assets/images/userImage.png" class="userImage" alt="User Icon"></a>
     </div>
 </nav>
- 
+ <!-- Debugging State Indicators -->
+<p>Filter Modal Open: {{ showFilterModal }}</p>
+<p>Ticket Details Modal Open: {{ showTicketDetailsModal }}</p>
+<p>Update Modal Open: {{ showUpdateModal }}</p>
+
+
 <!-- (logo)Ticket Requests(Title) - (Button)Filter - (Searchbar)-->  
 	   
 			<table class="rightcontainer">
@@ -28,7 +33,7 @@
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-			         <button (click)="toggleFilterForm()" class="invisible-button modal-buttons" data-modal="Filter-form-container">
+			         <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
 					<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
 				  </button>
 			</td>
@@ -76,7 +81,7 @@
 					<table class="tickets">
 						<!-- note: pag coconnect nio na sa database ung table pakilagay nlng to sa tr. parang ganto (nasa baba)
 				<tr *ngFor="let ticket of tickets" onclick="buttonTicket()" data-modal="ticket-details-container" class="modal-buttons"></tr> -->
-						<tr data-modal="ticket-details-container" class="modal-buttons">
+						<tr (click)="displayModal('ticket-details-container')" data-modal="ticket-details-container" class="modal-buttons">
 						<td class="color-high"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">High</td>
@@ -86,12 +91,12 @@
 						<td>Adrian Oraya</td>
 						<td>Mang Kanor</td>
 						<td>
-							<button class="vertical-ellipsis-button  modal-buttons" data-modal="update-form-container">
+							<button class="vertical-ellipsis-button  modal-buttons" (click)="displayUpdateModal($event)" data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
 					</tr>
-					<tr  data-modal="ticket-details-container" class="modal-buttons">
+					<tr (click)="displayModal('ticket-details-container')">
 						<td class="color-high"></td>
 						<td><input type="checkbox"></td>
 						<td class="priority">High</td>
@@ -103,7 +108,7 @@
 						<button class="unassigned-button">Unassigned</button>
 						</td>
 						<td>
-							<button class="vertical-ellipsis-button modal-buttons"  data-modal="update-form-container">
+							<button class="vertical-ellipsis-button" (click)="displayUpdateModal($event)" data-modal="update-form-container">
 							  <span class="ellipsis">...</span>
 							</button>
 						  </td>
@@ -207,9 +212,9 @@
 
 <!--Filter Tickets Form-->	
 
-<div id="Filter-form-container" class="modal">
-	<div class="modal-content">
-		<span class="close" onclick="closeFilterModal()">&times;</span>
+<div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
 		<h1 class="form-title">Filter Tickets</h1>
 		<h4 class="form-title2">Find the exact tickets you need quickly.</h4>
 		<form class="form" action="/submit_ticket.php" method="post">
@@ -273,16 +278,16 @@
 					  </div>
 					</div>
 			<button class="submit-button" type="submit">Filter Tickets</button>
-			<button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+			<button class="cancel-button" type="button" (click)="closeModal('Filter-form-container')">Cancel</button>
 		</form>
 	</div>
 </div>
 
 <!--Ticket Details Form-->	
 
-<div id="ticket-details-container" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeFilterModal()">&times;</span>
+<div *ngIf="showTicketDetailsModal" id="ticket-details-container" class="modal" (click)="closeOnOutsideClick($event, 'ticket-details-container')">
+<div class="modal-content" (click)="$event.stopPropagation()">
+<span #ticketDetailsModalContent class="close" (click)="closeModal('ticket-details-container')">&times;</span>
 <h1 class="form-title">Ticket Details</h1>
 <h4 class="form-title2">Comprehensive information about the ticket.</h4>
 <form class="form" action="/submit_ticket.php" method="post">
@@ -332,9 +337,9 @@
 
 <!--Update Tickets Form-->		
  
-<div id="update-form-container" class="modal">
-	<div class="modal-content">
-		<span class="close" onclick="closeModal()">&times;</span>
+<div *ngIf="showUpdateModal" id="update-form-container"  class="modal" (click)="closeOnOutsideClick($event, 'update-form-container')">
+	<div #updateModalContent class="modal-content" (click)="$event.stopPropagation()">
+		<span class="close" (click)="closeModal('update-form-container')">&times;</span>
 		<h1 class="form-title">Update Ticket</h1>
 		<h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
 		<form class="form" action="/submit_ticket.php" method="post">
@@ -398,7 +403,7 @@
 					</div>
 			
 			<button class="submit-button" type="submit">Update Ticket</button>
-			<button class="cancel-button" type="button" onclick="closeModal()">Cancel</button>
+			<button class="cancel-button" type="button" (click)="closeModal('update-form-container')">Cancel</button>
 	   </form>
 	</div>
 </div>
@@ -409,127 +414,5 @@
     </div>
 
 <!-- FOR FORMS handling of modals -->
-<script>
-
-	// Function to display the modal
-
-	// var buttonTicket = document.querySelectorAll('.modal-buttons');
-
-	// buttonTicket.forEach(function(btn) {
-	// 	btn.addEventListener('click', function() {
-	// 	var modalId = this.getAttribute('data-modal');
-	// 	displayModal(modalId);
-	// 	});
-	// });
-
-	// function displayModal(modalId) {
-	// 	var modals = document.querySelectorAll('.modal');
-	// 	modals.forEach(function(modal) {
-	// 		modal.style.display = "none";
-	// 	});
-	// 	var modal = document.getElementById(modalId);
-	// 	if (modal) {
-	// 		modal.style.display = "block";
-	// 	}
-	// }
-
-	// Function to close the Add Ticket Form modal
-	function closeModal() {
-		var modal = document.getElementById('update-form-container');
-		if (modal) {
-			modal.style.display = "none";
-		}
-	}
-
-	// Function to close the Filter Form modal
-	function closeFilterModal() {
-		var modal = document.getElementById('Filter-form-container');
-		if (modal) {
-			modal.style.display = "none";
-		}
-	}
-
-	// // When the user clicks anywhere outside of the modal, close it
-	// window.onclick = function(event) {
-	// 	var modals = document.querySelectorAll('.modal');
-	// 	modals.forEach(function(modal) {
-	// 		if (event.target == modal) {
-	// 			modal.style.display = "none";
-	// 		}
-	// 	});
-	// }
-	
-// Function to display the correct modal based on the clicked element
-document.addEventListener("DOMContentLoaded", function() {
-    // Attach event listeners to all elements marked to trigger modals
-    var modalTriggers = document.querySelectorAll('.modal-buttons');
-
-    modalTriggers.forEach(function(trigger) {
-        trigger.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevents the event from bubbling up the event chain
-            var modalId = this.getAttribute('data-modal');
-            displayModal(modalId);
-        });
-    });
-
-    function displayModal(modalId) {
-        var modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = 'block';
-        } else {
-            console.error('No modal found with ID:', modalId);
-        }
-    }
-
-    // Attach event listeners to close buttons within modals
-    document.querySelectorAll('.modal .close').forEach(function(closeButton) {
-        closeButton.addEventListener('click', function() {
-            var modal = this.closest('.modal');
-            if (modal) {
-                modal.style.display = 'none';
-            }
-        });
-    });
-
-
-    // Optionally, add a listener for clicking outside the modal to close it
-    document.querySelectorAll('.modal').forEach(function(modal) {
-        modal.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    });
-});
-
-
-</script>
-
-
-<script>
-// JavaScript to set the current date in the "Date Created" input field
-document.addEventListener("DOMContentLoaded", function() {
-var currentDate = new Date().toISOString().split('T')[0];
-document.getElementById('date-created').value = currentDate;
-});
-</script>
-
-<!--For Filter Ticket-->
-
-<script>
-function getCurrentDate(offset) {
-const currentDate = new Date();
-const year = currentDate.getFullYear() + (parseInt(offset) || 0);
-const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-const day = String(currentDate.getDate()).padStart(2, '0');
-return `${year}-${month}-${day}`;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-const dateInput = document.getElementById('date-created');
-dateInput.value = getCurrentDate();
-});
-</script>
-
 </body>
 </html>

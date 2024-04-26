@@ -232,7 +232,7 @@
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-        <button class="invisible-button modal-buttons" data-modal="Filter-form-container">
+        <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
           <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
         </button>
 			</td>
@@ -276,7 +276,7 @@
 					
 				</table>
         <table class="tickets">
-          <tr *ngFor="let ticket of tickets" data-modal="ticket-details-container" class="modal-buttons">
+          <tr *ngFor="let ticket of tickets" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td class="priority">{{ ticket.priority }}</td>
             <td>{{ ticket.category }}</td>
@@ -307,9 +307,9 @@
 		
 <!--Filter Ticket Form-->	
 
-		<div id="Filter-form-container" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeFilterModal()">&times;</span>
+		<div id="Filter-form-container" class="modal" *ngIf="showFilterModal" (click)="closeOnOutsideClick($event, 'Filter-form-container')">
+			<div class="modal-content" (click)="$event.stopPropagation()">
+				<span class="close" (click)="closeModal('Filter-form-container')">&times;</span>
 				<h1 class="form-title">Filter Tickets</h1>
 				<h4 class="form-title2">Find the exact tickets you need quickly.</h4>
 				<form class="form" action="/submit_ticket.php" method="post">
@@ -367,16 +367,16 @@
 							  </div>
 							
 					<button class="submit-button" type="submit">Filter Tickets</button>
-					<button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+					<button class="cancel-button" type="button" (click)="closeModal('Filter-form-container')">Cancel</button>
 				</form>
 			</div>
 		</div>
 
 <!--Ticket Details-->	
 
-<div id="ticket-details-container" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeFilterModal()">&times;</span>
+<div id="ticket-details-container" class="modal"  *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
         <h1 class="form-title">Ticket Details</h1>
         <h4 class="form-title2">Comprehensive information about the ticket.</h4>
         <form class="form" action="/submit_ticket.php" method="post">
@@ -422,9 +422,9 @@
 
 <!--Update Tickets-->		
 		 
-    <div id="update-form-container" class="modal">
-      <div class="modal-content">
-          <span class="close" onclick="closeModal()">&times;</span>
+    <div id="update-form-container" class="modal"  *ngIf="showUpdateForm" (click)="closeOnOutsideClick($event, 'update-form-container')">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+          <span class="close" (click)="closeModal('update-form-container')">&times;</span>
           <h1 class="form-title">Update Ticket</h1>
           <h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
           <form class="form" action="/submit_ticket.php" method="post">
@@ -492,7 +492,7 @@
         </div>
 
               <button class="submit-button" type="submit">Update Ticket</button>
-    <button class="cancel-button" type="button" onclick="closeModal()">Cancel</button>
+    <button class="cancel-button" type="button" (click)="closeModal('update-form-container')">Cancel</button>
     </form>
       </div>
     </div>
@@ -503,7 +503,7 @@
     </div>
 
 
-<!-- JavaScript for handling modals -->
+<!-- JavaScript for handling modals
 <script>
   // Function to display the modal
   function displayModal(modalId) {
@@ -553,7 +553,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!--For Filter Ticket-->
+For Filter Ticket
 
 <script>
 function getCurrentDate(offset) {
@@ -569,7 +569,7 @@ document.addEventListener("DOMContentLoaded", function() {
     dateInput.value = getCurrentDate();
 });
 </script>
-
+ -->
 
 </body>
 </html>
