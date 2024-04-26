@@ -32,6 +32,7 @@ public class TicketController {
     @Autowired
     private AuthService authService;
 
+    // Add new ticket
     @PostMapping("/add-ticket")
     public ResponseEntity<Ticket> addTicket(
             @RequestBody Ticket newTicket,
@@ -76,12 +77,6 @@ public class TicketController {
         return ResponseEntity.ok(ticket);
     }
 
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
-//        ticketService.deleteTicket(id);
-//        return ResponseEntity.noContent().build();
-//    }
-
     // get tickets of a specific student
     @GetMapping("/student-tickets/{studentId}")
     public ResponseEntity<List<Ticket>> getTicketsByStudentId(@PathVariable Long studentId) {
@@ -97,9 +92,6 @@ public class TicketController {
         List<Ticket> tickets = ticketService.getTicketsByTechnician(technician);
         return ResponseEntity.ok(tickets);
     }
-
-    // get tickets associated to the currently logged in technician
-
 
     // mark ticket as resolved
     @PostMapping("/resolve-ticket/{ticketId}")
@@ -133,5 +125,12 @@ public class TicketController {
 
         List<Ticket> resolvedTickets = ticketService.getResolvedTicketsByTechnician(technician);
         return ResponseEntity.ok(resolvedTickets);
+    }
+
+    // Delete Ticket
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+        ticketService.deleteTicket(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -36,6 +36,7 @@ public class AdminController {
         // Create a new Technician entity
         Technician technician = new Technician();
 
+        // Set Role
         newUser.setRole(UserRole.TECHNICIAN);
 
         // Sign up the user (which now includes a student)

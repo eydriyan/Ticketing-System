@@ -13,8 +13,11 @@ export class TicketserviceService {
 
   constructor(private http: HttpClient, private authService: AuthserviceService) { }
 
-  addTicket(category: string, title: string, description: string, priority: string, studentEmail: string): Observable<Ticket> { 
-    const headers = new HttpHeaders({ email: studentEmail });
+  addTicket(category: string, title: string, description: string, priority: string): Observable<Ticket> { 
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
     
     // Using HttpParams to construct query parameters
     let params = new HttpParams()

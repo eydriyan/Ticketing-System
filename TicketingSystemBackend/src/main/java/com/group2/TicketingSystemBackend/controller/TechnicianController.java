@@ -22,19 +22,6 @@ public class TechnicianController {
     @Autowired
     private TicketService ticketService;
 
-    // create technician
-    @PostMapping("/create-technician")
-    public ResponseEntity<Technician> createTechnician(@RequestBody Technician newUser) {
-        // Create a new Technician entity
-        Technician technician = new Technician();
-
-        Technician createdTechnician = technicianService.createTechnician(newUser);
-        if (createdTechnician == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return ResponseEntity.ok(createdTechnician);
-    }
-
     // get all tickets associated to logged in technician
     @GetMapping("/my-tickets")
     public ResponseEntity<List<Ticket>> getTicketsOfLoggedInTechnician(Authentication authentication) {
@@ -84,8 +71,6 @@ public class TechnicianController {
     }
 
     // Assign ticket to the currently logged-in technician
-
-
 
 
 //    @DeleteMapping("/delete/{id}")
