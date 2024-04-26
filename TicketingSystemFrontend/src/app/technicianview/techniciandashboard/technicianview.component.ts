@@ -21,7 +21,13 @@ export class TechnicianviewComponent implements OnInit {
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
 
-  constructor(private technicianService: TechnicianserviceService, private router: Router, private ticketService: TicketserviceService, private renderer: Renderer2, private el: ElementRef) {}
+  constructor(
+    private technicianService: TechnicianserviceService,
+    private router: Router,
+    private ticketService: TicketserviceService,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.fetchTickets();

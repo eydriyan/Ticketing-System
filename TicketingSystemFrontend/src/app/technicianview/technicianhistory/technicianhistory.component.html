@@ -52,120 +52,38 @@
         </td>
         </tr>
       </table>
-</body>
-</html><!-- table for tickets-->
+
+      <!-- table for tickets-->
 <div class="cont-tickets">
-    <table>
-        <tr>
-          <th class="color-priority"></th>
-          <th>Priority</th>
-          <th>Category</th>
-          <th>Date Finished</th>
-          <th>Date Created</th>
-          <th>Requester</th>
-          <th>Technician</th>
-          <th></th>
-          </tr>
-        
-      </table>
-        <table class="tickets">
-          <tr>
-          <td class="color-high"></td>
-          <td class="priority">High</td>
-          <td>Pe Malfunction</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
+  <table>
+      <tr>
+        <th class="color-priority"></th>
+        <th>Priority</th>
+        <th>Category</th>
+        <th>Date Finished</th>
+        <th>Date Created</th>
+        <th>Requester</th>
+        <th>Technician</th>
+        <th></th>
         </tr>
-        <tr>
-          <td class="color-high"></td>
-          <td class="priority">High</td>
-          <td>Network Issues</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
-        </tr>
-        <tr>
-          <td class="color-high"></td>
-          <td class="priority">High</td>
-          <td>Password reset</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
-        </tr>
-        <tr>
-          <td class="color-med"></td>
-          <td class="priority">Medium</td>
-          <td>Pc Malfunction</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
-        </tr>
-        <tr>
-          <td class="color-med"></td>
-          <td class="priority">Medium</td>
-          <td>Pc Malfunction</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
-        </tr>
-        <tr>
-          <td class="color-low"></td>
-          <td class="priority">Low</td>
-          <td>Password reset</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
-        </tr>
-        <tr>
-          <td class="color-low"></td>
-          <td class="priority">Low</td>
-          <td>Pc Malfunction</td>
-          <td>03/22/24</td>
-          <td>03/20/24</td>
-          <td>Adrian Oraya</td>
-          <td>Mang Kanor</td>
-          <td>
-            <button class="vertical-ellipsis-button">
-              <span class="ellipsis">...</span>
-            </button>
-            </td>
-        </tr>
-      </table>
-  </div>
+    </table>
+    <table class="tickets">
+      <tr *ngFor="let ticket of tickets"  (click)="displayModal('ticket-details-container')" >
+        <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+        <td class="priority">{{ ticket.priority }}</td>
+        <td>{{ ticket.category }}</td>
+        <td>{{ ticket.dateCreated }}</td>
+        <td>{{ ticket.dateResolved }}</td>
+        <td>{{ ticket.student.email }}</td>
+        <td>{{ ticket.technician.email }}</td>
+        <td>
+          <button class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal($event)">
+            <span class="ellipsis">...</span>
+          </button>
+          <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+        </td>
+      </tr>
+    </table>
+</div>
+</body>
+</html>

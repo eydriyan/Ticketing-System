@@ -67,23 +67,23 @@
             <th></th>
             </tr>
         </table>
-          <table class="tickets">
-            <tr *ngFor="let ticket of tickets"  (click)="displayModal('ticket-details-container')" >
-              <td [ngClass]="getPriorityColor(ticket.priority)"></td>
-              <td class="priority">{{ ticket.priority }}</td>
-              <td>{{ ticket.category }}</td>
-              <td>{{ ticket.dateCreated }}</td>
-              <td>{{ ticket.dateResolved }}</td>
-              <td>{{ ticket.student.email }}</td>
-              <td>{{ ticket.technician.email }}</td>
-              <td>
-                <button class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal($event)">
-                  <span class="ellipsis">...</span>
-                </button>
-                <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
-              </td>
-            </tr>
-          </table>
+        <table class="tickets">
+          <tr *ngFor="let ticket of tickets"  (click)="displayModal('ticket-details-container')" >
+            <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+            <td class="priority">{{ ticket.priority }}</td>
+            <td>{{ ticket.category }}</td>
+            <td>{{ ticket.dateCreated }}</td>
+            <td>{{ ticket.dateResolved }}</td>
+            <td>{{ ticket.student.email }}</td>
+            <td>{{ ticket.technician.email }}</td>
+            <td>
+              <button class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal($event)">
+                <span class="ellipsis">...</span>
+              </button>
+              <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+            </td>
+          </tr>
+        </table>
     </div>
 </body>
 </html>
