@@ -64,20 +64,12 @@ export class UserviewComponent implements OnInit{
   
 
   addTicket() {
-    if (!this.category || !this.title || !this.description || !this.priority) {
+    if (!this.title || !this.priority || !this.category || !this.description) {
       this.errorMessage = 'Please fill in all fields';
       return;
     }
 
-    const userEmail = 'samplestudent@gmail.com';
-
-    // if (!userEmail) {
-    //   console.error('User email not found');
-    //   this.errorMessage = 'Failed to retrieve user email. Please try again later.';
-    //   return;
-    // }
-
-    this.ticketService.addTicket(this.category, this.title, this.description, this.priority)
+    this.ticketService.addTicket(this.title, this.priority, this.category, this.description)
       .subscribe(
         (ticket: Ticket) => {
           console.log('Ticket added successfully:', ticket);

@@ -13,21 +13,39 @@ export class TicketserviceService {
 
   constructor(private http: HttpClient, private authService: AuthserviceService) { }
 
-  addTicket(category: string, title: string, description: string, priority: string): Observable<Ticket> { 
+  // addTicket(category: string, title: string, description: string, priority: string): Observable<Ticket> { 
+  //   const token = this.authService.getToken();
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`
+  //   });
+    
+  //   // Using HttpParams to construct query parameters
+  //   let params = new HttpParams()
+  //     .set('category', category)
+  //     .set('title', title)
+  //     .set('description', description)
+  //     .set('priority', priority);
+  
+  //   return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, null, { headers, params });
+  // }
+
+  addTicket(title: string, priority: string, category: string, description: string ): Observable<Ticket> { 
     const token = this.authService.getToken();
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    
-    // Using HttpParams to construct query parameters
-    let params = new HttpParams()
-      .set('category', category)
-      .set('title', title)
-      .set('description', description)
-      .set('priority', priority);
   
-    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, null, { headers, params });
+    // Construct the request body
+    const requestBody = {
+      title: title,
+      priority: priority,
+      category: category,
+      description: description
+    };
+  
+    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, requestBody, { headers });
   }
+  
   
   getAllTickets(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/all`);
