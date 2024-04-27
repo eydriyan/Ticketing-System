@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Ticket } from '../../model/ticket.model';
 import { TechnicianserviceService } from '../../services/technicianservice.service';
+import { TicketserviceService } from 'src/app/services/ticketservice.service';
 
 @Component({
   selector: 'app-technicianhistory',
@@ -26,7 +27,8 @@ export class TechnicianhistoryComponent implements OnInit {
 
   constructor(
     private technicianService: TechnicianserviceService,
-    private el: ElementRef
+    private el: ElementRef,
+    private ticketService: TicketserviceService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,18 @@ export class TechnicianhistoryComponent implements OnInit {
   applyFilter() {
 
   }
+
+  showTicketDetails(ticketId: number) {
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+      .subscribe(ticket => {
+        this.selectedTicket = ticket;
+        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        console.log(this.selectedTicket)
+      }, error => {
+        console.error("Error fetching ticket details", error);
+        // Handle the error appropriately
+      });
+    }
 
   logout() {
   

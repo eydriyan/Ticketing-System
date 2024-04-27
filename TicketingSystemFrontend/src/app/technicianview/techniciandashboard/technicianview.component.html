@@ -372,7 +372,6 @@
 			</div>
 		</div>
 
-<!--Updated Ticket Details-->
 <!--Ticket Details-->
 <div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
   <div class="modal-content" (click)="$event.stopPropagation()">
@@ -407,7 +406,7 @@
             </div>   
             <div class="form-col">
               <label class="form-label" for="technician">Technician:</label>
-              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician || 'Unassigned')" readonly>
+              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician?.email || 'Unassigned')" readonly>
             </div>                      
             <div class="form-col">
             <label class="form-label" for="status">Status:</label>

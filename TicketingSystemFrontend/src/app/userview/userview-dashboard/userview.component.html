@@ -151,14 +151,13 @@
   </div>
 </div>
 
-<!--Updated Ticket Details-->
 <!--Ticket Details-->
 <div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
   <div class="modal-content" (click)="$event.stopPropagation()">
       <span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
       <h1 class="form-title">Ticket Details</h1>
       <h4 class="form-title2">Comprehensive information about the ticket.</h4>
-      <form class="form" action="/submit_ticket.php" method="post">
+      <form class="form">
         <div class="form-row">
             <div class="form-col">
               <label class="form-label" for="subject">Subject:</label>
@@ -182,7 +181,7 @@
           <div class="form-row">
             <div class="form-col">
               <label class="form-label" for="technician">Technician:</label>
-              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician || 'Unassigned')" readonly>
+              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician?.email || 'Unassigned')" readonly>
             </div>                      
             <div class="form-col">
             <label class="form-label" for="status">Status:</label>
