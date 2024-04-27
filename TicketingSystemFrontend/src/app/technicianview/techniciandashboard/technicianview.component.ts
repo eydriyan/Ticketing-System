@@ -84,6 +84,7 @@ export class TechnicianviewComponent implements OnInit {
     );
   }
 
+  // Method to update the selected ticket
   showTicketDetails(ticketId: number) {
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service
       .subscribe(ticket => {
@@ -158,6 +159,7 @@ export class TechnicianviewComponent implements OnInit {
         this.showaddticketForm = true;
     }
   }
+  
   displayUpdateModal(event: MouseEvent): void {
     event.stopPropagation();
     this.displayModal('update-form-container');

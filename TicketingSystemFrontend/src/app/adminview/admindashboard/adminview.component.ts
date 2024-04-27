@@ -23,6 +23,10 @@ export class AdminviewComponent implements OnInit {
   showTicketDetailsModal: boolean = false;
   showModal: boolean = false;
   selectedTicket: Ticket | null = null;
+  category: string = '';
+  title: string = '';
+  description: string = '';
+  priority: string = '';
 
   constructor(
     private renderer: Renderer2,
@@ -88,6 +92,9 @@ export class AdminviewComponent implements OnInit {
       console.error('Error assigning technician:', error);
     });
   }
+
+  // Method to update ticket
+  
 
   // Method to log out the user
   logout() {
