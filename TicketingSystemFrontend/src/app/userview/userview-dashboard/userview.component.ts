@@ -24,6 +24,7 @@ export class UserviewComponent implements OnInit{
   filterTechnician: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[] = [];
 
   constructor(
     // private authService: AuthserviceService,
@@ -60,9 +61,44 @@ export class UserviewComponent implements OnInit{
     );
   }
 
-  applyFilter() {
-
+  applyFilter(): void {
+    // Filter the tickets based on the selected filter criteria
+    this.filteredTickets = this.tickets.filter(ticket => {
+      let passesFilter = true;
+  
+      if (this.filterCategory && ticket.category !== this.filterCategory) {
+        passesFilter = false;
+      }
+  
+      if (this.filterPriority && ticket.priority !== this.filterPriority) {
+        passesFilter = false;
+      }
+  
+      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
+      //   passesFilter = false;
+      // }
+  
+      if (this.filterStatus && ticket.status !== this.filterStatus) {
+        passesFilter = false;
+      }
+  
+      return passesFilter;
+    });
+  
+    // Update the tickets array to display the filtered tickets
+    this.tickets = this.filteredTickets;
   }
+
+  clearFilter(): void {
+    // Reset filter criteria and fetch all tickets again
+    this.filterCategory = '';
+    this.filterPriority = '';
+    this.filterDate = '';
+    this.filterStatus = '';
+  
+    this.fetchTickets();
+  }
+
 
   showTicketDetails(ticketId: number) {
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service
