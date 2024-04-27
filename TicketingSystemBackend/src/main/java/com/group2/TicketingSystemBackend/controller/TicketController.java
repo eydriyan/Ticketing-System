@@ -81,6 +81,10 @@ public class TicketController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Ticket> updateTicket(@PathVariable Long id, @RequestBody Ticket updatedTicket) {
         Ticket ticket = ticketService.updateTicket(id, updatedTicket);
+        if (ticket == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
         return ResponseEntity.ok(ticket);
     }
 

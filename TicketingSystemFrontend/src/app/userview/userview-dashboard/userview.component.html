@@ -37,8 +37,8 @@
             </button>
           </td>
           <td class="search-container">
-            <input type="text" id="search"  style="width: 300px; height: 50px;">
-            <button class="search-button red-button">Search</button>
+            <input type="text" id="search" [(ngModel)]="searchTechnicianEmail" style="width: 300px; height: 50px;">
+            <button class="search-button red-button" (click)="applySearch()">Search</button>
           </td>
       </tr>
   </table>
@@ -101,7 +101,7 @@
   </div>
 </div>
 
-<!--Updated Filter Form-->
+<!--Filter Form-->
 <div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
   <div class="modal-content" (click)="$event.stopPropagation()">
       <span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
@@ -229,7 +229,7 @@
       </tr>
     </table>
     <table class="tickets">
-      <tr *ngFor="let ticket of tickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
+      <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>

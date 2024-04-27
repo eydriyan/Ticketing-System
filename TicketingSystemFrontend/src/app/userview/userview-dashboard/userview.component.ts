@@ -22,7 +22,7 @@ export class UserviewComponent implements OnInit{
   filterPriority: string = '';
   filterDate: string = '';
   filterStatus: string = '';
-  filterTechnician: string = '';
+  searchTechnicianEmail: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
@@ -46,10 +46,10 @@ export class UserviewComponent implements OnInit{
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
         
         // Sort tickets by priority (High > Medium > Low)
-        this.tickets = tickets.sort((a, b) => {
+        this.filteredTickets = this.tickets.sort((a, b) => {
           if (a.priority === 'High') return -1;
           if (a.priority === 'Medium' && b.priority !== 'High') return -1;
           if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -85,9 +85,18 @@ export class UserviewComponent implements OnInit{
   
       return passesFilter;
     });
+  }
+
+  applySearch(): void {
+    if (!this.searchTechnicianEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
   
-    // Update the tickets array to display the filtered tickets
-    this.tickets = this.filteredTickets;
+    this.filteredTickets = this.tickets.filter(ticket => {
+      // Filter tickets where technician email matches the search input
+      return ticket?.technician?.email.toLowerCase().includes(this.searchTechnicianEmail.toLowerCase());
+    });
   }
 
   clearFilter(): void {
