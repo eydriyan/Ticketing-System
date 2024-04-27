@@ -1,13 +1,7 @@
 package com.group2.TicketingSystemBackend.controller;
 
-import com.group2.TicketingSystemBackend.model.Student;
-import com.group2.TicketingSystemBackend.model.Technician;
-import com.group2.TicketingSystemBackend.model.Ticket;
-import com.group2.TicketingSystemBackend.model.User;
-import com.group2.TicketingSystemBackend.service.AuthService;
-import com.group2.TicketingSystemBackend.service.StudentService;
-import com.group2.TicketingSystemBackend.service.TechnicianService;
-import com.group2.TicketingSystemBackend.service.TicketService;
+import com.group2.TicketingSystemBackend.model.*;
+import com.group2.TicketingSystemBackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -31,6 +25,8 @@ public class TicketController {
     private TechnicianService technicianService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private AdminService adminService;
 
     // Add new ticket
     @PostMapping("/add-ticket")
@@ -57,8 +53,19 @@ public class TicketController {
     }
 
     // get all tickets
-    @GetMapping("/all")
-    public ResponseEntity<List<Ticket>> getAllTickets() {
+    @GetMapping("/all-tickets")
+    public ResponseEntity<List<Ticket>> getAllTickets(Authentication authentication) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String userEmail = authentication.getName(); // Get the email of the authenticated user
+        Admin admin = adminService.getAdminByEmail(userEmail);
+
+        if (admin == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
+        }
+
         List<Ticket> tickets = ticketService.getAllTickets();
         return ResponseEntity.ok(tickets);
     }

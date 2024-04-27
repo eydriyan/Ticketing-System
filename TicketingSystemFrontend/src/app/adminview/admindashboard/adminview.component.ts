@@ -109,7 +109,6 @@ export class AdminviewComponent implements OnInit {
     }
 }
 
-
   fetchTickets() {
     this.ticketService.getAllTickets().subscribe(
       (tickets: Ticket[]) => {

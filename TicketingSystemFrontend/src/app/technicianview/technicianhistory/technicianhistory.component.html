@@ -60,8 +60,8 @@
               <th class="color-priority"></th>
               <th>Priority</th>
               <th>Category</th>
-              <th>Date Finished</th>
               <th>Date Created</th>
+              <th>Date Resolved</th>
               <th>Requester</th>
               <th>Technician</th>
               <th></th>
@@ -86,7 +86,7 @@
           </table>
       </div>
 
-      <!--Ticket Details-->
+    <!--Ticket Details-->
     <div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
       <div class="modal-content" (click)="$event.stopPropagation()">
           <span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
