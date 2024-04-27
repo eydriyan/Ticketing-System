@@ -3,6 +3,7 @@ import { TicketserviceService } from '../../services/ticketservice.service';
 import { Router } from '@angular/router'; 
 import { Ticket } from '../../model/ticket.model';
 import { TechnicianserviceService } from '../../services/technicianservice.service';
+import { AuthserviceService } from '../../services/authservice.service';
 
 @Component({
   selector: 'app-technicianview',
@@ -26,7 +27,8 @@ export class TechnicianviewComponent implements OnInit {
     private router: Router,
     private ticketService: TicketserviceService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private authService: AuthserviceService
   ) {}
 
   ngOnInit(): void {
@@ -116,8 +118,21 @@ export class TechnicianviewComponent implements OnInit {
     }
   }
 
+  // Method to log out the user
   logout() {
-    // Implement logout logic here
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   currentDate: string = this.getCurrentDate();

@@ -2,6 +2,8 @@ import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular
 import { Ticket } from '../../model/ticket.model';
 import { TechnicianserviceService } from '../../services/technicianservice.service';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
+import { AuthserviceService } from '../../services/authservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-technicianhistory',
@@ -28,7 +30,9 @@ export class TechnicianhistoryComponent implements OnInit {
   constructor(
     private technicianService: TechnicianserviceService,
     private el: ElementRef,
-    private ticketService: TicketserviceService
+    private ticketService: TicketserviceService,
+    private authService: AuthserviceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -86,9 +90,21 @@ export class TechnicianhistoryComponent implements OnInit {
       });
     }
 
+  // Method to log out the user
   logout() {
-  
-    console.log('Logout clicked');
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   currentDate: string = this.getCurrentDate();

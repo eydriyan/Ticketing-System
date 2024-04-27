@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, HostListener, Renderer2 } from '@angular
 import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
+import { AuthserviceService } from '../../services/authservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userview-history',
@@ -29,7 +31,9 @@ export class UserviewHistoryComponent implements OnInit{
     // private authService: AuthserviceService,
     private studentService: StudentserviceService,
     private el: ElementRef,
-    private ticketService: TicketserviceService
+    private ticketService: TicketserviceService,
+    private authService: AuthserviceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -87,9 +91,21 @@ export class UserviewHistoryComponent implements OnInit{
       });
     }
 
+  // Method to log out the user
   logout() {
-  
-    console.log('Logout clicked');
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   currentDate: string = this.getCurrentDate();

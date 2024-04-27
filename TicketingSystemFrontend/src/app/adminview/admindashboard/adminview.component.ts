@@ -4,6 +4,8 @@ import { Ticket } from '../../model/ticket.model'
 import { TechnicianserviceService } from 'src/app/services/technicianservice.service';
 import { AdminserviceService } from 'src/app/services/adminservice.service';
 import { Technician } from 'src/app/model/technician.model';
+import { AuthserviceService } from '../../services/authservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adminview',
@@ -22,7 +24,15 @@ export class AdminviewComponent implements OnInit {
   showModal: boolean = false;
   selectedTicket: Ticket | null = null;
 
-  constructor(private renderer: Renderer2, private el: ElementRef,private ticketService: TicketserviceService, private technicianService: TechnicianserviceService, private adminService: AdminserviceService) { }
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private ticketService: TicketserviceService,
+    private technicianService: TechnicianserviceService,
+    private adminService: AdminserviceService,
+    private authService: AuthserviceService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.currentDate = this.getCurrentDate(); // Set current date on init
@@ -77,6 +87,23 @@ export class AdminviewComponent implements OnInit {
       // Handle error
       console.error('Error assigning technician:', error);
     });
+  }
+
+  // Method to log out the user
+  logout() {
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   getPriorityColor(priority: string): string {

@@ -21,8 +21,8 @@ export class AuthserviceService {
     return this.http.post<{token: string}>(`${this.baseUrl}/login`, loginData); 
   }
 
-  logout(studentData: Student): Observable<User> { 
-    return this.http.post<User>(`${this.baseUrl}/logout`, studentData);
+  logout() { 
+    return this.http.post<any>(`${this.baseUrl}/logout`, {});
   }
 
   isAdmin(user: User): boolean {
@@ -33,8 +33,6 @@ export class AuthserviceService {
     // Placeholder - You'll need backend support to fully implement this
     return student != null; 
   }
-
-  /////////////////// test lang //////////////////////////
 
   // Store JWT token in local storage
   storeToken(token: string): void {

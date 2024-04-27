@@ -3,6 +3,7 @@ import { AuthserviceService } from '../../services/authservice.service';
 import { TicketserviceService } from '../../services/ticketservice.service';
 import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-view',
@@ -27,12 +28,12 @@ export class UserviewComponent implements OnInit{
   filteredTickets: Ticket[] = [];
 
   constructor(
-    // private authService: AuthserviceService,
     private studentService: StudentserviceService,
     private ticketService: TicketserviceService,
     private authService: AuthserviceService,
     private renderer: Renderer2, 
-    private el: ElementRef
+    private el: ElementRef,
+    private router: Router
   ) {}
   
   ngOnInit(): void {
@@ -131,9 +132,21 @@ export class UserviewComponent implements OnInit{
       );
   }
 
+  // Method to log out the user
   logout() {
-  
-    console.log('Logout clicked');
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   getPriorityColor(priority: string): string {
