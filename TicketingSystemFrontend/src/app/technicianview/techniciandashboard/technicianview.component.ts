@@ -82,20 +82,27 @@ export class TechnicianviewComponent implements OnInit {
   //   this.showUpdateForm = !this.showUpdateForm;
   // }
 
-  updateTicket(ticket: Ticket) {
+  updateTicket(ticket: Ticket | null) {
+    if (!ticket) {
+      console.error('No ticket selected for update.');
+      // Optionally, you can display an error message to the user
+      return;
+    }
+  
     // Implement logic to update ticket details
     this.ticketService.updateTicket(ticket.id, ticket).subscribe(
       (updatedTicket: Ticket) => {
         console.log('Ticket updated successfully:', updatedTicket);
         // Optionally, you can perform any additional logic here, such as displaying a success message
         this.showUpdateForm = false; // Hide the update form after updating
+        window.location.reload();
       },
       (error) => {
         console.error('Error updating ticket:', error);
         // Optionally, handle the error, such as displaying an error message to the user
       }
     );
-  }
+  }  
 
   // Method to update the selected ticket
   showTicketDetails(ticketId: number) {
@@ -188,10 +195,19 @@ export class TechnicianviewComponent implements OnInit {
     }
   }
   
-  displayUpdateModal(event: MouseEvent): void {
+  displayUpdateModal(ticketId: number, event: MouseEvent): void {
     event.stopPropagation();
-    this.displayModal('update-form-container');
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    .subscribe(ticket => {
+      this.selectedTicket = ticket;
+      this.displayModal('update-form-container');
+      console.log(this.selectedTicket)
+    }, error => {
+      console.error("Error fetching ticket details", error);
+      // Handle the error appropriately
+    });
   }
+  
   
   closeModal(modalId: string): void {
     switch(modalId) {

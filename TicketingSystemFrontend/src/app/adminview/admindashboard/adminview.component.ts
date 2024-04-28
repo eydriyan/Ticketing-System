@@ -43,8 +43,36 @@ export class AdminviewComponent implements OnInit {
   ngOnInit(): void {
     this.currentDate = this.getCurrentDate(); // Set current date on init
     this.fetchTickets();
+    this.loadTechnicians();
   }
 
+  loadTechnicians() {
+    this.technicianService.getAllTechnicians().subscribe(
+      technicians => {
+        this.technicians = technicians; // Store fetched technicians in the variable
+      },
+      error => {
+        console.error('Error fetching technicians:', error);
+        // Handle error appropriately
+      }
+    );
+  }
+
+  updateTicket(ticket: Ticket) {
+    // Implement logic to update ticket details
+    console.log('this is called!!')
+    this.ticketService.updateTicket(ticket.id, ticket).subscribe(
+      (updatedTicket: Ticket) => {
+        console.log('Ticket updated successfully:', updatedTicket);
+        this.showUpdateModal = false; 
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error updating ticket:', error);
+      }
+    );
+  }  
+  
   displayTechnicianPopup(ticket: Ticket) {
     this.showTechnicianPopup = true;
     // Fetch technicians
@@ -195,9 +223,17 @@ export class AdminviewComponent implements OnInit {
   }
   
 
-  displayUpdateModal(event: MouseEvent): void {
+  displayUpdateModal(ticketId: number, event: MouseEvent): void {
     event.stopPropagation();
-    this.displayModal('update-form-container');
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    .subscribe(ticket => {
+      this.selectedTicket = ticket;
+      this.displayModal('update-form-container');
+      console.log(this.selectedTicket)
+    }, error => {
+      console.error("Error fetching ticket details", error);
+      // Handle the error appropriately
+    });
   }
 
   

@@ -103,7 +103,7 @@
                     </ng-container>
                 </td>
                 <td>
-                    <button class="vertical-ellipsis-button" (click)="displayUpdateModal($event)" data-modal="update-form-container">
+                    <button class="vertical-ellipsis-button" (click)="displayUpdateModal(ticket.id, $event)" data-modal="update-form-container">
                         <span class="ellipsis">...</span>
                     </button>
                 </td>
@@ -270,10 +270,10 @@
 		<span class="close" (click)="closeModal('update-form-container')">&times;</span>
 		<h1 class="form-title">Update Ticket</h1>
 		<h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
-		<form class="form">
+		<form class="form" *ngIf="selectedTicket" (ngSubmit)="updateTicket(selectedTicket)">
 				<div class="form-row">
 					<label class="form-label" for="subject">Subject:</label>
-					<select class="form-select" id="subject" name="subject" [(ngModel)]="title">
+					<select class="form-select" id="subject" name="subject" [(ngModel)]="selectedTicket.title">
 						<option value="select subject">Select Subject:</option>
 						<option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
 						<option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
@@ -289,31 +289,40 @@
 				<div class="form-row">
 					  <div class="form-col">
 						<label class="form-label" for="category">Category:</label>
-						<select class="form-select" id="category" name="category" [(ngModel)]="category">
+						<select class="form-select" id="category" name="category" [(ngModel)]="selectedTicket.category">
 							<option value="select category">Select Category:</option>
 							<option value="Account Lockout">Account Lockout</option>
-							<option value="Account Lockout">Network Problem</option>
-							<option value="Network Problem">Network Security Issue</option>
-							<option value="Network Security">Hardware Issue</option>
+							<option value="Network Problem">Network Problem</option>
+							<option value="Network Security Issue">Network Security Issue</option>
+							<option value="Hardware Issue">Hardware Issue</option>
 						</select>
 					  </div>
 					  <div class="form-col">
 						<label class="form-label" for="priority">Priority:</label>
-						<select class="form-select" id="priority" name="priority" [(ngModel)]="priority">
+						<select class="form-select" id="priority" name="priority" [(ngModel)]="selectedTicket.priority">
 						  <option value="select subject">Select Priority:</option>
 						  <option value="Low">Low</option>
 						  <option value="Medium">Medium</option>
 						  <option value="High">High</option>
 						</select>
 					  </div>
-				</div>
+					</div>
 					<div class="form-row">
+					  <!-- <div class="form-col">
+						<label class="form-label" for="status">Status:</label>
+							<select class="form-select" id="status" name="status" [(ngModel)]="selectedTicket.status">
+								  <option value="status type:">Select a status:</option>
+								  <option value="On Hold">On Hold</option>
+								  <option value="Pending">Pending</option>
+								  <option value="In Progress">In Progress</option>
+								  <option value="Resolved">Resolved</option>
+							</select>
+					  </div> -->
 					  <div class="form-col">
 						<label class="form-label" for="technician">Technician:</label>
 						<select class="form-select" id="technician" name="technician">
-						  <option value="select subject">Select Technician:</option>
-						  <option value="Mang Kanor">Mang Kanor</option>
-						  <option value="Mang Edgar">Mang Edgar</option>
+						  <option value="select technician">Select Technician:</option>
+						  <option *ngFor="let technician of technicians" [value]="technician.email">{{ technician.email }}</option>
 						</select>
 					  </div>
 					</div>
@@ -322,6 +331,8 @@
 	   </form>
 	</div>
 </div>
+
+
 
 <!--footer-->
     <div class="footer">
