@@ -18,9 +18,10 @@ export class TechnicianviewComponent implements OnInit {
   filterPriority: string = '';
   filterDate: string = '';
   filterStatus: string = '';
-  filterTechnician: string = '';
+  searchStudentEmail: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[] = [];
 
   constructor(
     private technicianService: TechnicianserviceService,
@@ -41,10 +42,10 @@ export class TechnicianviewComponent implements OnInit {
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
 
         // Sort tickets by priority (High > Medium > Low)
-        this.tickets = tickets.sort((a, b) => {
+        this.filteredTickets = this.tickets.sort((a, b) => {
           if (a.priority === 'High') return -1;
           if (a.priority === 'Medium' && b.priority !== 'High') return -1;
           if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -63,6 +64,18 @@ export class TechnicianviewComponent implements OnInit {
 
   applyFilter() {
     // Implement filtering logic here
+  }
+
+  applySearch(): void {
+    if (!this.searchStudentEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
+  
+    this.filteredTickets = this.tickets.filter(ticket => {
+      // Filter tickets where technician email matches the search input
+      return ticket?.student?.email.toLowerCase().includes(this.searchStudentEmail.toLowerCase());
+    });
   }
 
   // toggleUpdateForm(ticket: Ticket) {

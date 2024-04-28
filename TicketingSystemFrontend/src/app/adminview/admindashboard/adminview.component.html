@@ -38,7 +38,7 @@
 				  </button>
 			</td>
 			<td class="search-container">
-				<input type="text" id="search" placeholder="" style="width: 454px; height: 50px;">
+				<input type="text" id="search" placeholder="" [(ngModel)]="searchEmail" (input)="applySearch()" style="width: 454px; height: 50px;">
 				<button class="search-button red-button">Search</button>
 			</td>
 		  </tr>
@@ -84,7 +84,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let ticket of tickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
+            <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
                 <td [ngClass]="getPriorityColor(ticket.priority)"></td>
                 <td><input type="checkbox"></td>
                 <td class="priority">{{ ticket.priority }}</td>

@@ -27,6 +27,8 @@ export class AdminviewComponent implements OnInit {
   title: string = '';
   description: string = '';
   priority: string = '';
+  searchEmail: string = '';
+  filteredTickets: Ticket[] = [];
 
   constructor(
     private renderer: Renderer2,
@@ -147,10 +149,10 @@ export class AdminviewComponent implements OnInit {
     this.ticketService.getAllTickets().subscribe(
       (tickets: Ticket[]) => {
       // Filter out resolved tickets
-      tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+      this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
 
       // Sort tickets by priority (High > Medium > Low)
-      this.tickets = tickets.sort((a, b) => {
+      this.filteredTickets = this.tickets.sort((a, b) => {
         if (a.priority === 'High') return -1;
         if (a.priority === 'Medium' && b.priority !== 'High') return -1;
         if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -162,6 +164,20 @@ export class AdminviewComponent implements OnInit {
       }
     );
   }
+
+  applySearch(): void {
+    if (!this.searchEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
+  
+    // Filter tickets where either technician or student email matches the search input
+    this.filteredTickets = this.tickets.filter(ticket => {
+      return ticket?.technician?.email.toLowerCase().includes(this.searchEmail.toLowerCase()) ||
+             ticket?.student?.email.toLowerCase().includes(this.searchEmail.toLowerCase());
+    });
+  }
+  
 
   displayUpdateModal(event: MouseEvent): void {
     event.stopPropagation();

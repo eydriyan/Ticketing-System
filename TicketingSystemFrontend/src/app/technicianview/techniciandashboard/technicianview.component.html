@@ -237,7 +237,7 @@
         </button>
 			</td>
 			<td class="search-container">
-				<input type="text" id="search" class="searchbar">
+				<input type="text" id="search" class="searchbar" [(ngModel)]="searchStudentEmail" (input)="applySearch()">
 				<button class="search-button red-button">Search</button>
 			</td>
 		  </tr>
@@ -280,7 +280,7 @@
 					
 				</table>
         <table class="tickets">
-          <tr *ngFor="let ticket of tickets"  (click)="showTicketDetails(ticket.id)" >
+          <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td class="priority">{{ ticket.priority }}</td>
             <td>{{ ticket.category }}</td>

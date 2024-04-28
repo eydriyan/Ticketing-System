@@ -51,7 +51,7 @@
           <a href=""><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
         </td>
         <td class="search-container">
-            <input type="text" id="search" placeholder="" style="width: 454px; height: 50px;">
+            <input type="text" id="search" placeholder="" [(ngModel)]="searchStudentEmail" (input)="applySearch()" style="width: 454px; height: 50px;">
           <button class="search-button red-button">Search</button>
         </td>
         </tr>
@@ -72,7 +72,7 @@
               </tr>
           </table>
           <table class="tickets">
-            <tr *ngFor="let ticket of tickets"  (click)="showTicketDetails(ticket.id)" >
+            <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
               <td [ngClass]="getPriorityColor(ticket.priority)"></td>
               <td class="priority">{{ ticket.priority }}</td>
               <td>{{ ticket.category }}</td>
