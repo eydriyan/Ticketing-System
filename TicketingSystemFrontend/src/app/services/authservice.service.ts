@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model'; 
@@ -19,6 +19,15 @@ export class AuthserviceService {
 
   login(loginData: { email: string, password: string }): Observable<{token: string}> {
     return this.http.post<{token: string}>(`${this.baseUrl}/login`, loginData); 
+  }
+
+  getUser(): Observable<User> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<User>(`${this.baseUrl}/user`, { headers });
   }
 
   logout() { 

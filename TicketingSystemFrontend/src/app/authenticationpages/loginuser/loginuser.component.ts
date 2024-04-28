@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthserviceService } from '../../services/authservice.service'; 
 import { Router } from '@angular/router';
-import { User } from '../../model/user.model';
+import { User, UserRole } from '../../model/user.model';
  
 @Component({
   selector: 'app-login',  
@@ -26,8 +26,34 @@ export class LoginuserComponent {
           // Store JWT token in local storage
           this.authService.storeToken(token);
 
-          // Redirect or perform other actions after successful login
-          this.router.navigate(['/userdashboard']);
+          // Get user information to determine role
+          this.authService.getUser().subscribe(
+            (user: User) => {
+              console.log(user.userRole)
+              console.log(user)
+              switch (user.userRole) {
+                case UserRole.ADMIN:
+                  // Redirect admin to admin dashboard
+                  this.router.navigate(['/admindashboard']);
+                  break;
+                case UserRole.TECHNICIAN:
+                  // Redirect technician to technician dashboard
+                  this.router.navigate(['/techniciandashboard']);
+                  break;
+                case UserRole.STUDENT:
+                  // Redirect student to student dashboard
+                  this.router.navigate(['/userdashboard']);
+                  break;
+                default:
+                  // Redirect to a default dashboard or handle other roles
+                  this.router.navigate(['/userdashboard']);
+              }
+            },
+            (error) => {
+              console.error('Error fetching user information:', error);
+              // Handle error fetching user information
+            }
+          );
         }
         
       },

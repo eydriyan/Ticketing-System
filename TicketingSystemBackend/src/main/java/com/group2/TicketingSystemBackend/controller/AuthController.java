@@ -10,12 +10,9 @@ import com.group2.TicketingSystemBackend.service.EmailService;
 import com.group2.TicketingSystemBackend.service.VerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -61,6 +58,16 @@ public class AuthController {
         }
 
         return ResponseEntity.ok(loginDTO.builder().token(loggedInUser).build());
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<User> getUser(Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof User) {
+            User user = (User) authentication.getPrincipal();
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     //Log out

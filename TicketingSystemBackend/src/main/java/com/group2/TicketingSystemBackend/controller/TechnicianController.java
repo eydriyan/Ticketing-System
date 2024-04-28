@@ -61,16 +61,14 @@ public class TechnicianController {
         return ResponseEntity.ok(technician);
     }
 
-    @PostMapping("/assign-to-self/{ticketId}")
-    public ResponseEntity<Ticket> assignTicketToSelf(
-            @PathVariable Long ticketId,
-            @RequestParam String technicianEmail
-    ) {
-        Ticket assignedTicket = ticketService.assignTicketToSelf(ticketId, technicianEmail);
-        return ResponseEntity.ok(assignedTicket);
-    }
-
-    // Assign ticket to the currently logged-in technician
+//    @PostMapping("/assign-to-self/{ticketId}")
+//    public ResponseEntity<Ticket> assignTicketToSelf(
+//            @PathVariable Long ticketId,
+//            @RequestParam String technicianEmail
+//    ) {
+//        Ticket assignedTicket = ticketService.assignTicketToSelf(ticketId, technicianEmail);
+//        return ResponseEntity.ok(assignedTicket);
+//    }
 
 
 //    @DeleteMapping("/delete/{id}")
