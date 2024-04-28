@@ -320,9 +320,9 @@
 					  </div> -->
 					  <div class="form-col">
 						<label class="form-label" for="technician">Technician:</label>
-						<select class="form-select" id="technician" name="technician">
+						<select class="form-select" id="technician" name="technician" [(ngModel)]="selectedTicket.technician">
 						  <option value="select technician">Select Technician:</option>
-						  <option *ngFor="let technician of technicians" [value]="technician.email">{{ technician.email }}</option>
+						  <option *ngFor="let technician of technicians" [value]="technician">{{ technician.email }}</option>
 						</select>
 					  </div>
 					</div>
