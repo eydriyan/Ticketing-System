@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Technician } from '../model/technician.model';
-
+import { Ticket } from '../model/ticket.model';
+import { AuthserviceService } from '../services/authservice.service';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class TechnicianserviceService {
-  private baseUrl = 'http://localhost:18080/api/technicians'; 
+  private baseUrl = 'http://localhost:18080/api/technician'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthserviceService) {}
+
+  getAllTicketsForCurrentTechnician(): Observable<Ticket[]> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Ticket[]>(`${this.baseUrl}/my-tickets`, { headers });
+  }
 
   createTechnician(newTechnician: Technician): Observable<Technician> {
     return this.http.post<Technician>(`${this.baseUrl}/create-technician`, newTechnician);

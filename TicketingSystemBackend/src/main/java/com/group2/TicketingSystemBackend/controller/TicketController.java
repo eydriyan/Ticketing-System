@@ -1,17 +1,12 @@
 package com.group2.TicketingSystemBackend.controller;
 
-import com.group2.TicketingSystemBackend.model.Student;
-import com.group2.TicketingSystemBackend.model.Technician;
-import com.group2.TicketingSystemBackend.model.Ticket;
-import com.group2.TicketingSystemBackend.model.User;
-import com.group2.TicketingSystemBackend.service.AuthService;
-import com.group2.TicketingSystemBackend.service.StudentService;
-import com.group2.TicketingSystemBackend.service.TechnicianService;
-import com.group2.TicketingSystemBackend.service.TicketService;
+import com.group2.TicketingSystemBackend.model.*;
+import com.group2.TicketingSystemBackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,38 +25,47 @@ public class TicketController {
     private TechnicianService technicianService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private AdminService adminService;
 
-    // add ticket
+    // Add new ticket
     @PostMapping("/add-ticket")
     public ResponseEntity<Ticket> addTicket(
-            @RequestHeader(name = "email", required = false) String email,
-            @RequestParam("category") String category,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("priority") String priority
+            @RequestBody Ticket newTicket,
+            @RequestHeader(name = "Authorization") String token
     ) {
-        Ticket ticket = new Ticket();
-
-        ticket.setCategory(category);
-        ticket.setTitle(title);
-        ticket.setDescription(description);
-        ticket.setPriority(priority);
-
-        Student reqStudent = studentService.getStudentByEmail(email);
-
-        if (!authService.isValidStudent(reqStudent)) {
+        String currentUserEmail = authService.getCurrentUserEmail();
+        if (currentUserEmail == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        ticket.setStudent(reqStudent);
+        Student student = studentService.getStudentByEmail(currentUserEmail);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
-        Ticket createdTicket = ticketService.addTicket(ticket);
+        // Associate the student with the new ticket
+        newTicket.setStudent(student);
+
+        // Add the ticket
+        Ticket createdTicket = ticketService.addTicket(newTicket);
         return ResponseEntity.ok(createdTicket);
     }
 
     // get all tickets
-    @GetMapping("/all")
-    public ResponseEntity<List<Ticket>> getAllTickets() {
+    @GetMapping("/all-tickets")
+    public ResponseEntity<List<Ticket>> getAllTickets(Authentication authentication) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String userEmail = authentication.getName(); // Get the email of the authenticated user
+        Admin admin = adminService.getAdminByEmail(userEmail);
+
+        if (admin == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
+        }
+
         List<Ticket> tickets = ticketService.getAllTickets();
         return ResponseEntity.ok(tickets);
     }
@@ -77,14 +81,12 @@ public class TicketController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Ticket> updateTicket(@PathVariable Long id, @RequestBody Ticket updatedTicket) {
         Ticket ticket = ticketService.updateTicket(id, updatedTicket);
+        if (ticket == null) {
+            return ResponseEntity.notFound().build();
+        }
+        
         return ResponseEntity.ok(ticket);
     }
-
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
-//        ticketService.deleteTicket(id);
-//        return ResponseEntity.noContent().build();
-//    }
 
     // get tickets of a specific student
     @GetMapping("/student-tickets/{studentId}")
@@ -134,5 +136,12 @@ public class TicketController {
 
         List<Ticket> resolvedTickets = ticketService.getResolvedTicketsByTechnician(technician);
         return ResponseEntity.ok(resolvedTickets);
+    }
+
+    // Delete Ticket
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+        ticketService.deleteTicket(id);
+        return ResponseEntity.noContent().build();
     }
 }

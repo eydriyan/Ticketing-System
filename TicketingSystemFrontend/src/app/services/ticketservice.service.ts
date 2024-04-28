@@ -2,30 +2,41 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Ticket } from '../model/ticket.model';
+import { AuthserviceService } from '../services/authservice.service'; 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TicketserviceService {
   private apiUrl = 'http://localhost:18080/api/ticket';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthserviceService) { }
 
-  addTicket(category: string, title: string, description: string, priority: string, studentEmail: string): Observable<Ticket> { 
-    const headers = new HttpHeaders({ email: studentEmail });
-    
-    // Using HttpParams to construct query parameters
-    let params = new HttpParams()
-      .set('category', category)
-      .set('title', title)
-      .set('description', description)
-      .set('priority', priority);
+  addTicket(title: string, priority: string, category: string, description: string ): Observable<Ticket> { 
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   
-    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, null, { headers, params });
+    // Construct the request body
+    const requestBody = {
+      title: title,
+      priority: priority,
+      category: category,
+      description: description
+    };
+  
+    return this.http.post<Ticket>(`${this.apiUrl}/add-ticket`, requestBody, { headers });
   }
   
   getAllTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(`${this.apiUrl}/all`);
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Ticket[]>(`${this.apiUrl}/all-tickets`, { headers });
   }
 
   getTicketById(id: number): Observable<Ticket> {
@@ -46,5 +57,9 @@ export class TicketserviceService {
 
   assignTechnicianToTicket(ticketId: number, technicianEmail: string): Observable<Ticket> {
     return this.http.post<Ticket>(`${this.apiUrl}/assign-technician`, { ticketId, technicianEmail });
+  }
+
+  markTicketResolved(ticketId: number): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.apiUrl}/resolve-ticket/${ticketId}`, {});
   }
 }

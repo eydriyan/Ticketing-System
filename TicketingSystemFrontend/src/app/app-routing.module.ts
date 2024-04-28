@@ -11,8 +11,13 @@ import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalyti
 import { AdminhistoryComponent } from './adminview/adminhistory/adminhistory.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
   { path: 'login', component: LoginuserComponent },
-  { path: '', component: SignupComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'userdashboard', component: UserviewComponent },
   { path: 'userhistory', component: UserviewHistoryComponent},
   { path: 'admindashboard', component: AdminviewComponent },

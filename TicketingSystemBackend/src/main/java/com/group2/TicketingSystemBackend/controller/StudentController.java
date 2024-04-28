@@ -1,9 +1,13 @@
 package com.group2.TicketingSystemBackend.controller;
 
 import com.group2.TicketingSystemBackend.model.Student;
+import com.group2.TicketingSystemBackend.model.Ticket;
 import com.group2.TicketingSystemBackend.service.StudentService;
+import com.group2.TicketingSystemBackend.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +18,26 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private TicketService ticketService;
+
+    // get the tickets of the currently logged in student
+    @GetMapping("/my-tickets")
+    public ResponseEntity<List<Ticket>> getTicketsOfLoggedInStudent(Authentication authentication) {
+        if (authentication == null || authentication.getPrincipal() == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String userEmail = authentication.getName(); // Get the email of the authenticated user
+        Student student = studentService.getStudentByEmail(userEmail);
+
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // User not found
+        }
+
+        List<Ticket> tickets = ticketService.getTicketsByStudent(student);
+        return ResponseEntity.ok(tickets);
+    }
 
     // get all students
     @GetMapping("/all")

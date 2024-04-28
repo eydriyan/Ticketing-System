@@ -48,6 +48,6 @@ public class StudentService {
     // get student by email
     public Student getStudentByEmail(String email) {
         Optional<Student> studentOptional = studentRepository.findByEmail(email);
-        return studentOptional.orElseThrow(() -> new RuntimeException("Student not found with ID: " + email));
+        return studentOptional.orElseThrow(() -> new RuntimeException("Student not found with email: " + email));
     }
 }

@@ -1,6 +1,7 @@
 package com.group2.TicketingSystemBackend.controller;
 
 import com.group2.TicketingSystemBackend.enums.UserRole;
+import com.group2.TicketingSystemBackend.model.Student;
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.Ticket;
 import com.group2.TicketingSystemBackend.service.TechnicianService;
@@ -34,12 +35,17 @@ public class AdminController {
     public ResponseEntity<Technician> createTechnician(@RequestBody Technician newUser) {
         // Create a new Technician entity
         Technician technician = new Technician();
+
+        // Set Role
         newUser.setRole(UserRole.TECHNICIAN);
 
-        Technician createdTechnician = technicianService.createTechnician(newUser);
-        if (createdTechnician == null) {
+        // Sign up the user (which now includes a student)
+        Technician createdUser = technicianService.createTechnician(newUser);
+
+        if (createdUser == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        return ResponseEntity.ok(createdTechnician);
+
+        return ResponseEntity.ok(createdUser);
     }
 }

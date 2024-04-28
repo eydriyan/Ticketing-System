@@ -5,6 +5,7 @@ import com.group2.TicketingSystemBackend.model.Admin;
 import com.group2.TicketingSystemBackend.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,8 @@ public class AdminInitializer implements CommandLineRunner {
 
     @Autowired
     private AdminRepository adminRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -23,7 +26,7 @@ public class AdminInitializer implements CommandLineRunner {
             admin.setLastName("Admin");
             admin.setPhoneNumber("09999999");
             admin.setEmail("admin@gmail.com");
-            admin.setPassword("adminPassword");
+            admin.setPassword(passwordEncoder.encode("adminPassword"));
             admin.setRole(UserRole.ADMIN);
 
             // Save the admin user to the database

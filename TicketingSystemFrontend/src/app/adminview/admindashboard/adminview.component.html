@@ -6,7 +6,7 @@
     <title>IT Ticketing System</title>
 	<link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-
+	
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -15,11 +15,16 @@
     <div class="title">IT Ticketing System</div>
     <div class="buttons">
         <a href=""><img src="../../assets/images/bellIcon.png" class="bellIcon" alt="Bell Icon"></a>
-        <a href=""><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
+        <a (click)="logout()"><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
         <a href=""><img src="../../assets/images/userImage.png" class="userImage" alt="User Icon"></a>
     </div>
 </nav>
- 
+ <!-- Debugging State Indicators
+<p>Filter Modal Open: {{ showFilterModal }}</p>
+<p>Ticket Details Modal Open: {{ showTicketDetailsModal }}</p>
+<p>Update Modal Open: {{ showUpdateModal }}</p> -->
+
+
 <!-- (logo)Ticket Requests(Title) - (Button)Filter - (Searchbar)-->  
 	   
 			<table class="rightcontainer">
@@ -28,10 +33,12 @@
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-				<a href=""><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
+			         <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
+					<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+				  </button>
 			</td>
 			<td class="search-container">
-				<input type="text" id="search" placeholder="" style="width: 454px; height: 50px;">
+				<input type="text" id="search" placeholder="" [(ngModel)]="searchEmail" (input)="applySearch()" style="width: 454px; height: 50px;">
 				<button class="search-button red-button">Search</button>
 			</td>
 		  </tr>
@@ -48,146 +55,78 @@
 	  </div>
 	  <div class="line-division"></div>
 	  <div class="buttons-nav">
-		<a href=""><img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard"></a>
-		<a href=""><img src="../../assets/images/historyButton.png" class="history" alt="History"></a>
-		<a href=""><img src="../../assets/images/analyticsButton.png" class="analytics" alt="Analytics"></a>
+		<a onclick="window.location.href='admindashboard'">
+			<img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard">
+		</a>
+		<a onclick="window.location.href='adminhistory'">
+			<img src="../../assets/images/historyButton.png" class="history" alt="History">
+		</a>
+		<a onclick="window.location.href='adminanalytics'">
+			<img src="../../assets/images/analyticsButton.png" class="analytics" alt="Analytics">
+		</a>
 		</div>
 	</div>
 		
-<!-- table for tickets-->
-	<div class="cont-tickets">
-			<table>
-					<tr>
-						<th class="color-priority"></th>
-						<th></th>
-						<th>Priority</th>
-						<th>Category</th>
-						<th>Status</th>
-						<th>Date Created</th>
-						<th>Requester</th>
-						<th>Technician</th>
-						<th></th>
-						</tr>
-					
-				</table>
-					<table class="tickets">
-						<tr>
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Pe Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Kanor</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Network Issues</td>
-						<td>Pending</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-high"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">High</td>
-						<td>Password reset</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-med"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Medium</td>
-						<td>Pc Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Kanor</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-med"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Medium</td>
-						<td>Pc Malfunction</td>
-						<td>Pending</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-low"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Low</td>
-						<td>Password reset</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>Mang Edgar</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-					<tr>
-						<td class="color-low"></td>
-						<td><input type="checkbox"></td>
-						<td class="priority">Low</td>
-						<td>Pc Malfunction</td>
-						<td>In-progress</td>
-						<td>03/20/24</td>
-						<td>Adrian Oraya</td>
-						<td>
-						<button class="unassigned-button">Unassigned</button>
-						</td>
-						<td>
-							<button class="vertical-ellipsis-button">
-							  <span class="ellipsis">...</span>
-							</button>
-						  </td>
-					</tr>
-				</table>
+<!-- table for tickets -->
+<div class="cont-tickets" *ngIf="tickets.length > 0">
+    <table>
+        <thead>
+            <tr>
+                <th class="color-priority"></th>
+                <th></th>
+                <th>Priority</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Requester</th>
+                <th>Technician</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
+                <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+                <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
+                <td class="priority">{{ ticket.priority }}</td>
+                <td>{{ ticket.category }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.dateCreated | date: 'MM/dd/yy' }}</td>
+                <td>{{ ticket.student.email }}</td>
+                <td>
+                    <!-- Display technician name if assigned, otherwise show Unassigned button -->
+                    <ng-container *ngIf="ticket.technician">
+                        {{ ticket.technician.email }}
+                    </ng-container>
+                    <ng-container *ngIf="!ticket.technician">
+					<!-- Open technician assignment popup -->
+					<button class="unassigned-button" (click)="openAssignTechnicianPopup(ticket.id, $event)" data-modal="all-technician">Unassigned</button>
+                    </ng-container>
+                </td>
+                <td>
+                    <button class="vertical-ellipsis-button" (click)="displayUpdateModal(ticket.id, $event)" data-modal="update-form-container">
+                        <span class="ellipsis">...</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ETO UNG assign technician popup -->
+<div class="modal" *ngIf="showTechnicianPopup">
+    <div class="modal-content">
+        <span class="close" (click)="closeTechnicianPopup()">&times;</span>
+        <h2>Assign Technician</h2>
+        <ul>
+            <li *ngFor="let technician of technicians" (click)="assignTechnician(technician)">
+                {{ technician.firstName }} {{ technician.lastName }} - Availability: {{ technician.availability }} - Skillset: {{ technician.skillSet }}
+            </li>
+        </ul>
+        <button class="close-button" (click)="closeTechnicianPopup()">Close</button>
     </div>
+</div>
 
-
+  
 
 <!--FORMS-->
 
@@ -202,9 +141,9 @@
 
 <!--Filter Tickets Form-->	
 
-<div id="Filter-form-container" class="modal">
-	<div class="modal-content">
-		<span class="close" onclick="closeFilterModal()">&times;</span>
+<div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
 		<h1 class="form-title">Filter Tickets</h1>
 		<h4 class="form-title2">Find the exact tickets you need quickly.</h4>
 		<form class="form" action="/submit_ticket.php" method="post">
@@ -268,101 +207,99 @@
 					  </div>
 					</div>
 			<button class="submit-button" type="submit">Filter Tickets</button>
-			<button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+			<button class="cancel-button" type="button" (click)="closeModal('Filter-form-container')">Cancel</button>
 		</form>
 	</div>
 </div>
 
 <!--Ticket Details Form-->	
 
-<div id="ticket-details-container" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeFilterModal()">&times;</span>
-<h1 class="form-title">Ticket Details</h1>
-<h4 class="form-title2">Comprehensive information about the ticket.</h4>
-<form class="form" action="/submit_ticket.php" method="post">
-<div class="form-row">
-		<div class="form-col">
-			<label class="form-label" for="subject">Subject:</label>
-			<input class="form-input" type="text" id="subject" name="subject" readonly>
-		</div>
-		<div class="form-col">
-			<label class="form-label" for="date-created">Date Created:</label>
-			<input class="form-input" type="date" id="date-created" name="date-created" readonly>    
-		</div>
+<!--Updated Ticket Details-->
+<!--Ticket Details-->
+<div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
+	<div class="modal-content" (click)="$event.stopPropagation()">
+		<span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
+		<h1 class="form-title">Ticket Details</h1>
+		<h4 class="form-title2">Comprehensive information about the ticket.</h4>
+		<form class="form" action="/submit_ticket.php" method="post">
+		  <div class="form-row">
+			  <div class="form-col">
+				<label class="form-label" for="subject">Subject:</label>
+				<input class="form-input" type="text" id="subject" name="subject" [value]="selectedTicket?.title" readonly>
+			  </div>
+			  <div class="form-col">
+				<label class="form-label" for="date-created">Date Created:</label>
+				<input class="form-input" type="date" id="date-created" name="date-created" [value]="selectedTicket?.dateCreated" readonly>    
+			  </div>
+			</div>
+			<div class="form-row">
+			  <div class="form-col">
+			  <label class="form-label" for="category">Category:</label>
+			   <input class="form-input" type="text" id="category" name="category" [value]="selectedTicket?.category" readonly>
+			  </div>
+			  <div class="form-col">
+			  <label class="form-label" for="priority">Priority:</label>
+			  <input class="form-input" type="text" id="priority" name="priority" [value]="selectedTicket?.priority" readonly>
+			  </div>
+			</div>
+			<div class="form-row">
+				<div class="form-col">
+					<label class="form-label" for="technician">Requester:</label>
+					<input class="form-input" type="text" id="technician" name="technician" [value]="selectedTicket?.student?.email" readonly>
+				  </div> 
+			  <div class="form-col">
+				<label class="form-label" for="technician">Technician:</label>
+				<input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician?.email || 'Unassigned')" readonly>
+			  </div>                      
+			  <div class="form-col">
+			  <label class="form-label" for="status">Status:</label>
+			  <input class="form-input" type="text" id="status" name="status" [value]="selectedTicket?.status" readonly>
+			  </div>
+			</div>
+			<div class="form-row">
+			  <label class="form-label" for="description">Description:</label>
+			  <textarea class="form-textarea" id="description" name="description" readonly>{{ selectedTicket?.description }}</textarea>
+		  </div>
+		</form>
 	</div>
-	<div class="form-row">
-	  <div class="form-col">
-		<label class="form-label" for="category">Category:</label>
-		 <input class="form-input" type="text" id="category" name="category" readonly>
-	  </div>
-	  <div class="form-col">
-		<label class="form-label" for="priority">Priority:</label>
-		<input class="form-input" type="text" id="priority" name="priority" readonly>
-	  </div>
-	</div>
-	<div class="form-row">
-		<div class="form-col">
-		<label class="form-label" for="requester">Requester:</label>
-		 <input class="form-input" type="text" id="requester" name="requester" readonly>
-	  </div>
-	  <div class="form-col">
-		<label class="form-label" for="technician">Technician:</label>
-		 <input class="form-input" type="text" id="technician" name="technician" readonly>
-	  </div>
-	  
-	</div>
-	<div class="form-row">
-		<label class="form-label" for="status">Status:</label>
-		<input class="form-input" type="text" id="status" name="status" readonly>
-	  </div>
-	<div class="form-row">
-		<label class="form-label" for="description">Description:</label>
-		<textarea class="form-textarea" id="description" name="description" readonly></textarea>
-	</div>
-
-</form>
-</div>
-</div>
+  </div>
 
 <!--Update Tickets Form-->		
- 
-<div id="update-form-container" class="modal">
-	<div class="modal-content">
-		<span class="close" onclick="closeModal()">&times;</span>
+<div *ngIf="showUpdateModal" id="update-form-container"  class="modal" (click)="closeOnOutsideClick($event, 'update-form-container')">
+	<div #updateModalContent class="modal-content" (click)="$event.stopPropagation()">
+		<span class="close" (click)="closeModal('update-form-container')">&times;</span>
 		<h1 class="form-title">Update Ticket</h1>
 		<h4 class="form-title2">Make changes to keep the ticket up-to-date.</h4>
-		<form class="form" action="/submit_ticket.php" method="post">
-		   
+		<form class="form" *ngIf="selectedTicket" (ngSubmit)="updateTicket(selectedTicket)">
 				<div class="form-row">
 					<label class="form-label" for="subject">Subject:</label>
-					<select class="form-select" id="subject" name="subject" required>
+					<select class="form-select" id="subject" name="subject" [(ngModel)]="selectedTicket.title">
 						<option value="select subject">Select Subject:</option>
-						<option value="Blackboard Account">Blackboard Account failed log-in</option>
-						<option value="Mymapua Account">Mymapua Account failed log-in</option>
-						<option value="Wi-Fi connectiviy">Wi-fi Connectivity Problem</option>
-						<option value="Network Security">Network Security Concern</option>
-						<option value="Spam">E-mail: Spam Filtering</option>
-						<option value="Security">E-mail: Security</option>
-						<option value="Pc Malfunctioning">PC Malfunctioning</option>
-						<option value="Keyboard">Keyboard not working</option>
-						<option value="Monitor">Monitor not turning on</option>
+						<option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
+						<option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
+						<option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+						<option value="Network Security Concern">Network Security Concern</option>
+						<option value="E-mail: Spam Filtering">E-mail: Spam Filtering</option>
+						<option value="E-mail: Security">E-mail: Security</option>
+						<option value="PC Malfunctioning">PC Malfunctioning</option>
+						<option value="Keyboard not working">Keyboard not working</option>
+						<option value="Monitor not turning on">Monitor not turning on</option>
 					</select>
 				</div>
 				<div class="form-row">
 					  <div class="form-col">
 						<label class="form-label" for="category">Category:</label>
-						<select class="form-select" id="category" name="category" required>
+						<select class="form-select" id="category" name="category" [(ngModel)]="selectedTicket.category">
 							<option value="select category">Select Category:</option>
 							<option value="Account Lockout">Account Lockout</option>
-							<option value="Account Lockout">Network Problem</option>
-							<option value="Network Problem">Network Security Issue</option>
-							<option value="Network Security">Hardware Issue</option>
+							<option value="Network Problem">Network Problem</option>
+							<option value="Network Security Issue">Network Security Issue</option>
+							<option value="Hardware Issue">Hardware Issue</option>
 						</select>
 					  </div>
 					  <div class="form-col">
 						<label class="form-label" for="priority">Priority:</label>
-						<select class="form-select" id="priority" name="priority" required>
+						<select class="form-select" id="priority" name="priority" [(ngModel)]="selectedTicket.priority">
 						  <option value="select subject">Select Priority:</option>
 						  <option value="Low">Low</option>
 						  <option value="Medium">Medium</option>
@@ -371,32 +308,31 @@
 					  </div>
 					</div>
 					<div class="form-row">
-					  <div class="form-col">
-						<label class="form-label" for="technician">Technician:</label>
-						<select class="form-select" id="technician" name="technician" required>
-						  <option value="select subject">Select Technician:</option>
-						  <option value="Mang Kanor">Mang Kanor</option>
-						  <option value="Mang Edgar">Mang Edgar</option>
-						  <option value="Unassigned">Unassigned</option>
-						</select>
-					  </div>
-					  <div class="form-col">
+					  <!-- <div class="form-col">
 						<label class="form-label" for="status">Status:</label>
-							<select class="form-select" id="status" name="status" required>
+							<select class="form-select" id="status" name="status" [(ngModel)]="selectedTicket.status">
 								  <option value="status type:">Select a status:</option>
-								  <option value="On Hold">Low</option>
-								  <option value="Pending">Medium</option>
+								  <option value="On Hold">On Hold</option>
+								  <option value="Pending">Pending</option>
 								  <option value="In Progress">In Progress</option>
 								  <option value="Resolved">Resolved</option>
 							</select>
+					  </div> -->
+					  <div class="form-col">
+						<label class="form-label" for="technician">Technician:</label>
+						<select class="form-select" id="technician" name="technician">
+						  <option value="select technician">Select Technician:</option>
+						  <option *ngFor="let technician of technicians" [value]="technician.email">{{ technician.email }}</option>
+						</select>
 					  </div>
 					</div>
-			
 			<button class="submit-button" type="submit">Update Ticket</button>
-			<button class="cancel-button" type="button" onclick="closeModal()">Cancel</button>
+			<button class="cancel-button" type="button" (click)="closeModal('update-form-container')">Cancel</button>
 	   </form>
 	</div>
 </div>
+
+
 
 <!--footer-->
     <div class="footer">
@@ -404,71 +340,5 @@
     </div>
 
 <!-- FOR FORMS handling of modals -->
-<script>
-	// Function to display the modal
-	function displayModal(modalId) {
-		var modals = document.querySelectorAll('.modal');
-		modals.forEach(function(modal) {
-			modal.style.display = "none";
-		});
-		var modal = document.getElementById(modalId);
-		if (modal) {
-			modal.style.display = "block";
-		}
-	}
-
-	// Function to close the Add Ticket Form modal
-	function closeModal() {
-		var modal = document.getElementById('update-form-container');
-		if (modal) {
-			modal.style.display = "none";
-		}
-	}
-
-	// Function to close the Filter Form modal
-	function closeFilterModal() {
-		var modal = document.getElementById('Filter-form-container');
-		if (modal) {
-			modal.style.display = "none";
-		}
-	}
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		var modals = document.querySelectorAll('.modal');
-		modals.forEach(function(modal) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		});
-	}
-</script>
-
-
-<script>
-// JavaScript to set the current date in the "Date Created" input field
-document.addEventListener("DOMContentLoaded", function() {
-var currentDate = new Date().toISOString().split('T')[0];
-document.getElementById('date-created').value = currentDate;
-});
-</script>
-
-<!--For Filter Ticket-->
-
-<script>
-function getCurrentDate(offset) {
-const currentDate = new Date();
-const year = currentDate.getFullYear() + (parseInt(offset) || 0);
-const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-const day = String(currentDate.getDate()).padStart(2, '0');
-return `${year}-${month}-${day}`;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-const dateInput = document.getElementById('date-created');
-dateInput.value = getCurrentDate();
-});
-</script>
-
 </body>
 </html>

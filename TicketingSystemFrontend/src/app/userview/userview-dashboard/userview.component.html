@@ -1,85 +1,3 @@
-<!-- <div>
-  <div>
-    <button (click)="logout()">Log Out</button>
-    <button (click)="toggleFilterForm()">Filter</button>
-  </div> -->  
-  
-<!-- ticket info summary   -->
-<!-- <div class="ticket-container">
-  <div *ngFor="let ticket of tickets" class="ticket-summary">
-    <p><strong>Priority:</strong> {{ ticket.priority }}</p>
-    <p><strong>Category:</strong> {{ ticket.category }}</p>
-    <p><strong>Status:</strong> {{ ticket.status }}</p>
-    <p><strong>Date Created:</strong> {{ ticket.dateCreated }}</p>
-    <p><strong>Technician:</strong> {{ ticket.technician }}</p>
-    <button (click)="showTicketDetails(ticket)">View Details</button>
-  </div>
-</div> -->
-
-  <!-- OLD add ticket popup -->
-  <!-- for testing purposes only, use mo ung bagong add ticket pop up 
-  <div *ngIf="showaddticketForm" class="window-popup">
-    <div class="modal-content">
-      <span class="close" (click)="toggleaddticketForm()">&times;</span>
-      <form (ngSubmit)="addTicket()">
-        <h2>Support Ticket Form</h2>
-        <p>Create a new ticket for your issue.</p>
-        <label for="category">Category:</label>
-        <input type="text" id="category" [(ngModel)]="category" name="category" required><br><br>
-        <label for="title">Title:</label>
-        <input type="text" id="title" [(ngModel)]="title" name="title" required><br><br>
-        <label for="description">Description:</label>
-        <textarea id="description" [(ngModel)]="description" name="description" required></textarea><br><br>
-        <label for="priority">Priority:</label>
-        <select id="priority" [(ngModel)]="priority" name="priority" required>
-          <option value="priority">Select Priority</option>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select><br><br>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </div>-->
-  
-<!-- OLD ticket details popup -->
-<!-- for testing purposes only, use mo ung bagong details ticket pop up -->
-<div *ngIf="selectedTicket" class="window-popup">
-  <span class="close-btn" (click)="closeTicketDetails()">&times;</span>
-  <div class="modal-content">
-    <h2>Ticket Details</h2>
-    <p><strong>Date Created:</strong> {{ selectedTicket.dateCreated }}</p>
-    <p><strong>Category:</strong> {{ selectedTicket.category }}</p>
-    <p><strong>Priority:</strong> {{ selectedTicket.priority }}</p>
-    <p><strong>Technician:</strong> {{ selectedTicket.technician }}</p>
-    <p><strong>Status:</strong> {{ selectedTicket.status }}</p>
-    <p><strong>Description:</strong> {{ selectedTicket.description }}</p>
-  </div>
-</div>
-
-<!-- OLD filter form popup -->
-<!-- OLD filter form popup 
-<div *ngIf="showFilterForm" class="window-popup">
-  <div class="modal-content">
-    <span class="close" (click)="toggleFilterForm()">&times;</span>
-    <h2>Filter Tickets</h2>
-    <form (ngSubmit)="applyFilter()">
-      <label for="filter-category">Category:</label>
-      <input type="text" id="filter-category" [(ngModel)]="filterCategory" name="filter-category"><br><br>
-      <label for="filter-priority">Priority:</label>
-      <input type="text" id="filter-priority" [(ngModel)]="filterPriority" name="filter-priority"><br><br>
-      <label for="filter-date">Date Created:</label>
-      <input type="date" id="filter-date" [(ngModel)]="filterDate" name="filter-date"><br><br>
-      <label for="filter-status">Status:</label>
-      <input type="text" id="filter-status" [(ngModel)]="filterStatus" name="filter-status"><br><br>
-      <label for="filter-technician">Technician:</label>
-      <input type="text" id="filter-technician" [(ngModel)]="filterTechnician" name="filter-technician"><br><br>
-      <button type="submit">Apply Filter</button>
-    </form>
-  </div>
-</div>-->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +6,7 @@
     <title>IT Ticketing System</title>
 	  <link href='https://fonts.googleapis.com/css?family=Jomhuria' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href="userview.component.css" rel="stylesheet">
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -96,7 +15,7 @@
       <div class="title">IT Ticketing System</div>
       <div class="buttons">
           <a href=""><img src="../../assets/images/bellIcon.png" class="bellIcon" alt="Bell Icon"></a>
-          <a href=""><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
+          <a (click)="logout()"><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
           <a href=""><img src="../../assets/images/userImage.png" class="userImage" alt="User Icon"></a>
       </div>
   </nav>
@@ -108,104 +27,54 @@
               <img src="../../assets/images/allTickets.png" alt="All Tickets" class="allTickets">
           </td>
           <td class="filter-container">
-            <!-- <a href="#" (click)="toggleaddticketForm()">
-              <img src="../../assets/images/addTicketButton.png" class="addTicketButton" alt="Add a Ticket">
-            </a> -->
-            <button (click)="toggleaddticketForm()" class="invisible-button">
-              <img src="../../assets/images/addTicketButton.png">
+            <button class="invisible-button modal-buttons"  (click)="displayModal('ticket-form-container')" data-modal="ticket-form-container">
+              <img src="../../assets/images/addTicketButton.png" alt="addTicket">
             </button>
-              <!-- <button (click)="toggleaddticketForm()">
-              <img src="../../assets/images/addTicketButton.png">
-            </button> -->
           </td>
-          <!-- <td class="filter-container">
-              <a href="toggleFilterForm()"><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
-          </td> -->
           <td>
-            <button (click)="toggleFilterForm()" class="invisible-button">
+            <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
               <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
             </button>
           </td>
           <td class="search-container">
-            <input type="text" id="search"  style="width: 300px; height: 50px;">
+            <input type="text" id="search" [(ngModel)]="searchTechnicianEmail" (input)="applySearch()" style="width: 300px; height: 50px;">
             <button class="search-button red-button">Search</button>
           </td>
       </tr>
   </table>
   
-<!--Add a Ticket Form as a modal window
-<div id="ticket-form-container" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h1 class="form-title">Ticket Details</h1>
-    <h4>Comprehensive information about the ticket.</h4>
-    <form class="form"(ngSubmit)="addTicket()">
-      <div class="form-row">
-        <div class="form-col">
-          <label class="form-label" for="subject">Subject:</label>
-          <input class="form-input" type="text" id="subject" name="subject" required>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-col">
-          <label class="form-label" for="category">Category:</label>
-          <select class="form-select" id="category" name="category" required [(ngModel)]="category">
-            <option value="PC Malfunction">PC Malfunction</option>
-            <option value="Printer Issue">Printer Issue</option>
-            <option value="Network Problem">Network Problem</option>
-          </select>
-        </div>
-        <div class="form-col">
-          <label class="form-label" for="priority">Priority:</label>
-          <select class="form-select" id="priority" name="priority" required [(ngModel)]="priority">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-col">
-          <label class="form-label" for="description">Description:</label>
-          <textarea class="form-textarea" id="description" name="description" required [(ngModel)]="description"></textarea>
-        </div>
-      </div>
-      <button class="form-button" type="submit">Add Ticket</button>
-    </form>
-  </div>
-</div>-->
 
-<!--Updated Add Ticket Form only with subject(select), date(automatic) and description-->
-<div id="ticket-form-container" class="modal">
-  <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
+<!-- Add Ticket -->
+<div *ngIf="showaddticketForm" id="ticket-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'ticket-form-container')">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal('ticket-form-container')">&times;</span>
       <h1 class="form-title">Support Ticket Form</h1>
       <h4 class="form-title2">Create a new ticket for your issue.</h4>
-      <form class="form" action="/submit_ticket.php" method="post">
+      <form class="form" (ngSubmit)="addTicket()">
               <div class="form-row">
-                  <label class="form-label" for="subject">Subject:</label>
-                  <select class="form-select" id="subject" name="subject" required>
+                  <label class="form-label" for="title">Subject:</label>
+                  <select class="form-select" id="title" name="title" [(ngModel)]="title" required>
                       <option value="select subject">Select Subject:</option>
-                      <option value="Account Lockout">Blackboard Account failed log-in</option>
-                      <option value="Account Lockout">Mymapua Account failed log-in</option>
-                      <option value="Network Problem">Wi-fi Connectivity Problem</option>
-                      <option value="Network Security">Network Security Concern</option>
-                      <option value="E-mail">E-mail: Spam Filtering</option>
-                      <option value="E-mail">E-mail: Security</option>
-                      <option value="School Computer">PC Malfunctioning</option>
-                      <option value="School Computer">Keyboard not working</option>
-                      <option value="School Computer">Monitor not turning on</option>
+                      <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
+                      <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
+                      <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+                      <option value="Network Security Concern">Network Security Concern</option>
+                      <option value="E-mail: Spam Filtering">E-mail: Spam Filtering</option>
+                      <option value="E-mail: Security">E-mail: Security</option>
+                      <option value="PC Malfunctioning">PC Malfunctioning</option>
+                      <option value="Keyboard not working">Keyboard not working</option>
+                      <option value="Monitor not turning on">Monitor not turning on</option>
                   </select>
               </div>
               <div class="form-row">
                 <div class="form-col">
                 <label class="form-label" for="category">Category:</label>
-                <select class="form-select" id="category" name="category" required>
+                <select class="form-select" id="category" name="category" [(ngModel)]="category" required>
                   <option value="select category">Select Category:</option>
-                          <option value="Account Lockout">Account Lockout</option>
-                          <option value="Account Lockout">Network Problem</option>
-                          <option value="Network Problem">Network Security Issue</option>
-                          <option value="Network Security">Hardware Issue</option>
+                  <option value="Account Lockout">Account Lockout</option>
+                  <option value="Network Problem">Network Problem</option>
+                  <option value="Network Security Issue">Network Security Issue</option>
+                  <option value="Hardware Issue">Hardware Issue</option>
                 </select>
                 </div>
                 <div class="form-col">
@@ -215,118 +84,116 @@
               </div>
               <div class="form-col">
                 <label class="form-label" for="priority">Priority:</label>
-                <select class="form-select" id="priority" name="priority" required>
+                <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required>
                   <option value="select subject">Select Priority:</option>
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
                   <option value="High">High</option>
                 </select>
               </div>
-            <div class="form-row">
-                  <label class="form-label" for="description">Description:</label>
-                  <textarea class="form-textarea" id="description" name="description" required></textarea>
-          </div>
-          <button class="submit-button" type="submit">Submit Request</button>
-          <button class="cancel-button" type="cancel" onclick="closeModal()">Cancel</button>
-</form>
-  </div>
-</div>
-
-<!--Updated Filter Form-->
-<div id="Filter-form-container" class="modal">
-  <div class="modal-content">
-      <span class="close" onclick="closeFilterModal()">&times;</span>
-      <h1 class="form-title">Filter Tickets</h1>
-      <h4 class="form-title2">Find the exact tickets you need quickly.</h4>
-      <form class="form" action="/submit_ticket.php" method="post">
-          <div class="form-row">
-      <div class="form-col">
-        <label class="form-label" for="category">Category:</label>
-        <select class="form-select" id="category" name="category" required>
-          <option value="select category">Select Category:</option>
-                  <option value="Account Lockout">Account Lockout</option>
-                  <option value="Account Lockout">Network Problem</option>
-                  <option value="Network Problem">Network Security Issue</option>
-                  <option value="Network Security">Hardware Issue</option>
-        </select>
-      </div>
-      <div class="form-col">
-      <label class="form-label" for="priority">Priority:</label>
-      <select class="form-select" id="priority" name="priority" required>
-        <option value="select subject">Select Priority:</option>
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-      </div>
-    </div>
-          <div class="form-row">
-      <div class="form-col">
-        <label class="form-label" for="date-created">Date Created:</label>
-        <input class="form-input" type="date" id="date-created" name="date-created">    
-      </div>
-      <div class="form-col">
-        <label class="form-label" for="status">Status:</label>
-        <select class="form-select" id="status" name="status" required>
-            <option value="status type:">Select status:</option>
-            <option value="On Hold">On Hold</option>
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Resolved">Resolved</option>
-        </select>
-      </div>
-    </div>
-          <button class="submit-button" type="submit">Filter Tickets</button>
-          <button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
+              <div class="form-row">
+                    <label class="form-label" for="description">Description:</label>
+                    <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required></textarea>
+              </div>
+              <button class="submit-button" type="submit">Submit Request</button>
+              <button class="cancel-button" type="cancel" (click)="closeModal('ticket-form-container')">Cancel</button>
       </form>
   </div>
 </div>
 
-<!--Updated Ticket Details-->
-    <!--Ticket Details-->
-		<div id="ticket-details-container" class="modal">
-      <div class="modal-content">
-          <span class="close" onclick="closeFilterModal()">&times;</span>
-          <h1 class="form-title">Ticket Details</h1>
-          <h4 class="form-title2">Comprehensive information about the ticket.</h4>
-          <form class="form" action="/submit_ticket.php" method="post">
-      <div class="form-row">
-          <div class="form-col">
-            <label class="form-label" for="subject">Subject:</label>
-            <input class="form-input" type="text" id="subject" name="subject" readonly>
-          </div>
-          <div class="form-col">
-            <label class="form-label" for="date-created">Date Created:</label>
-            <input class="form-input" type="date" id="date-created" name="date-created" readonly>    
-          </div>
-        </div>
-              <div class="form-row">
-          <div class="form-col">
-          <label class="form-label" for="category">Category:</label>
-           <input class="form-input" type="text" id="category" name="category" readonly>
-          </div>
-          <div class="form-col">
-          <label class="form-label" for="priority">Priority:</label>
-          <input class="form-input" type="text" id="priority" name="priority" readonly>
-          </div>
-        </div>
-              <div class="form-row">
-          <div class="form-col">
-          <label class="form-label" for="technician">Technician:</label>
-           <input class="form-input" type="text" id="technician" name="technician" readonly>
-          </div>
-          <div class="form-col">
-          <label class="form-label" for="status">Status:</label>
-          <input class="form-input" type="text" id="status" name="status" readonly>
-          </div>
+<!--Filter Form-->
+<div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
+      <h1 class="form-title">Filter Tickets</h1>
+      <h4 class="form-title2">Find the exact tickets you need quickly.</h4>
+      <form class="form">
+          <div class="form-row">
+              <div class="form-col">
+                <label class="form-label" for="category">Category:</label>
+                <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
+                    <option value="select category">Select Category:</option>
+                    <option value="Account Lockout">Account Lockout</option>
+                    <option value="Network Problem">Network Problem</option>
+                    <option value="Network Security Issue">Network Security Issue</option>
+                    <option value="Hardware Issue">Hardware Issue</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label class="form-label" for="priority">Priority:</label>
+                <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
+                    <option value="select subject">Select Priority:</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+              </div>
         </div>
         <div class="form-row">
-          <label class="form-label" for="description">Description:</label>
-          <textarea class="form-textarea" id="description" name="description" readonly></textarea>
-      </div>
-          </form>
-      </div>
+            <div class="form-col">
+              <label class="form-label" for="date-created">Date Created:</label>
+              <input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDate">    
+            </div>
+            <div class="form-col">
+              <label class="form-label" for="status">Status:</label>
+              <select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
+                  <option value="status type:">Select status:</option>
+                  <option value="Pending">Pending</option>
+                  <option value="In progress">In Progress</option>
+              </select>
+            </div>
+        </div>
+        <button class="submit-button" type="button" (click)="applyFilter()">Filter Tickets</button>
+        <button class="cancel-button" type="button" (click)="clearFilter()">Clear</button>
+      </form>
   </div>
+</div>
+
+<!--Ticket Details-->
+<div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
+      <h1 class="form-title">Ticket Details</h1>
+      <h4 class="form-title2">Comprehensive information about the ticket.</h4>
+      <form class="form">
+        <div class="form-row">
+            <div class="form-col">
+              <label class="form-label" for="subject">Subject:</label>
+              <input class="form-input" type="text" id="subject" name="subject" [value]="selectedTicket?.title" readonly>
+            </div>
+            <div class="form-col">
+              <label class="form-label" for="date-created">Date Created:</label>
+              <input class="form-input" type="date" id="date-created" name="date-created" [value]="selectedTicket?.dateCreated" readonly>    
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+            <label class="form-label" for="category">Category:</label>
+             <input class="form-input" type="text" id="category" name="category" [value]="selectedTicket?.category" readonly>
+            </div>
+            <div class="form-col">
+            <label class="form-label" for="priority">Priority:</label>
+            <input class="form-input" type="text" id="priority" name="priority" [value]="selectedTicket?.priority" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <label class="form-label" for="technician">Technician:</label>
+              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician?.email || 'Unassigned')" readonly>
+            </div>                      
+            <div class="form-col">
+            <label class="form-label" for="status">Status:</label>
+            <input class="form-input" type="text" id="status" name="status" [value]="selectedTicket?.status" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="description">Description:</label>
+            <textarea class="form-textarea" id="description" name="description" readonly>{{ selectedTicket?.description }}</textarea>
+        </div>
+      </form>
+  </div>
+</div>
+
   
   <!--Left Container for Profile, Dashboard and History-->
   <div class="leftcontainer">
@@ -339,9 +206,13 @@
       </div>
       <div class="line-division"></div>
       <div class="buttons-nav">
-          <a href="/user"><img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard"></a>
-          <a href="/userhistory"><img src="../../assets/images/historyButton.png" class="history" alt="History"></a>
-      </div>
+        <a onclick="window.location.href='/userdashboard'">
+            <img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard">
+        </a>
+        <a onclick="window.location.href='/userhistory'">
+            <img src="../../assets/images/historyButton.png" class="history" alt="History">
+        </a>
+    </div>    
   </div>
   
   <!-- table for tickets-->
@@ -351,23 +222,27 @@
         <th class="color-priority"></th>
         <th>Priority</th>
         <th>Category</th>
+        <th>Status</th>
         <th>Date Created</th>
         <th>Technician</th>
         <th></th>
       </tr>
     </table>
     <table class="tickets">
-      <tr *ngFor="let ticket of tickets">
+      <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>
+        <td>{{ ticket.status }}</td>
         <td>{{ ticket.dateCreated }}</td>
-        <td>{{ ticket.technician }}</td>
         <td>
-          <button class="vertical-ellipsis-button" (click)="showTicketDetails(ticket)">
+          <span *ngIf="ticket.technician?.email; else unassigned">{{ ticket.technician.email }}</span>
+          <ng-template #unassigned>Unassigned</ng-template>
+        </td>
+        <td>
+          <button class="vertical-ellipsis-button"  (click)="displayUpdateModal($event)">
             <span class="ellipsis">...</span>
           </button>
-          <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
         </td>
       </tr>
     </table>
@@ -377,73 +252,6 @@
   <div class="footer">
       <p>Copyright © 2024</p>
   </div>
-
-
-<!--To display buttons: add ticket, filter || for cancel buttons add ticket form(closeModal()), Filter form(closeFilterModal())-->
-  <script>
-    // Function to display the modal
-    function displayModal(modalId) {
-      var modals = document.querySelectorAll('.modal');
-      modals.forEach(function(modal) {
-        modal.style.display = "none";
-      });
-      var modal = document.getElementById(modalId);
-      if (modal) {
-        modal.style.display = "block";
-      }
-    }
-
-    // Function to close the Add Ticket Form modal
-    function closeModal() {
-      var modal = document.getElementById('ticket-form-container');
-      if (modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    // Function to close the Filter Form modal
-    function closeFilterModal() {
-      var modal = document.getElementById('Filter-form-container');
-      if (modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      var modals = document.querySelectorAll('.modal');
-      modals.forEach(function(modal) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      });
-    }
-  </script>
-
-
-<script>
-  // JavaScript to set the current date in the "Date Created" input field
-  document.addEventListener("DOMContentLoaded", function() {
-      var currentDate = new Date().toISOString().split('T')[0];
-      document.getElementById('date-created').value = currentDate;
-  });
-</script>
-
-<!--For Filter Ticket-->
-<script>
-  function getCurrentDate(offset) {
-      const currentDate = new Date();
-      const year = currentDate.getFullYear() + (parseInt(offset) || 0);
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const day = String(currentDate.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-      const dateInput = document.getElementById('date-created');
-      dateInput.value = getCurrentDate();
-  });
-</script>
 
   </body>
 </html>

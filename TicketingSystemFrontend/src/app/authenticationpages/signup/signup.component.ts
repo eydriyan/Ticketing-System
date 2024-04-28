@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Student } from '../../model/student.model';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/model/user.model';
 // import { UserRole } from '../../model/user-role.enum';
 
 
@@ -20,7 +21,7 @@ export class SignupComponent {
     program: '',
     phoneNumber: '',
     studentNumber: '',
-    user_type: 'STUDENT'
+    role: UserRole.STUDENT
   };
   
   errorMessage: string = '';

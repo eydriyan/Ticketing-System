@@ -84,7 +84,7 @@ public class TicketService {
         Technician technician = technicianOptional.orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
 
         ticket.setTechnician(technician);
-        ticket.setStatus("Assigned");
+        ticket.setStatus("In progress");
 
         return ticketRepository.save(ticket);
     }
@@ -101,7 +101,7 @@ public class TicketService {
         Technician technician = technicianOptional.orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
 
         ticket.setTechnician(technician);
-        ticket.setStatus("Assigned");
+        ticket.setStatus("In progress");
 
         return ticketRepository.save(ticket);
     }
