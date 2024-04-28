@@ -99,6 +99,48 @@ table {
     width: 100%;
     border-collapse:collapse;
 }
+h2 {
+  text-align: center;
+}
+
+.requests {
+  padding: 8px;
+  background-color: #d9291c;
+  border-radius: 10px;
+}
+
+.requestContainer {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  
+}
+th {
+  margin: 5px;
+}
+
+.rankCol {
+  background-color: #d9291c;
+  width: 50px;
+}
+.technicianRow {
+  height: 60px;
+  padding: 3px;
+  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75), 0px -3px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -3px 4px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -3px 4px 5px 0px rgba(0,0,0,0.75), -3px -4px 5px 0px rgba(0,0,0,0.75);
+}
+.pictureCol {
+  display: flex;
+  align-items: center;
+}
+.pictureTechnician {
+  height: 60px;
+  width: 60px;
+
+}
 
 .technicians {
 	border-collapse:collapse;
@@ -113,9 +155,9 @@ th {
 }
 
 
-tr:hover {
+/* tr:hover {
     background-color: grey;
-}
+} */
 
 
 .high {
@@ -134,8 +176,8 @@ tr:hover {
 
 .analytics-table {
     background-color: #f5f6fa;
-    float: right;
-    width: 75%; /* Adjust width as needed */
+    
+    width: 95%; /* Adjust width as needed */
 	margin-top: 20px;
 	margin-left: 25px;
 	margin-right: 25px;

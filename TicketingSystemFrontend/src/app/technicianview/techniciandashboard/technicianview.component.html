@@ -219,7 +219,7 @@
     <div class="title">IT Ticketing System</div>
     <div class="buttons">
       <a href=""><img src="../../assets/images/bellIcon.png" class="bellIcon" alt="Bell Icon"></a>
-      <a href=""><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
+      <a (click)="logout()"><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
       <a href=""><img src="../../assets/images/userImage.png" class="userImage" alt="User Icon"></a>
   </div>
 </nav>
@@ -237,7 +237,7 @@
         </button>
 			</td>
 			<td class="search-container">
-				<input type="text" id="search" class="searchbar">
+				<input type="text" id="search" class="searchbar" [(ngModel)]="searchStudentEmail" (input)="applySearch()">
 				<button class="search-button red-button">Search</button>
 			</td>
 		  </tr>
@@ -254,8 +254,12 @@
 	  </div>
 	  <div class="line-division"></div>
 	  <div class="buttons-nav">
-      <a href="/user"><img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard"></a>
-      <a href="/userhistory"><img src="../../assets/images/historyButton.png" class="history" alt="History"></a>
+      <a onclick="window.location.href='techniciandashboard'">
+        <img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard">
+      </a>
+      <a onclick="window.location.href='technicianhistory'">
+        <img src="../../assets/images/historyButton.png" class="history" alt="History">
+      </a>
 	  </div>
 	</div>
 		
@@ -276,7 +280,7 @@
 					
 				</table>
         <table class="tickets">
-          <tr *ngFor="let ticket of tickets"  (click)="showTicketDetails(ticket.id)" >
+          <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td class="priority">{{ ticket.priority }}</td>
             <td>{{ ticket.category }}</td>
@@ -372,7 +376,6 @@
 			</div>
 		</div>
 
-<!--Updated Ticket Details-->
 <!--Ticket Details-->
 <div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
   <div class="modal-content" (click)="$event.stopPropagation()">
@@ -407,7 +410,7 @@
             </div>   
             <div class="form-col">
               <label class="form-label" for="technician">Technician:</label>
-              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician || 'Unassigned')" readonly>
+              <input class="form-input" type="text" id="technician" name="technician" [value]="(selectedTicket?.technician?.email || 'Unassigned')" readonly>
             </div>                      
             <div class="form-col">
             <label class="form-label" for="status">Status:</label>

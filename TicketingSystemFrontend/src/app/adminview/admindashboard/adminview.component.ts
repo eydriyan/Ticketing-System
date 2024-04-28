@@ -4,6 +4,8 @@ import { Ticket } from '../../model/ticket.model'
 import { TechnicianserviceService } from 'src/app/services/technicianservice.service';
 import { AdminserviceService } from 'src/app/services/adminservice.service';
 import { Technician } from 'src/app/model/technician.model';
+import { AuthserviceService } from '../../services/authservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adminview',
@@ -21,8 +23,22 @@ export class AdminviewComponent implements OnInit {
   showTicketDetailsModal: boolean = false;
   showModal: boolean = false;
   selectedTicket: Ticket | null = null;
+  category: string = '';
+  title: string = '';
+  description: string = '';
+  priority: string = '';
+  searchEmail: string = '';
+  filteredTickets: Ticket[] = [];
 
-  constructor(private renderer: Renderer2, private el: ElementRef,private ticketService: TicketserviceService, private technicianService: TechnicianserviceService, private adminService: AdminserviceService) { }
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private ticketService: TicketserviceService,
+    private technicianService: TechnicianserviceService,
+    private adminService: AdminserviceService,
+    private authService: AuthserviceService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.currentDate = this.getCurrentDate(); // Set current date on init
@@ -79,6 +95,26 @@ export class AdminviewComponent implements OnInit {
     });
   }
 
+  // Method to update ticket
+  
+
+  // Method to log out the user
+  logout() {
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
+  }
+
   getPriorityColor(priority: string): string {
     switch (priority) {
       case 'High':
@@ -109,15 +145,14 @@ export class AdminviewComponent implements OnInit {
     }
 }
 
-
   fetchTickets() {
     this.ticketService.getAllTickets().subscribe(
       (tickets: Ticket[]) => {
       // Filter out resolved tickets
-      tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+      this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
 
       // Sort tickets by priority (High > Medium > Low)
-      this.tickets = tickets.sort((a, b) => {
+      this.filteredTickets = this.tickets.sort((a, b) => {
         if (a.priority === 'High') return -1;
         if (a.priority === 'Medium' && b.priority !== 'High') return -1;
         if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -129,6 +164,20 @@ export class AdminviewComponent implements OnInit {
       }
     );
   }
+
+  applySearch(): void {
+    if (!this.searchEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
+  
+    // Filter tickets where either technician or student email matches the search input
+    this.filteredTickets = this.tickets.filter(ticket => {
+      return ticket?.technician?.email.toLowerCase().includes(this.searchEmail.toLowerCase()) ||
+             ticket?.student?.email.toLowerCase().includes(this.searchEmail.toLowerCase());
+    });
+  }
+  
 
   displayUpdateModal(event: MouseEvent): void {
     event.stopPropagation();

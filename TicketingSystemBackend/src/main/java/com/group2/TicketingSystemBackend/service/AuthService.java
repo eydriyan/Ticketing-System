@@ -66,18 +66,6 @@ public class AuthService {
         return token;
     }
 
-    // Log out
-    public User logout(Student existingAccount) {
-        // Check if email exists
-        Optional<Student> opt_account = studentRepository.findByEmail(existingAccount.getEmail());
-        if (opt_account.isEmpty())
-            return null;
-
-        Student student = opt_account.get();
-
-        return studentRepository.save(student);
-    }
-
     // check if user is admin
     public boolean isAdmin(User possiblyAdminAccount) {
         // Check if non-null

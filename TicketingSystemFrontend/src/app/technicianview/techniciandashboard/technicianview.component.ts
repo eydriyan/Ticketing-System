@@ -3,6 +3,7 @@ import { TicketserviceService } from '../../services/ticketservice.service';
 import { Router } from '@angular/router'; 
 import { Ticket } from '../../model/ticket.model';
 import { TechnicianserviceService } from '../../services/technicianservice.service';
+import { AuthserviceService } from '../../services/authservice.service';
 
 @Component({
   selector: 'app-technicianview',
@@ -17,16 +18,18 @@ export class TechnicianviewComponent implements OnInit {
   filterPriority: string = '';
   filterDate: string = '';
   filterStatus: string = '';
-  filterTechnician: string = '';
+  searchStudentEmail: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[] = [];
 
   constructor(
     private technicianService: TechnicianserviceService,
     private router: Router,
     private ticketService: TicketserviceService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private authService: AuthserviceService
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +42,10 @@ export class TechnicianviewComponent implements OnInit {
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
 
         // Sort tickets by priority (High > Medium > Low)
-        this.tickets = tickets.sort((a, b) => {
+        this.filteredTickets = this.tickets.sort((a, b) => {
           if (a.priority === 'High') return -1;
           if (a.priority === 'Medium' && b.priority !== 'High') return -1;
           if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -61,6 +64,18 @@ export class TechnicianviewComponent implements OnInit {
 
   applyFilter() {
     // Implement filtering logic here
+  }
+
+  applySearch(): void {
+    if (!this.searchStudentEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
+  
+    this.filteredTickets = this.tickets.filter(ticket => {
+      // Filter tickets where technician email matches the search input
+      return ticket?.student?.email.toLowerCase().includes(this.searchStudentEmail.toLowerCase());
+    });
   }
 
   // toggleUpdateForm(ticket: Ticket) {
@@ -82,6 +97,7 @@ export class TechnicianviewComponent implements OnInit {
     );
   }
 
+  // Method to update the selected ticket
   showTicketDetails(ticketId: number) {
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service
       .subscribe(ticket => {
@@ -116,8 +132,21 @@ export class TechnicianviewComponent implements OnInit {
     }
   }
 
+  // Method to log out the user
   logout() {
-    // Implement logout logic here
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   currentDate: string = this.getCurrentDate();
@@ -143,6 +172,7 @@ export class TechnicianviewComponent implements OnInit {
         this.showaddticketForm = true;
     }
   }
+  
   displayUpdateModal(event: MouseEvent): void {
     event.stopPropagation();
     this.displayModal('update-form-container');

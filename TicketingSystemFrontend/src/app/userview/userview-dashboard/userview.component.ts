@@ -3,6 +3,7 @@ import { AuthserviceService } from '../../services/authservice.service';
 import { TicketserviceService } from '../../services/ticketservice.service';
 import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-view',
@@ -21,17 +22,18 @@ export class UserviewComponent implements OnInit{
   filterPriority: string = '';
   filterDate: string = '';
   filterStatus: string = '';
-  filterTechnician: string = '';
+  searchTechnicianEmail: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[] = [];
 
   constructor(
-    // private authService: AuthserviceService,
     private studentService: StudentserviceService,
     private ticketService: TicketserviceService,
     private authService: AuthserviceService,
     private renderer: Renderer2, 
-    private el: ElementRef
+    private el: ElementRef,
+    private router: Router
   ) {}
   
   ngOnInit(): void {
@@ -44,10 +46,10 @@ export class UserviewComponent implements OnInit{
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
         
         // Sort tickets by priority (High > Medium > Low)
-        this.tickets = tickets.sort((a, b) => {
+        this.filteredTickets = this.tickets.sort((a, b) => {
           if (a.priority === 'High') return -1;
           if (a.priority === 'Medium' && b.priority !== 'High') return -1;
           if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -60,9 +62,53 @@ export class UserviewComponent implements OnInit{
     );
   }
 
-  applyFilter() {
-
+  applyFilter(): void {
+    // Filter the tickets based on the selected filter criteria
+    this.filteredTickets = this.tickets.filter(ticket => {
+      let passesFilter = true;
+  
+      if (this.filterCategory && ticket.category !== this.filterCategory) {
+        passesFilter = false;
+      }
+  
+      if (this.filterPriority && ticket.priority !== this.filterPriority) {
+        passesFilter = false;
+      }
+  
+      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
+      //   passesFilter = false;
+      // }
+  
+      if (this.filterStatus && ticket.status !== this.filterStatus) {
+        passesFilter = false;
+      }
+  
+      return passesFilter;
+    });
   }
+
+  applySearch(): void {
+    if (!this.searchTechnicianEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
+  
+    this.filteredTickets = this.tickets.filter(ticket => {
+      // Filter tickets where technician email matches the search input
+      return ticket?.technician?.email.toLowerCase().includes(this.searchTechnicianEmail.toLowerCase());
+    });
+  }
+
+  clearFilter(): void {
+    // Reset filter criteria and fetch all tickets again
+    this.filterCategory = '';
+    this.filterPriority = '';
+    this.filterDate = '';
+    this.filterStatus = '';
+  
+    this.fetchTickets();
+  }
+
 
   showTicketDetails(ticketId: number) {
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service
@@ -95,9 +141,21 @@ export class UserviewComponent implements OnInit{
       );
   }
 
+  // Method to log out the user
   logout() {
-  
-    console.log('Logout clicked');
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   getPriorityColor(priority: string): string {

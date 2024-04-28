@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model'; 
@@ -21,8 +21,17 @@ export class AuthserviceService {
     return this.http.post<{token: string}>(`${this.baseUrl}/login`, loginData); 
   }
 
-  logout(studentData: Student): Observable<User> { 
-    return this.http.post<User>(`${this.baseUrl}/logout`, studentData);
+  getUser(): Observable<User> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<User>(`${this.baseUrl}/user`, { headers });
+  }
+
+  logout() { 
+    return this.http.post<any>(`${this.baseUrl}/logout`, {});
   }
 
   isAdmin(user: User): boolean {
@@ -33,8 +42,6 @@ export class AuthserviceService {
     // Placeholder - You'll need backend support to fully implement this
     return student != null; 
   }
-
-  /////////////////// test lang //////////////////////////
 
   // Store JWT token in local storage
   storeToken(token: string): void {

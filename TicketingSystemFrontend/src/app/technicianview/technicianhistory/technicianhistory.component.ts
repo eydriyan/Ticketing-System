@@ -1,6 +1,9 @@
 import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Ticket } from '../../model/ticket.model';
 import { TechnicianserviceService } from '../../services/technicianservice.service';
+import { TicketserviceService } from 'src/app/services/ticketservice.service';
+import { AuthserviceService } from '../../services/authservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-technicianhistory',
@@ -20,13 +23,17 @@ export class TechnicianhistoryComponent implements OnInit {
   filterPriority: string = '';
   filterDate: string = '';
   filterStatus: string = '';
-  filterTechnician: string = '';
+  searchStudentEmail: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
+  filteredTickets: Ticket[] = [];
 
   constructor(
     private technicianService: TechnicianserviceService,
-    private el: ElementRef
+    private el: ElementRef,
+    private ticketService: TicketserviceService,
+    private authService: AuthserviceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +46,10 @@ export class TechnicianhistoryComponent implements OnInit {
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        tickets = tickets.filter(ticket => ticket.status === 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status === 'Resolved');
 
         // Sort tickets by priority (High > Medium > Low)
-        this.tickets = tickets.sort((a, b) => {
+        this.filteredTickets = this.tickets.sort((a, b) => {
           if (a.priority === 'High') return -1;
           if (a.priority === 'Medium' && b.priority !== 'High') return -1;
           if (a.priority === 'Low' && b.priority !== 'High' && b.priority !== 'Medium') return -1;
@@ -72,9 +79,45 @@ export class TechnicianhistoryComponent implements OnInit {
 
   }
 
-  logout() {
+  applySearch(): void {
+    if (!this.searchStudentEmail.trim()) {
+      this.filteredTickets = this.tickets;
+      return;
+    }
   
-    console.log('Logout clicked');
+    this.filteredTickets = this.tickets.filter(ticket => {
+      // Filter tickets where technician email matches the search input
+      return ticket?.student?.email.toLowerCase().includes(this.searchStudentEmail.toLowerCase());
+    });
+  }
+
+  showTicketDetails(ticketId: number) {
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+      .subscribe(ticket => {
+        this.selectedTicket = ticket;
+        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        console.log(this.selectedTicket)
+      }, error => {
+        console.error("Error fetching ticket details", error);
+        // Handle the error appropriately
+      });
+    }
+
+  // Method to log out the user
+  logout() {
+    // Call the logout method from AuthService
+    this.authService.logout().subscribe(
+      () => {
+        // Clear the JWT token from local storage
+        this.authService.clearToken();
+
+        // Redirect to the login page
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Logout error:', error);
+      }
+    );
   }
 
   currentDate: string = this.getCurrentDate();
