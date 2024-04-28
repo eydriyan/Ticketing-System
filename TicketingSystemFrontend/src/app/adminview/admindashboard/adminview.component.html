@@ -86,7 +86,7 @@
         <tbody>
             <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
                 <td [ngClass]="getPriorityColor(ticket.priority)"></td>
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
                 <td class="priority">{{ ticket.priority }}</td>
                 <td>{{ ticket.category }}</td>
                 <td>{{ ticket.status }}</td>
@@ -306,7 +306,7 @@
 						  <option value="High">High</option>
 						</select>
 					  </div>
-					</div>
+				</div>
 					<div class="form-row">
 					  <div class="form-col">
 						<label class="form-label" for="technician">Technician:</label>
@@ -314,19 +314,8 @@
 						  <option value="select subject">Select Technician:</option>
 						  <option value="Mang Kanor">Mang Kanor</option>
 						  <option value="Mang Edgar">Mang Edgar</option>
-						  <option value="Unassigned">Unassigned</option>
 						</select>
 					  </div>
-					  <!-- <div class="form-col">
-						<label class="form-label" for="status">Status:</label>
-							<select class="form-select" id="status" name="status" >
-								  <option value="status type:">Select a status:</option>
-								  <option value="On Hold">Low</option>
-								  <option value="Pending">Medium</option>
-								  <option value="In Progress">In Progress</option>
-								  <option value="Resolved">Resolved</option>
-							</select>
-					  </div> -->
 					</div>
 			<button class="submit-button" type="submit">Update Ticket</button>
 			<button class="cancel-button" type="button" (click)="closeModal('update-form-container')">Cancel</button>

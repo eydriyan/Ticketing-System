@@ -96,6 +96,22 @@ export class AdminviewComponent implements OnInit {
   }
 
   // Method to update ticket
+
+
+  // Method to resolve ticket
+  markTicketResolved(ticketId: number, event: Event) {
+    event.stopPropagation();
+    this.ticketService.markTicketResolved(ticketId).subscribe(
+      (resolvedTicket) => {
+        console.log('Ticket marked as resolved:', resolvedTicket);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error marking ticket as resolved:', error);
+        // Optionally, handle the error or display a message to the user
+      }
+    );
+  }
   
 
   // Method to log out the user

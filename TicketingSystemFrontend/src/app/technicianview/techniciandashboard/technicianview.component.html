@@ -282,6 +282,7 @@
         <table class="tickets">
           <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
+            <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
             <td class="priority">{{ ticket.priority }}</td>
             <td>{{ ticket.category }}</td>
             <td>{{ ticket.status }}</td>

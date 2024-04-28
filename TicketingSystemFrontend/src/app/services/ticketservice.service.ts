@@ -58,4 +58,8 @@ export class TicketserviceService {
   assignTechnicianToTicket(ticketId: number, technicianEmail: string): Observable<Ticket> {
     return this.http.post<Ticket>(`${this.apiUrl}/assign-technician`, { ticketId, technicianEmail });
   }
+
+  markTicketResolved(ticketId: number): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.apiUrl}/resolve-ticket/${ticketId}`, {});
+  }
 }
