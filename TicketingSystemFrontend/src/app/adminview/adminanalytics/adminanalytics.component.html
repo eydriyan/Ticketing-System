@@ -78,8 +78,8 @@
 	<h2>Top Performing Technicians</h2>
 	<div class="analytics-table">
 			<table class="technician">
-                    <tr *ngFor="let technician of technicians" class="technicianRow">
-                        <th class="rankCol">1</th>
+                    <tr *ngFor="let technician of technicians; let i = index" class="technicianRow">
+                        <th class="rankCol">{{ i + 1 }}</th>
                         <th class="pictureCol infoCol"><img class="pictureTechnician"  src="/assets/images/tempprofile.png">{{ technician.firstName }} {{ technician.lastName }}</th>
                         <th class="infoCol">{{ technician.email }}</th>
                         <th class="infoCol">{{ resolvedTicketsMap[technician.id] || 0 }}</th>
