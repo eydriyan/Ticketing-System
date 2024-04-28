@@ -21,7 +21,7 @@ export class SignupComponent {
     program: '',
     phoneNumber: '',
     studentNumber: '',
-    userRole: UserRole.STUDENT
+    role: UserRole.STUDENT
   };
   
   errorMessage: string = '';

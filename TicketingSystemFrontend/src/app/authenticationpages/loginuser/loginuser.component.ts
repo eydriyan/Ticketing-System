@@ -29,9 +29,9 @@ export class LoginuserComponent {
           // Get user information to determine role
           this.authService.getUser().subscribe(
             (user: User) => {
-              console.log(user.userRole)
+              console.log(user.role)
               console.log(user)
-              switch (user.userRole) {
+              switch (user.role) {
                 case UserRole.ADMIN:
                   // Redirect admin to admin dashboard
                   this.router.navigate(['/admindashboard']);
@@ -46,7 +46,7 @@ export class LoginuserComponent {
                   break;
                 default:
                   // Redirect to a default dashboard or handle other roles
-                  this.router.navigate(['/userdashboard']);
+                  this.router.navigate(['/login']);
               }
             },
             (error) => {

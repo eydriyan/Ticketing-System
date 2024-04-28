@@ -11,6 +11,5 @@ export interface User {
   email: string;
   phoneNumber: string;
   password: string;
-  userRole: UserRole;
-  
+  role: UserRole;
 }
