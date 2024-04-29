@@ -45,61 +45,53 @@
   
 
 <!-- Add Ticket -->
-<div *ngIf="showaddticketForm" id="ticket-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'ticket-form-container')">
+<div *ngIf="showaddticketForm" id="ticket-form-container" class="modal" (click)="closeOnOutsideClick($event, 'ticket-form-container')">
   <div class="modal-content" (click)="$event.stopPropagation()">
-      <span class="close" (click)="closeModal('ticket-form-container')">&times;</span>
-      <h1 class="form-title">Support Ticket Form</h1>
-      <h4 class="form-title2">Create a new ticket for your issue.</h4>
-      <form class="form" (ngSubmit)="addTicket()">
-              <div class="form-row">
-                  <label class="form-label" for="title">Subject:</label>
-                  <select class="form-select" id="title" name="title" [(ngModel)]="title" required>
-                      <option value="select subject">Select Subject:</option>
-                      <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
-                      <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
-                      <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
-                      <option value="Network Security Concern">Network Security Concern</option>
-                      <option value="E-mail: Spam Filtering">E-mail: Spam Filtering</option>
-                      <option value="E-mail: Security">E-mail: Security</option>
-                      <option value="PC Malfunctioning">PC Malfunctioning</option>
-                      <option value="Keyboard not working">Keyboard not working</option>
-                      <option value="Monitor not turning on">Monitor not turning on</option>
-                  </select>
-              </div>
-              <div class="form-row">
-                <div class="form-col">
-                <label class="form-label" for="category">Category:</label>
-                <select class="form-select" id="category" name="category" [(ngModel)]="category" required>
-                  <option value="select category">Select Category:</option>
-                  <option value="Account Lockout">Account Lockout</option>
-                  <option value="Network Problem">Network Problem</option>
-                  <option value="Network Security Issue">Network Security Issue</option>
-                  <option value="Hardware Issue">Hardware Issue</option>
-                </select>
-                </div>
-                <div class="form-col">
-                <label class="form-label" for="other">If Other:</label>
-                <input class="form-input" type="input" id="other" name="other" required>
-                </div>
-              </div>
-              <div class="form-col">
-                <label class="form-label" for="priority">Priority:</label>
-                <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required>
-                  <option value="select subject">Select Priority:</option>
-                  <option value="Low">Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                </select>
-              </div>
-              <div class="form-row">
-                    <label class="form-label" for="description">Description:</label>
-                    <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required></textarea>
-              </div>
-              <button class="submit-button" type="submit">Submit Request</button>
-              <button class="cancel-button" type="cancel" (click)="closeModal('ticket-form-container')">Cancel</button>
-      </form>
+    <span class="close" (click)="closeModal('ticket-form-container')">&times;</span>
+    <h1 class="form-title">Support Ticket Form</h1>
+    <h4 class="form-title2">Create a new ticket for your issue.</h4>
+    <form class="form" (ngSubmit)="addTicket()">
+      <div class="form-row">
+        <label class="form-label" for="title">Subject:</label>
+        <select class="form-select" id="title" name="title" [(ngModel)]="title" required (change)="onSubjectChange($event)">
+          <option value="select subject">Select Subject:</option>
+          <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
+          <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
+          <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
+          <option value="Network Security Concern">Network Security Concern</option>
+          <option value="E-mail: Spam Filtering">E-mail: Spam Filtering</option>
+          <option value="E-mail: Security">E-mail: Security</option>
+          <option value="PC Malfunctioning">PC Malfunctioning</option>
+          <option value="Keyboard not working">Keyboard not working</option>
+          <option value="Monitor not turning on">Monitor not turning on</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <label class="form-label" for="category">Category:</label>
+          <select class="form-select" id="category" name="category" [(ngModel)]="category" required #categorySelect disabled>
+            <option value="select category">Select Category:</option>
+            <option *ngFor="let option of categoryOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+        <div class="form-col">
+          <label class="form-label" for="priority">Priority:</label>
+          <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required #prioritySelect>
+            <option value="select priority">Select Priority:</option>
+            <option *ngFor="let option of priorityOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label" for="description">Description:</label>
+        <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required></textarea>
+      </div>
+      <button class="submit-button" type="submit">Submit Request</button>
+      <button class="cancel-button" type="button" (click)="closeModal('ticket-form-container')">Cancel</button>
+    </form>
   </div>
 </div>
+
 
 <!--Filter Form-->
 <div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">

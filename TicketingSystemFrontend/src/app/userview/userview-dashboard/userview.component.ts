@@ -27,6 +27,8 @@ export class UserviewComponent implements OnInit{
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
+  categoryOptions: string[] = []; // Define your category options
+  priorityOptions: string[] = []; // Define your priority options
   currentUserName: string = '';
   role: string = '';
   user: User | null = null;
@@ -44,6 +46,33 @@ export class UserviewComponent implements OnInit{
     this.fetchTickets();
     this.currentDate = this.getCurrentDate();
     this.getUserInfo();
+    this.categoryOptions = ['Account Lockout', 'Network Problem', 'Network Security Issue', 'Hardware Issue'];
+    this.priorityOptions = ['Low', 'Medium', 'High'];
+  }
+
+  subjectToCategoryPriorityMap: { [subject: string]: { category: string, priority: string } } = {
+    'Blackboard Account failed log-in': { category: 'Account Lockout', priority: 'Medium' },
+    'Mymapua Account failed log-in': { category: 'Account Lockout', priority: 'High' },
+    'Wi-fi Connectivity Problem': { category: 'Network Problem', priority: 'High' },
+    'Network Security Concern': { category: 'Network Security Issue', priority: 'High' },
+    'E-mail: Spam Filtering': { category: 'Network Security Issue', priority: 'High' },
+    'E-mail: Security': { category: 'Network Security Issue', priority: 'High' },
+    'PC Malfunctioning': { category: 'Hardware Issue', priority: 'High' },
+    'Keyboard not working': { category: 'Hardware Issue', priority: 'High' },
+    'Monitor not turning on': { category: 'Hardware Issue', priority: 'High' }
+  };
+
+  onSubjectChange(event: any): void {
+    const selectedSubject = event.target.value;
+    const mappedValues = this.subjectToCategoryPriorityMap[selectedSubject];
+    if (mappedValues) {
+      this.category = mappedValues.category;
+      this.priority = mappedValues.priority;
+    } else {
+      // Reset category and priority if subject does not have mapping
+      this.category = 'select category';
+      this.priority = 'select priority';
+    }
   }
 
   fetchTickets(): void {
