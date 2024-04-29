@@ -5,6 +5,7 @@ import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { Ticket } from 'src/app/model/ticket.model';
 import { Technician } from 'src/app/model/technician.model';
 import { TechnicianserviceService } from 'src/app/services/technicianservice.service';
+import { User } from '../../model/user.model';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class AdminanalyticsComponent implements OnInit {
   ticketCounts: { [key: string]: number } = {};
   technicians: Technician[] = [];
   resolvedTicketsMap: { [technicianId: number]: number } = {};
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   
   constructor(
@@ -31,6 +35,20 @@ export class AdminanalyticsComponent implements OnInit {
   ngOnInit(): void {
     this.getTicketCounts();
     this.getAllTechniciansWithResolvedTickets();
+    this.getUserInfo();
+  }
+
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
   }
 
   getAllTechniciansWithResolvedTickets(): void {

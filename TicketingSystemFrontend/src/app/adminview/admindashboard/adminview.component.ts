@@ -6,6 +6,7 @@ import { AdminserviceService } from 'src/app/services/adminservice.service';
 import { Technician } from 'src/app/model/technician.model';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-adminview',
@@ -29,6 +30,9 @@ export class AdminviewComponent implements OnInit {
   priority: string = '';
   searchEmail: string = '';
   filteredTickets: Ticket[] = [];
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private renderer: Renderer2,
@@ -44,6 +48,20 @@ export class AdminviewComponent implements OnInit {
     this.currentDate = this.getCurrentDate(); // Set current date on init
     this.fetchTickets();
     this.loadTechnicians();
+    this.getUserInfo();
+  }
+
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
   }
 
   loadTechnicians() {

@@ -4,6 +4,7 @@ import { TechnicianserviceService } from '../../services/technicianservice.servi
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-adminhistory',
@@ -27,6 +28,9 @@ export class AdminhistoryComponent implements OnInit {
   tickets: Ticket[] = [];
   searchEmail: string = '';
   filteredTickets: Ticket[] = [];
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private technicianService: TechnicianserviceService, // change to admin service
@@ -39,6 +43,7 @@ export class AdminhistoryComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllTickets();
     this.currentDate = this.getCurrentDate();
+    this.getUserInfo();
   }
 
   fetchAllTickets() {
@@ -57,6 +62,19 @@ export class AdminhistoryComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching tickets:', error);
+      }
+    );
+  }
+
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
       }
     );
   }

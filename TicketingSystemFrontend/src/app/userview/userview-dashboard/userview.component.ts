@@ -4,6 +4,7 @@ import { TicketserviceService } from '../../services/ticketservice.service';
 import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-user-view',
@@ -26,6 +27,9 @@ export class UserviewComponent implements OnInit{
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private studentService: StudentserviceService,
@@ -39,6 +43,7 @@ export class UserviewComponent implements OnInit{
   ngOnInit(): void {
     this.fetchTickets();
     this.currentDate = this.getCurrentDate();
+    this.getUserInfo();
   }
 
   fetchTickets(): void {
@@ -58,6 +63,19 @@ export class UserviewComponent implements OnInit{
       },
       (error) => {
         console.error('Failed to load user tickets:', error);
+      }
+    );
+  }
+
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
       }
     );
   }
