@@ -13,6 +13,8 @@ public class EmailService {
     private JavaMailSender mailSender;
     @Value("${spring.mail.username}")
     public String senderEmail;
+    @Value("${app.admin.email}")
+    public String adminEmail;
 
     @Async
     private void sendCustomMail(String receipientEmail, String subject, String body) {
@@ -26,21 +28,27 @@ public class EmailService {
     }
 
     @Async
-    public void sendVerificationMail(String targetEmail, String verificationString) {
+    public void sendNewTicketNotification() {
+        String notificationMessage = "A new ticket has been added. Please check the system for details.";
+        sendCustomMail(adminEmail, "New Ticket Notification", notificationMessage);
+    }
 
-        String verificationMessage = String.format(
-                """
-                This is your verification message.
-                The verification code is %s
-                """,
-                verificationString
-        );
+    @Async
+    public void sendTicketAssignedNotification(String technicianEmail, String title) {
+        String notificationMessage = "A new ticket has been assigned to you. Ticket title: " + title;
+        sendCustomMail(technicianEmail, "New Ticket Assignment", notificationMessage);
+    }
 
-        sendCustomMail(
-                targetEmail,
-                "Email Verification",
-                verificationMessage
-        );
+    @Async
+    public void sendTicketResolvedNotification(String studentEmail, String title) {
+        String notificationMessage = "Your ticket with title " + title + " has been resolved.";
+        sendCustomMail(studentEmail, "Ticket Resolved", notificationMessage);
+    }
+
+    @Async
+    public void sendTicketRejectedNotification(String studentEmail, String title) {
+        String notificationMessage = "Your ticket with title " + title + " has been rejected.";
+        sendCustomMail(studentEmail, "Ticket Rejected", notificationMessage);
     }
 
 }

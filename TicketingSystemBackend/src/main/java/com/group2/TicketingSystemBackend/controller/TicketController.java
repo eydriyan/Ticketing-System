@@ -27,6 +27,8 @@ public class TicketController {
     private AuthService authService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private EmailService emailService;
 
     // Add new ticket
     @PostMapping("/add-ticket")
@@ -46,6 +48,9 @@ public class TicketController {
 
         // Associate the student with the new ticket
         newTicket.setStudent(student);
+
+        // Send notification to admin
+        emailService.sendNewTicketNotification();
 
         // Add the ticket
         Ticket createdTicket = ticketService.addTicket(newTicket);
@@ -108,7 +113,16 @@ public class TicketController {
     @PostMapping("/resolve-ticket/{ticketId}")
     public ResponseEntity<Ticket> markTicketResolved(@PathVariable Long ticketId) {
         Ticket resolvedTicket = ticketService.markTicketResolved(ticketId);
+        emailService.sendTicketResolvedNotification(resolvedTicket.getStudent().getEmail(), resolvedTicket.getTitle());
         return ResponseEntity.ok(resolvedTicket);
+    }
+
+    // mark ticket as rejected
+    @PostMapping("/reject-ticket/{ticketId}")
+    public ResponseEntity<Ticket> markTicketRejected(@PathVariable Long ticketId) {
+        Ticket rejectedTicket = ticketService.markTicketRejected(ticketId);
+        emailService.sendTicketRejectedNotification(rejectedTicket.getStudent().getEmail(), rejectedTicket.getTitle());
+        return ResponseEntity.ok(rejectedTicket);
     }
 
     // get all resolved tickets (for admin history)

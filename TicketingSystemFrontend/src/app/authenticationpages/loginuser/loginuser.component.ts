@@ -29,8 +29,6 @@ export class LoginuserComponent {
           // Get user information to determine role
           this.authService.getUser().subscribe(
             (user: User) => {
-              console.log(user.role)
-              console.log(user)
               switch (user.role) {
                 case UserRole.ADMIN:
                   // Redirect admin to admin dashboard

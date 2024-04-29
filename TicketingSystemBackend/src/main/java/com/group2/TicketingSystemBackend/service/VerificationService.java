@@ -34,7 +34,7 @@ public class VerificationService {
         String code = generateRandomString(5);
 
         // Send email
-        emailService.sendVerificationMail(student.getEmail(), code);
+        // emailService.sendVerificationMail(student.getEmail(), code);
 
         // Add to verification table
         verificationCodeRepository.save(

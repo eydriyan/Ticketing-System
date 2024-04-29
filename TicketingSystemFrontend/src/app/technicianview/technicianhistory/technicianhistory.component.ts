@@ -4,6 +4,7 @@ import { TechnicianserviceService } from '../../services/technicianservice.servi
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-technicianhistory',
@@ -27,6 +28,9 @@ export class TechnicianhistoryComponent implements OnInit {
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private technicianService: TechnicianserviceService,
@@ -39,6 +43,7 @@ export class TechnicianhistoryComponent implements OnInit {
   ngOnInit(): void {
     this.fetchTickets();
     this.currentDate = this.getCurrentDate();
+    this.getUserInfo();
   }
 
   fetchTickets(): void {
@@ -62,6 +67,19 @@ export class TechnicianhistoryComponent implements OnInit {
     );
   }
 
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
+  }
+
   getPriorityColor(priority: string): string {
     switch (priority) {
       case 'High':
@@ -75,8 +93,29 @@ export class TechnicianhistoryComponent implements OnInit {
     }
   }
 
-  applyFilter() {
-
+  applyFilter(): void {
+    // Filter the tickets based on the selected filter criteria
+    this.filteredTickets = this.tickets.filter(ticket => {
+      let passesFilter = true;
+  
+      if (this.filterCategory && ticket.category !== this.filterCategory) {
+        passesFilter = false;
+      }
+  
+      if (this.filterPriority && ticket.priority !== this.filterPriority) {
+        passesFilter = false;
+      }
+  
+      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
+      //   passesFilter = false;
+      // }
+  
+      if (this.filterStatus && ticket.status !== this.filterStatus) {
+        passesFilter = false;
+      }
+  
+      return passesFilter;
+    });
   }
 
   applySearch(): void {
@@ -89,6 +128,16 @@ export class TechnicianhistoryComponent implements OnInit {
       // Filter tickets where technician email matches the search input
       return ticket?.student?.email.toLowerCase().includes(this.searchStudentEmail.toLowerCase());
     });
+  }
+
+  clearFilter(): void {
+    // Reset filter criteria and fetch all tickets again
+    this.filterCategory = '';
+    this.filterPriority = '';
+    this.filterDate = '';
+    this.filterStatus = '';
+  
+    this.fetchTickets();
   }
 
   showTicketDetails(ticketId: number) {

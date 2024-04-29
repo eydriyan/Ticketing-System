@@ -50,7 +50,9 @@ public class TicketService {
         existingTicket.setTitle(updatedTicket.getTitle());
         existingTicket.setDescription(updatedTicket.getDescription());
         existingTicket.setPriority(updatedTicket.getPriority());
+        existingTicket.setCategory(updatedTicket.getCategory());
         existingTicket.setStatus(updatedTicket.getStatus());
+        existingTicket.setTechnician(updatedTicket.getTechnician());
         //existingTicket.setDateResolved(updatedTicket.getDateResolved());
 
         return ticketRepository.save(existingTicket);
@@ -115,6 +117,20 @@ public class TicketService {
         }
 
         ticket.setStatus("Resolved");
+        ticket.setDateResolved(LocalDate.now());
+
+        return ticketRepository.save(ticket);
+    }
+
+    // Mark ticket as rejected
+    public Ticket markTicketRejected(Long ticketId) {
+        Ticket ticket = getTicketById(ticketId);
+
+        if (ticket.getStatus().equals("Rejected")) {
+            throw new RuntimeException("Ticket already marked as rejected");
+        }
+
+        ticket.setStatus("Rejected");
         ticket.setDateResolved(LocalDate.now());
 
         return ticketRepository.save(ticket);

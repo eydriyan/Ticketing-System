@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Ticket } from '../../model/ticket.model';
 import { TechnicianserviceService } from '../../services/technicianservice.service';
 import { AuthserviceService } from '../../services/authservice.service';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-technicianview',
@@ -22,6 +23,9 @@ export class TechnicianviewComponent implements OnInit {
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private technicianService: TechnicianserviceService,
@@ -34,7 +38,8 @@ export class TechnicianviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTickets();
-    this.currentDate = this.getCurrentDate(); 
+    this.currentDate = this.getCurrentDate();
+    this.getUserInfo();
   }
 
   fetchTickets(): void {
@@ -58,12 +63,46 @@ export class TechnicianviewComponent implements OnInit {
     );
   }
 
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
+  }
+
   // toggleFilterForm() {
   //   this.showFilterForm = !this.showFilterForm;
   // }
 
-  applyFilter() {
-    // Implement filtering logic here
+  applyFilter(): void {
+    // Filter the tickets based on the selected filter criteria
+    this.filteredTickets = this.tickets.filter(ticket => {
+      let passesFilter = true;
+  
+      if (this.filterCategory && ticket.category !== this.filterCategory) {
+        passesFilter = false;
+      }
+  
+      if (this.filterPriority && ticket.priority !== this.filterPriority) {
+        passesFilter = false;
+      }
+  
+      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
+      //   passesFilter = false;
+      // }
+  
+      if (this.filterStatus && ticket.status !== this.filterStatus) {
+        passesFilter = false;
+      }
+  
+      return passesFilter;
+    });
   }
 
   applySearch(): void {
@@ -78,6 +117,16 @@ export class TechnicianviewComponent implements OnInit {
     });
   }
 
+  clearFilter(): void {
+    // Reset filter criteria and fetch all tickets again
+    this.filterCategory = '';
+    this.filterPriority = '';
+    this.filterDate = '';
+    this.filterStatus = '';
+  
+    this.fetchTickets();
+  }
+
   // toggleUpdateForm(ticket: Ticket) {
   //   this.showUpdateForm = !this.showUpdateForm;
   // }
@@ -85,22 +134,17 @@ export class TechnicianviewComponent implements OnInit {
   updateTicket(ticket: Ticket | null) {
     if (!ticket) {
       console.error('No ticket selected for update.');
-      // Optionally, you can display an error message to the user
       return;
     }
-  
     // Implement logic to update ticket details
     this.ticketService.updateTicket(ticket.id, ticket).subscribe(
       (updatedTicket: Ticket) => {
         console.log('Ticket updated successfully:', updatedTicket);
-        // Optionally, you can perform any additional logic here, such as displaying a success message
-        this.showUpdateForm = false; // Hide the update form after updating
+        this.showUpdateForm = false;
         window.location.reload();
       },
       (error) => {
-        console.error('Error updating ticket:', error);
-        // Optionally, handle the error, such as displaying an error message to the user
-      }
+        console.error('Error updating ticket:', error);      }
     );
   }  
 

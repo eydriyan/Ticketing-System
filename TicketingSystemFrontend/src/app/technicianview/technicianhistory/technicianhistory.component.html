@@ -25,8 +25,8 @@
       <div class="profile-container">
       <img src="../../assets/images/tempprofile.png" alt="Profile" class="tempprofile">
       <div class="userdata">
-        <h4>Adrian Oraya</h4>
-        <h4>Technician</h4>
+        <h4>{{ user?.firstName }} {{ user?.lastName }}</h4>
+        <h4>{{ user?.role }}</h4>
       </div>
     </div>
     <div class="line-division"></div>
@@ -48,7 +48,9 @@
           <img src="../../assets/images/history.png" alt="History" class="history">
         </td>
         <td class="filter-container">
-          <a href=""><img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter"></a>
+          <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
+            <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+          </button>
         </td>
         <td class="search-container">
             <input type="text" id="search" placeholder="" [(ngModel)]="searchStudentEmail" (input)="applySearch()" style="width: 454px; height: 50px;">
@@ -134,6 +136,55 @@
           </form>
       </div>
     </div>
+
+<!--Filter Form-->
+<div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+      <span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
+      <h1 class="form-title">Filter Tickets</h1>
+      <h4 class="form-title2">Find the exact tickets you need quickly.</h4>
+      <form class="form">
+          <div class="form-row">
+              <div class="form-col">
+                <label class="form-label" for="category">Category:</label>
+                <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
+                    <option value="select category">Select Category:</option>
+                    <option value="Account Lockout">Account Lockout</option>
+                    <option value="Network Problem">Network Problem</option>
+                    <option value="Network Security Issue">Network Security Issue</option>
+                    <option value="Hardware Issue">Hardware Issue</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <label class="form-label" for="priority">Priority:</label>
+                <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
+                    <option value="select subject">Select Priority:</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+              </div>
+        </div>
+        <div class="form-row">
+            <div class="form-col">
+              <label class="form-label" for="date-created">Date Created:</label>
+              <input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDate">    
+            </div>
+            <!-- <div class="form-col">
+              <label class="form-label" for="status">Status:</label>
+              <select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
+                  <option value="status type:">Select status:</option>
+                  <option value="Pending">Pending</option>
+                  <option value="In progress">In Progress</option>
+              </select>
+            </div> -->
+        </div>
+        <button class="submit-button" type="button" (click)="applyFilter()">Filter Tickets</button>
+        <button class="cancel-button" type="button" (click)="clearFilter()">Clear</button>
+      </form>
+  </div>
+</div>
+
 
 </body>
 </html>

@@ -4,6 +4,7 @@ import { TicketserviceService } from '../../services/ticketservice.service';
 import { StudentserviceService } from '../../services/studentservice.service';
 import { Ticket } from '../../model/ticket.model';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-user-view',
@@ -26,6 +27,11 @@ export class UserviewComponent implements OnInit{
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
+  categoryOptions: string[] = []; // Define your category options
+  priorityOptions: string[] = []; // Define your priority options
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private studentService: StudentserviceService,
@@ -39,6 +45,34 @@ export class UserviewComponent implements OnInit{
   ngOnInit(): void {
     this.fetchTickets();
     this.currentDate = this.getCurrentDate();
+    this.getUserInfo();
+    this.categoryOptions = ['Account Lockout', 'Network Problem', 'Network Security Issue', 'Hardware Issue'];
+    this.priorityOptions = ['Low', 'Medium', 'High'];
+  }
+
+  subjectToCategoryPriorityMap: { [subject: string]: { category: string, priority: string } } = {
+    'Blackboard Account failed log-in': { category: 'Account Lockout', priority: 'Medium' },
+    'Mymapua Account failed log-in': { category: 'Account Lockout', priority: 'High' },
+    'Wi-fi Connectivity Problem': { category: 'Network Problem', priority: 'High' },
+    'Network Security Concern': { category: 'Network Security Issue', priority: 'High' },
+    'E-mail: Spam Filtering': { category: 'Network Security Issue', priority: 'High' },
+    'E-mail: Security': { category: 'Network Security Issue', priority: 'High' },
+    'PC Malfunctioning': { category: 'Hardware Issue', priority: 'High' },
+    'Keyboard not working': { category: 'Hardware Issue', priority: 'High' },
+    'Monitor not turning on': { category: 'Hardware Issue', priority: 'High' }
+  };
+
+  onSubjectChange(event: any): void {
+    const selectedSubject = event.target.value;
+    const mappedValues = this.subjectToCategoryPriorityMap[selectedSubject];
+    if (mappedValues) {
+      this.category = mappedValues.category;
+      this.priority = mappedValues.priority;
+    } else {
+      // Reset category and priority if subject does not have mapping
+      this.category = 'select category';
+      this.priority = 'select priority';
+    }
   }
 
   fetchTickets(): void {
@@ -46,7 +80,7 @@ export class UserviewComponent implements OnInit{
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.status !== 'Rejected');
         
         // Sort tickets by priority (High > Medium > Low)
         this.filteredTickets = this.tickets.sort((a, b) => {
@@ -58,6 +92,19 @@ export class UserviewComponent implements OnInit{
       },
       (error) => {
         console.error('Failed to load user tickets:', error);
+      }
+    );
+  }
+
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
       }
     );
   }

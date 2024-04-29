@@ -4,6 +4,7 @@ import { TechnicianserviceService } from '../../services/technicianservice.servi
 import { TicketserviceService } from 'src/app/services/ticketservice.service';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-adminhistory',
@@ -27,6 +28,9 @@ export class AdminhistoryComponent implements OnInit {
   tickets: Ticket[] = [];
   searchEmail: string = '';
   filteredTickets: Ticket[] = [];
+  currentUserName: string = '';
+  role: string = '';
+  user: User | null = null;
 
   constructor(
     private technicianService: TechnicianserviceService, // change to admin service
@@ -39,13 +43,14 @@ export class AdminhistoryComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllTickets();
     this.currentDate = this.getCurrentDate();
+    this.getUserInfo();
   }
 
   fetchAllTickets() {
     this.ticketService.getAllTickets().subscribe(
       (tickets: Ticket[]) => {
       // Filter out resolved tickets
-      this.tickets = tickets.filter(ticket => ticket.status === 'Resolved');
+      this.tickets = tickets.filter(ticket => ticket.status === 'Resolved' || ticket.status === 'Rejected');
 
       // Sort tickets by priority (High > Medium > Low)
       this.filteredTickets = this.tickets.sort((a, b) => {
@@ -57,6 +62,19 @@ export class AdminhistoryComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching tickets:', error);
+      }
+    );
+  }
+
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+        this.currentUserName = `${user.firstName} ${user.lastName}`;
+        this.role = user.role;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
       }
     );
   }
@@ -74,8 +92,29 @@ export class AdminhistoryComponent implements OnInit {
     }
   }
 
-  applyFilter() {
-
+  applyFilter(): void {
+    // Filter the tickets based on the selected filter criteria
+    this.filteredTickets = this.tickets.filter(ticket => {
+      let passesFilter = true;
+  
+      if (this.filterCategory && ticket.category !== this.filterCategory) {
+        passesFilter = false;
+      }
+  
+      if (this.filterPriority && ticket.priority !== this.filterPriority) {
+        passesFilter = false;
+      }
+  
+      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
+      //   passesFilter = false;
+      // }
+  
+      if (this.filterStatus && ticket.status !== this.filterStatus) {
+        passesFilter = false;
+      }
+  
+      return passesFilter;
+    });
   }
 
   applySearch(): void {
@@ -89,6 +128,16 @@ export class AdminhistoryComponent implements OnInit {
       return ticket?.technician?.email.toLowerCase().includes(this.searchEmail.toLowerCase()) ||
              ticket?.student?.email.toLowerCase().includes(this.searchEmail.toLowerCase());
     });
+  }
+
+  clearFilter(): void {
+    // Reset filter criteria and fetch all tickets again
+    this.filterCategory = '';
+    this.filterPriority = '';
+    this.filterDate = '';
+    this.filterStatus = '';
+  
+    this.fetchAllTickets();
   }
 
   showTicketDetails(ticketId: number) {
