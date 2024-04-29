@@ -33,7 +33,7 @@
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-			         <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
+				<button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
 					<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
 				  </button>
 			</td>
@@ -139,78 +139,54 @@
 		  	<button class="red-button" onclick="document.getElementById('update-form-container').style.display='block'" style="width:auto;">Update Ticket</button>
 		-->
 
-<!--Filter Tickets Form-->	
-
+<!--Filter Form-->
 <div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
 	<div class="modal-content" (click)="$event.stopPropagation()">
 		<span #filterModalContent class="close" (click)="closeModal('Filter-form-container')">&times;</span>
 		<h1 class="form-title">Filter Tickets</h1>
 		<h4 class="form-title2">Find the exact tickets you need quickly.</h4>
-		<form class="form" action="/submit_ticket.php" method="post">
-			<div class="form-row">
-			  <div class="form-col">
-				<label class="form-label" for="category">Category:</label>
-				<select class="form-select" id="category" name="category" required>
-					<option value="select category">Select Category:</option>
-					<option value="Account Lockout">Account Lockout</option>
-					<option value="Account Lockout">Network Problem</option>
-					<option value="Network Problem">Network Security Issue</option>
-					<option value="Network Security">Hardware Issue</option>
-				</select>
-			  </div>
-			  <div class="form-col">
-				<label class="form-label" for="priority">Priority:</label>
-				<select class="form-select" id="priority" name="priority" required>
-				  <option value="select subject">Select Priority:</option>
-				  <option value="Low">Low</option>
-				  <option value="Medium">Medium</option>
-				  <option value="High">High</option>
-				</select>
-			  </div>
-			</div>
+		<form class="form">
 			<div class="form-row">
 				<div class="form-col">
-					<label class="form-label" for="date-created">Date Created:</label>
-					<input class="form-input" type="date" id="date-created" name="date-created">    
+				  <label class="form-label" for="category">Category:</label>
+				  <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
+					  <option value="select category">Select Category:</option>
+					  <option value="Account Lockout">Account Lockout</option>
+					  <option value="Network Problem">Network Problem</option>
+					  <option value="Network Security Issue">Network Security Issue</option>
+					  <option value="Hardware Issue">Hardware Issue</option>
+				  </select>
 				</div>
 				<div class="form-col">
-					<label class="form-label" for="status">Status:</label>
-					<select class="form-select" id="status" name="status" required>
-						  <option value="status type:">Select status:</option>
-						  <option value="On Hold">Low</option>
-						  <option value="Pending">Medium</option>
-						  <option value="In Progress">In Progress</option>
-						  <option value="Resolved">Resolved</option>
-					</select>
+				  <label class="form-label" for="priority">Priority:</label>
+				  <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
+					  <option value="select subject">Select Priority:</option>
+					  <option value="Low">Low</option>
+					  <option value="Medium">Medium</option>
+					  <option value="High">High</option>
+				  </select>
 				</div>
-			</div>
-				<div class="form-row">
-					  <div class="form-col">
-						<label class="form-label" for="technician">Technician:</label>
-						<select class="form-select" id="technician" name="technician" required>
-						  <option value="select subject">Select Technician:</option>
-						  <option value="Mang Kanor">Mang Kanor</option>
-						  <option value="Mang Edgar">Mang Edgar</option>
-						  <option value="Unassigned">Unassigned</option>
-						</select>
-					  </div>
-					  <div class="form-col">
-						<label class="form-label" for="requester">Requester:</label>
-							<select class="form-select" id="requester" name="requester" required>
-								  <option value="status type:">Select Requester:</option>
-								  <option value="Adrian Oraya">Adrian Oraya</option>
-								  <option value="Kurt Rumbaua">Kurt Rumbaua</option>
-								  <option value="Josh Jacala">Josh Jacala</option>
-								  <option value="Griel Mangahis">Griel Mangahis</option>
-								  <option value="Mackleine Espino">Mackleine Espino</option>
-							</select>
-					  </div>
-					</div>
-			<button class="submit-button" type="submit">Filter Tickets</button>
-			<button class="cancel-button" type="button" (click)="closeModal('Filter-form-container')">Cancel</button>
+		  </div>
+		  <div class="form-row">
+			  <div class="form-col">
+				<label class="form-label" for="date-created">Date Created:</label>
+				<input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDate">    
+			  </div>
+			  <div class="form-col">
+				<label class="form-label" for="status">Status:</label>
+				<select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
+					<option value="status type:">Select status:</option>
+					<option value="Pending">Pending</option>
+					<option value="In progress">In Progress</option>
+				</select>
+			  </div>
+		  </div>
+		  <button class="submit-button" type="button" (click)="applyFilter()">Filter Tickets</button>
+		  <button class="cancel-button" type="button" (click)="clearFilter()">Clear</button>
 		</form>
 	</div>
-</div>
+  </div>
+  
 
 <!--Ticket Details Form-->	
 

@@ -94,8 +94,39 @@ export class UserviewHistoryComponent implements OnInit{
     }
   }
 
-  applyFilter() {
+  applyFilter(): void {
+    // Filter the tickets based on the selected filter criteria
+    this.filteredTickets = this.tickets.filter(ticket => {
+      let passesFilter = true;
+  
+      if (this.filterCategory && ticket.category !== this.filterCategory) {
+        passesFilter = false;
+      }
+  
+      if (this.filterPriority && ticket.priority !== this.filterPriority) {
+        passesFilter = false;
+      }
+  
+      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
+      //   passesFilter = false;
+      // }
+  
+      if (this.filterStatus && ticket.status !== this.filterStatus) {
+        passesFilter = false;
+      }
+  
+      return passesFilter;
+    });
+  }
 
+  clearFilter(): void {
+    // Reset filter criteria and fetch all tickets again
+    this.filterCategory = '';
+    this.filterPriority = '';
+    this.filterDate = '';
+    this.filterStatus = '';
+  
+    this.fetchTickets();
   }
 
   applySearch(): void {
@@ -145,6 +176,7 @@ export class UserviewHistoryComponent implements OnInit{
   showTicketDetailsModal: boolean = false;
   showModal: boolean = false;
 
+
   displayModal(modalId: string): void {
     this.closeAllModals();
     switch(modalId) {
@@ -165,7 +197,7 @@ export class UserviewHistoryComponent implements OnInit{
     event.stopPropagation();
     this.displayModal('update-form-container');
   }
-
+  
   closeModal(modalId: string): void {
     switch(modalId) {
       case 'Filter-form-container':
