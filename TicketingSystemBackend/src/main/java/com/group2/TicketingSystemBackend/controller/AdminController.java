@@ -4,6 +4,7 @@ import com.group2.TicketingSystemBackend.enums.UserRole;
 import com.group2.TicketingSystemBackend.model.Student;
 import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.Ticket;
+import com.group2.TicketingSystemBackend.service.EmailService;
 import com.group2.TicketingSystemBackend.service.TechnicianService;
 import com.group2.TicketingSystemBackend.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class AdminController {
     private TicketService ticketService;
     @Autowired
     private TechnicianService technicianService;
+    @Autowired
+    private EmailService emailService;
 
     //Assign technician to a ticket
     @PostMapping("/assign-technician/{ticketId}")
@@ -27,6 +30,7 @@ public class AdminController {
             @RequestParam String technicianEmail
     ) {
         Ticket assignedTicket = ticketService.assignTechnicianToTicket(ticketId, technicianEmail);
+        emailService.sendTicketAssignedNotification(assignedTicket.getTechnician().getEmail(), assignedTicket.getTitle());
         return ResponseEntity.ok(assignedTicket);
     }
 

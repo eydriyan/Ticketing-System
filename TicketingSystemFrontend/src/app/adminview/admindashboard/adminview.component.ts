@@ -166,7 +166,20 @@ export class AdminviewComponent implements OnInit {
       }
     );
   }
-  
+
+  // Method to reject ticket
+  markTicketRejected(ticketId: number) {
+    this.ticketService.markTicketRejected(ticketId).subscribe(
+      (rejectedTicket) => {
+        console.log('Ticket marked as resolved:', rejectedTicket);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error marking ticket as resolved:', error);
+        // Optionally, handle the error or display a message to the user
+      }
+    );
+  }
 
   // Method to log out the user
   logout() {
@@ -219,7 +232,7 @@ export class AdminviewComponent implements OnInit {
     this.ticketService.getAllTickets().subscribe(
       (tickets: Ticket[]) => {
       // Filter out resolved tickets
-      this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+      this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.status !== 'Rejected');
 
       // Sort tickets by priority (High > Medium > Low)
       this.filteredTickets = this.tickets.sort((a, b) => {

@@ -63,6 +63,10 @@ export class TicketserviceService {
     return this.http.post<Ticket>(`${this.apiUrl}/resolve-ticket/${ticketId}`, {});
   }
 
+  markTicketRejected(ticketId: number): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.apiUrl}/reject-ticket/${ticketId}`, {});
+  }
+
   getTicketsByTechnicianId(technicianId: number): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/technician-tickets/${technicianId}`);
   }

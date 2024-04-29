@@ -301,6 +301,9 @@
 						  <option *ngFor="let technician of technicians" [value]="technician">{{ technician.email }}</option>
 						</select>
 					  </div>
+					  <div class="form-col">
+						<button class="reject-button red-button" type="button" (click)="markTicketRejected(selectedTicket.id)">Reject</button>
+					  </div>
 					</div>
 			<button class="submit-button" type="submit">Update Ticket</button>
 			<button class="cancel-button" type="button" (click)="closeModal('update-form-container')">Cancel</button>

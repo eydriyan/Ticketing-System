@@ -51,7 +51,7 @@ export class UserviewComponent implements OnInit{
       (tickets: Ticket[]) => {
 
         // Filter out resolved tickets
-        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved');
+        this.tickets = tickets.filter(ticket => ticket.status !== 'Resolved' && ticket.status !== 'Rejected');
         
         // Sort tickets by priority (High > Medium > Low)
         this.filteredTickets = this.tickets.sort((a, b) => {

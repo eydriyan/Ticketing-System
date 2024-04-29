@@ -122,6 +122,20 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
+    // Mark ticket as rejected
+    public Ticket markTicketRejected(Long ticketId) {
+        Ticket ticket = getTicketById(ticketId);
+
+        if (ticket.getStatus().equals("Rejected")) {
+            throw new RuntimeException("Ticket already marked as rejected");
+        }
+
+        ticket.setStatus("Rejected");
+        ticket.setDateResolved(LocalDate.now());
+
+        return ticketRepository.save(ticket);
+    }
+
     // get all resolved tickets
     public List<Ticket> getAllResolvedTickets() {
         return ticketRepository.findByStatus("Resolved");
