@@ -134,22 +134,17 @@ export class TechnicianviewComponent implements OnInit {
   updateTicket(ticket: Ticket | null) {
     if (!ticket) {
       console.error('No ticket selected for update.');
-      // Optionally, you can display an error message to the user
       return;
     }
-  
     // Implement logic to update ticket details
     this.ticketService.updateTicket(ticket.id, ticket).subscribe(
       (updatedTicket: Ticket) => {
         console.log('Ticket updated successfully:', updatedTicket);
-        // Optionally, you can perform any additional logic here, such as displaying a success message
-        this.showUpdateForm = false; // Hide the update form after updating
+        this.showUpdateForm = false;
         window.location.reload();
       },
       (error) => {
-        console.error('Error updating ticket:', error);
-        // Optionally, handle the error, such as displaying an error message to the user
-      }
+        console.error('Error updating ticket:', error);      }
     );
   }  
 

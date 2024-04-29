@@ -81,6 +81,10 @@ export class AdminviewComponent implements OnInit {
   }
 
   updateTicket(ticket: Ticket) {
+    if (!ticket) {
+      console.error('No ticket selected for update.');
+      return;
+    }
     // Implement logic to update ticket details
     console.log('this is called!!')
     this.ticketService.updateTicket(ticket.id, ticket).subscribe(

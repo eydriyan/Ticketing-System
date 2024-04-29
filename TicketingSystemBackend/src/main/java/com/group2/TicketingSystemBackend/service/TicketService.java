@@ -50,7 +50,9 @@ public class TicketService {
         existingTicket.setTitle(updatedTicket.getTitle());
         existingTicket.setDescription(updatedTicket.getDescription());
         existingTicket.setPriority(updatedTicket.getPriority());
+        existingTicket.setCategory(updatedTicket.getCategory());
         existingTicket.setStatus(updatedTicket.getStatus());
+        existingTicket.setTechnician(updatedTicket.getTechnician());
         //existingTicket.setDateResolved(updatedTicket.getDateResolved());
 
         return ticketRepository.save(existingTicket);
