@@ -435,3 +435,7 @@ width: 25%;
 .submit-button:hover {
 background-color: #048554;
 }
+
+.search {
+  padding-left: 10px;
+}

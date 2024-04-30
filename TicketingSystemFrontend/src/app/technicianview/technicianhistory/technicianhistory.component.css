@@ -204,10 +204,10 @@ margin-right: 25px;
 }
 
 .invisible-button {
-background: none;
-border: none;
-padding: 0;
-cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .search-container input{
@@ -434,4 +434,8 @@ width: 25%;
 .cancel-button:hover,
 .submit-button:hover {
 background-color: #048554;
+}
+
+.search {
+  padding-left: 10px;
 }

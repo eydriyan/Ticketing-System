@@ -481,3 +481,7 @@ table {
   border-collapse:separate;
     border-spacing:0 15px;
 }
+
+.search {
+  padding-left: 10px;
+}
