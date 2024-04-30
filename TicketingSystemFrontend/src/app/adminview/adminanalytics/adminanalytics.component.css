@@ -354,7 +354,7 @@ th {
 .form-input,
 .form-select,
 .form-textarea {
-  width: calc(100% - 24px);
+  width: calc(100% - 0px);
   padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
