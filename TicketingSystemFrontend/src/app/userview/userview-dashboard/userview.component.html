@@ -206,16 +206,21 @@
   
   <!-- table for tickets-->
   <div class="cont-tickets">
-    <table class="tickets">
+    <table>
       <tr>
         <th class="color-priority"></th>
-        <th class="infoCol">Priority</th>
-        <th class="infoCol">Category</th>
-        <th class="infoCol">Status</th>
-        <th class="infoCol">Date Created</th>
-        <th class="infoCol">Technician</th>
+        <th>Priority</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Date Created</th>
+        <th>Technician</th>
         <th></th>
       </tr>
+<<<<<<< HEAD
+=======
+    </table>
+    <table class="tickets">
+>>>>>>> parent of 27d9e1f (fixed table)
       <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
@@ -232,6 +237,7 @@
           </button>
         </td>
       </tr>
+<<<<<<< HEAD
       
 <!-- <tr  >
             <td class="color-high color-priority"></td>
@@ -260,6 +266,8 @@
               </button>
             </td>
           </tr> -->
+=======
+>>>>>>> parent of 27d9e1f (fixed table)
     </table>
   </div>
 

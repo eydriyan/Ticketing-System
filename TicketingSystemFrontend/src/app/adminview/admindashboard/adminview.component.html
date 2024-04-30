@@ -22,49 +22,48 @@
 <p>Ticket Details Modal Open: {{ showTicketDetailsModal }}</p>
 <p>Update Modal Open: {{ showUpdateModal }}</p> -->
 
-<!--Left Container for Profile, Dashboard and History-->   
-<div class="maincontainer">
-<div class="leftcontainer">
-	<div class="profile-container">
-	  <img src="../../assets/images/tempprofile.png" alt="Profile" class="tempprofile">
-	  <div class="userdata">
-		<h4>{{ user?.firstName }} {{ user?.lastName }}</h4>
-		<h4>{{ user?.role }}</h4>
-	  </div>
-	</div>
-	<div class="line-division"></div>
-	<div class="buttons-nav">
-	  <a onclick="window.location.href='admindashboard'">
-		  <img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard">
-	  </a>
-	  <a onclick="window.location.href='adminhistory'">
-		  <img src="../../assets/images/historyButton.png" class="history" alt="History">
-	  </a>
-	  <a onclick="window.location.href='adminanalytics'">
-		  <img src="../../assets/images/analyticsButton.png" class="analytics" alt="Analytics">
-	  </a>
-	  </div>
-  </div>
+
 <!-- (logo)Ticket Requests(Title) - (Button)Filter - (Searchbar)-->  
-	<div  class="rightcontainer">
-		<div class="upperBar"> 
-			<table>
+	   
+			<table class="rightcontainer">
 		  <tr>
 			<td class="title-container">
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
 			</td>
 			<td class="filter-container">
-			         <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
+				<button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
 					<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
 				  </button>
 			</td>
 			<td class="search-container">
-				<input class="searchbar" type="text" id="search" placeholder="" [(ngModel)]="searchEmail" (input)="applySearch()"  style="width: 30px; height: 10px;">
-				<button class="search-button red-button">Search</button>
+				<input type="text" id="search" class="search" placeholder="Search requester or technician email here..." [(ngModel)]="searchEmail" (input)="applySearch()" style="width: 454px; height: 50px;">
 			</td>
 		  </tr>
 		</table>
+		
+<!--Left Container for Profile, Dashboard and History-->   
+   <div class="leftcontainer">
+	  <div class="profile-container">
+		<img src="../../assets/images/tempprofile.png" alt="Profile" class="tempprofile">
+		<div class="userdata">
+		  <h4>{{ user?.firstName }} {{ user?.lastName }}</h4>
+		  <h4>{{ user?.role }}</h4>
 		</div>
+	  </div>
+	  <div class="line-division"></div>
+	  <div class="buttons-nav">
+		<a onclick="window.location.href='admindashboard'">
+			<img src="../../assets/images/dashboardButton.png" class="dashboard" alt="Dashboard">
+		</a>
+		<a onclick="window.location.href='adminhistory'">
+			<img src="../../assets/images/historyButton.png" class="history" alt="History">
+		</a>
+		<a onclick="window.location.href='adminanalytics'">
+			<img src="../../assets/images/analyticsButton.png" class="analytics" alt="Analytics">
+		</a>
+		</div>
+	</div>
+		
 <!-- table for tickets -->
 <div class="cont-tickets" *ngIf="tickets.length > 0">
     <table>
@@ -96,7 +95,7 @@
                         {{ ticket.technician.email }}
                     </ng-container>
                     <ng-container *ngIf="!ticket.technician">
-					<!-- Open technician assignment popup  -->
+					<!-- Open technician assignment popup -->
 					<button class="unassigned-button" (click)="openAssignTechnicianPopup(ticket.id, $event)" data-modal="all-technician">Unassigned</button>
                     </ng-container>
                 </td>
@@ -108,7 +107,6 @@
             </tr>
         </tbody>
     </table>
-</div> 
 </div>
 
 <!-- ETO UNG assign technician popup -->
@@ -124,7 +122,7 @@
         <button class="close-button" (click)="closeTechnicianPopup()">Close</button>
     </div>
 </div>
-</div>
+
   
 
 <!--FORMS-->

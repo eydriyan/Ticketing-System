@@ -262,19 +262,21 @@
 		
 <!-- table for tickets-->
 	<div class="cont-tickets">
-			<table class="tickets">
+			<table>
 					<tr>
 						<th class="color-priority"></th>
-						<th class="secondCol"></th>
-						<th class="infoCol">Priority</th>
-						<th class="infoCol">Category</th>
-						<th class="infoCol">Status</th>
-						<th class="infoCol">Date Created</th>
-						<th class="infoCol">Requester</th>
-						<th class="infoCol">Technician</th>
-						<th class="buttonCol"></th>
+						<th></th>
+						<th>Priority</th>
+						<th>Category</th>
+						<th>Status</th>
+						<th>Date Created</th>
+						<th>Requester</th>
+						<th>Technician</th>
+						<th></th>
 						</tr>
-       
+					
+				</table>
+        <table class="tickets">
           <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
@@ -288,10 +290,9 @@
               <button  class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal(ticket.id, $event)">
                 <span class="ellipsis">...</span>
               </button>
-               <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+              <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
             </td>
           </tr>
-        
         </table>
     </div>
 

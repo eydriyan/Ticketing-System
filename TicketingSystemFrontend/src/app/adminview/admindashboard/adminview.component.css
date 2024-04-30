@@ -119,11 +119,10 @@ th {
     background-color: #f5f6fa;
    
 }
-/* 
 
 tr:hover {
     background-color: grey;
-} */
+}
 
 
 .high {
@@ -174,9 +173,6 @@ tr:hover {
   box-sizing: border-box;
   background-color: white;
   /* border: 5px solid blue; */
-}
-.upperBar {
-  width: 100%;
 }
 
 .profile-container {
