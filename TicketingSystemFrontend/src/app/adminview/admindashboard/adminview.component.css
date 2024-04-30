@@ -489,3 +489,9 @@ table {
 .search {
   padding-left: 10px;
 }
+
+.reject-button {
+  width: 90%;
+  height: 43px;
+  margin-top: 25px;
+}
