@@ -120,17 +120,19 @@ h2 {
 }
 th {
   margin: 5px;
+  
 }
 
 .rankCol {
   background-color: #d9291c;
   width: 50px;
+  text-align: center;
 }
 .technicianRow {
   height: 60px;
   padding: 3px;
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75), 0px -3px 5px 0px rgba(0,0,0,0.75);
-  -webkit-box-shadow: -3px 4px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -3px 4px 5px 0px rgba(0,0,0,0.75), 0px -3px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: -3px 4px 5px 0px rgba(0,0,0,0.75), -3px -4px 5px 0px rgba(0,0,0,0.75);
 }
 .pictureCol {
@@ -143,7 +145,7 @@ th {
 
 }
 
-.technicians {
+.technician {
 	border-collapse:collapse;
 	border-collapse:separate;
     border-spacing:0 15px;
@@ -352,7 +354,7 @@ th {
 .form-input,
 .form-select,
 .form-textarea {
-  width: calc(100% - 24px);
+  width: calc(100% - 0px);
   padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #ccc;

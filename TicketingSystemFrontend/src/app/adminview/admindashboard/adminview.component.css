@@ -332,7 +332,7 @@ tr:hover {
 .form-input,
 .form-select,
 .form-textarea {
-  width: calc(100% - 24px);
+  width: calc(100% - 0px);
   padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -488,4 +488,10 @@ table {
 
 .search {
   padding-left: 10px;
+}
+
+.reject-button {
+  width: 90%;
+  height: 43px;
+  margin-top: 25px;
 }

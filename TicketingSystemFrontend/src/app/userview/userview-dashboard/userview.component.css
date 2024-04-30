@@ -337,6 +337,7 @@ strong {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  
 }
 
 /* Modal */
@@ -350,6 +351,7 @@ strong {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  
 }
 
 /* Modal Content */
@@ -361,6 +363,7 @@ strong {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   width: 90%;
+ 
 }
 
 /* Close Button */
@@ -386,7 +389,7 @@ strong {
 .form-input,
 .form-select,
 .form-textarea {
-  width: calc(100% - 24px);
+  width: calc(100% - 0px);
   padding: 12px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -397,6 +400,7 @@ strong {
 .form-row {
 width: 100%;
 overflow: hidden;
+
 }
 
 .form-col {
