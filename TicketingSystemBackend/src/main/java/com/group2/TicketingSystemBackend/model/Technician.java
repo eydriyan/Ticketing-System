@@ -13,5 +13,4 @@ import lombok.NoArgsConstructor;
 public class Technician extends User{
     private String staffNumber;
     private String skillSet;
-    private String availability;
 }

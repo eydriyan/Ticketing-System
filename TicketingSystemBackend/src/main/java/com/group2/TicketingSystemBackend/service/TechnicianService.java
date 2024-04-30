@@ -54,7 +54,6 @@ public class TechnicianService {
         existingTechnician.setLastName(updatedTechnician.getLastName());
         existingTechnician.setEmail(updatedTechnician.getEmail());
         existingTechnician.setPhoneNumber(updatedTechnician.getPhoneNumber());
-        existingTechnician.setAvailability(updatedTechnician.getAvailability());
         existingTechnician.setSkillSet(updatedTechnician.getSkillSet());
 
         return technicianRepository.save(existingTechnician);

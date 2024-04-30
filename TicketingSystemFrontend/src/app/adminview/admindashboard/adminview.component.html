@@ -119,7 +119,7 @@
         <h2>Assign Technician</h2>
         <ul>
             <li *ngFor="let technician of technicians" (click)="assignTechnician(technician)">
-                {{ technician.firstName }} {{ technician.lastName }} - Availability: {{ technician.availability }} - Skillset: {{ technician.skillSet }}
+                {{ technician.firstName }} {{ technician.lastName }} - Skillset: {{ technician.skillSet }}
             </li>
         </ul>
         <button class="close-button" (click)="closeTechnicianPopup()">Close</button>
@@ -296,10 +296,11 @@
 					  </div> -->
 					  <div class="form-col">
 						<label class="form-label" for="technician">Technician:</label>
-						<select class="form-select" id="technician" name="technician" [(ngModel)]="selectedTicket.technician">
-						  <option value="select technician">Select Technician:</option>
-						  <option *ngFor="let technician of technicians" [value]="technician">{{ technician.email }}</option>
+						<select class="form-select" id="technician" name="technician" [(ngModel)]="selectedTicket.technician.id">
+							<option value="0">Select Technician:</option>
+							<option *ngFor="let technician of technicians" [value]="technician.id">{{ technician.email }}</option>
 						</select>
+
 					  </div>
 					  <div class="form-col">
 						<button class="reject-button red-button" type="button" (click)="markTicketRejected(selectedTicket.id)">Reject</button>

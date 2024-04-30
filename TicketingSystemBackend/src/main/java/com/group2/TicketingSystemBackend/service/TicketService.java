@@ -53,7 +53,9 @@ public class TicketService {
         existingTicket.setCategory(updatedTicket.getCategory());
         existingTicket.setStatus(updatedTicket.getStatus());
         existingTicket.setTechnician(updatedTicket.getTechnician());
-        //existingTicket.setDateResolved(updatedTicket.getDateResolved());
+        if (updatedTicket.getTechnician() != null) {
+            existingTicket.setTechnician(updatedTicket.getTechnician());
+        }
 
         return ticketRepository.save(existingTicket);
     }

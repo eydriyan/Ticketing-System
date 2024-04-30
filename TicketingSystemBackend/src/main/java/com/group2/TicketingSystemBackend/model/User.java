@@ -32,7 +32,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
-    // add enable variable
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

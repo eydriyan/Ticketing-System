@@ -25,7 +25,6 @@
         @JoinColumn(name = "technician_id")
         private Technician technician;
 
-        // Add report here
         private String title;
         private String description;
         private String priority;
