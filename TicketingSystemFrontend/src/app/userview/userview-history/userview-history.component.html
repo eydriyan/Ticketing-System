@@ -83,7 +83,10 @@
             <td>{{ ticket.dateCreated }}</td>
             <td>{{ ticket.dateResolved }}</td>
             <td>{{ ticket.student.email }}</td>
-            <td>{{ ticket.technician.email }}</td>
+            <td>
+              <span *ngIf="ticket.technician?.email; else unassigned">{{ ticket.technician.email }}</span>
+              <ng-template #unassigned>Unassigned</ng-template>
+            </td>
             <td>
               <button class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal($event)">
                 <span class="ellipsis">...</span>

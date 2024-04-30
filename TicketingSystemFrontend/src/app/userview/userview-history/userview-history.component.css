@@ -8,6 +8,7 @@ body {
 font-family: 'Inter', Arial, sans-serif;
 line-height: 1.6;
 background-color: #f5f6fa;
+overflow-y: auto;
 }
 
 .header {
@@ -137,9 +138,9 @@ th {
   background-color: #f5f6fa;
   float: left;
   width: 75%; /* Adjust width as needed */
-margin-top: 20px;
-margin-left: 25px;
-margin-right: 25px;
+  margin-top: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 /*left div*/
