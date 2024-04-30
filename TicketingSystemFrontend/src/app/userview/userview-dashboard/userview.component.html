@@ -206,19 +206,17 @@
   
   <!-- table for tickets-->
   <div class="cont-tickets">
-    <table>
+    <table class="tickets">
       <tr>
         <th class="color-priority"></th>
-        <th>Priority</th>
-        <th>Category</th>
-        <th>Status</th>
-        <th>Date Created</th>
-        <th>Technician</th>
+        <th class="infoCol">Priority</th>
+        <th class="infoCol">Category</th>
+        <th class="infoCol">Status</th>
+        <th class="infoCol">Date Created</th>
+        <th class="infoCol">Technician</th>
         <th></th>
       </tr>
-    </table>
-    <table class="tickets">
-      <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
+      <!-- <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>
@@ -233,7 +231,35 @@
             <span class="ellipsis">...</span>
           </button>
         </td>
-      </tr>
+      </tr> -->
+      
+<tr  >
+            <td class="color-high color-priority"></td>
+            <td class="priority infoCol">High</td>
+            <td class="infoCol">Network Security Issue</td>
+            <td class="infoCol">In Progress</td>
+            <td class="infoCol">04/30/2024</td>
+            <td class="infoCol">cmbalderosa@mymail.mapua.edu.ph</td>
+            <td>
+              <button  class="vertical-ellipsis-button buttonCol" data-modal="update-form-container">
+                <span class="ellipsis">...</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="color-high color-priority"></td>
+            <td class="priority infoCol">High</td>
+            <td class="infoCol">Network Security Issue</td>
+            <td class="infoCol">In Progress</td>
+            <td class="infoCol">04/30/2024</td>
+           
+            <td class="infoCol">cmbalderosa@mymail.mapua.edu.ph</td>
+            <td>
+              <button  class="vertical-ellipsis-button buttonCol" data-modal="update-form-container">
+                <span class="ellipsis">...</span>
+              </button>
+            </td>
+          </tr>
     </table>
   </div>
 
