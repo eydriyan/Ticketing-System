@@ -101,19 +101,6 @@ table {
  border-collapse:collapse;
 }
 
-.tickets {
-border-collapse:collapse;
-border-collapse:separate;
-  border-spacing:0 15px;
-}
-
-th, td {
-background-color: white;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #ddd;
-border: none;
-}
 
 th {
   background-color: #f5f6fa;
@@ -159,6 +146,41 @@ tr:hover {
 margin-top: 20px;
 margin-left: 25px;
 margin-right: 25px;
+ 
+}
+th, td {
+  background-color: white;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border: none;
+  word-wrap: break-word;
+  table-layout: fixed;
+  
+  
+}
+.infoCol {
+  width: 15%;
+  max-width: 15%;
+  text-overflow: hidden;
+}
+.tickets {
+  border-collapse:collapse;
+  border-collapse:separate;
+  border-spacing:0 15px;
+
+  }
+.secondCol {
+  width:29px;
+  min-width: 29px;
+}
+.buttonCol{
+  width:20px;
+}
+.color-priority, .color-high, .color-low, .color-med{
+  width:12px;
+  padding: none; 
+  min-width: 12px;
 }
 
 .container {

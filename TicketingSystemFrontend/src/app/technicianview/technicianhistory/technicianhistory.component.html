@@ -58,7 +58,7 @@
 
       <!-- table for tickets-->
       <div class="cont-tickets">
-        <table>
+        <table class="tickets">
             <tr>
               <th class="color-priority"></th>
               <th>Priority</th>
@@ -69,8 +69,6 @@
               <th>Technician</th>
               <th></th>
               </tr>
-          </table>
-          <table class="tickets">
             <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
               <td [ngClass]="getPriorityColor(ticket.priority)"></td>
               <td class="priority">{{ ticket.priority }}</td>
@@ -83,9 +81,39 @@
                 <button class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal($event)">
                   <span class="ellipsis">...</span>
                 </button>
-                <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
+                
               </td>
             </tr>
+            <!-- <tr>
+            <td class="color-high color-priority"></td>
+            
+            <td class="infoCol">Network Security Issue</td>
+            <td class="infoCol">In Progress</td>
+            <td class="infoCol">04/30/2024</td>
+            <td class="infoCol">04/30/2024</td>
+            <td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
+            <td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
+            <td>
+              <button  class="vertical-ellipsis-button buttonCol" data-modal="update-form-container">
+                <span class="ellipsis">...</span>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="color-high color-priority"></td>
+            
+            <td class="infoCol">Network Security Issue</td>
+            <td class="infoCol">In Progress</td>
+            <td class="infoCol">04/30/2024</td>
+            <td class="infoCol">04/30/2024</td>
+            <td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
+            <td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
+            <td>
+              <button  class="vertical-ellipsis-button buttonCol" data-modal="update-form-container">
+                <span class="ellipsis">...</span>
+              </button>
+            </td>
+          </tr> -->
           </table>
       </div>
 
