@@ -225,6 +225,10 @@ tr:hover {
 	margin-right: 25px;
 }
 
+.rightcontainer td {
+  background-color: #f5f6fa;
+}
+
 .red-button {
   background-color: red;
   color: white;

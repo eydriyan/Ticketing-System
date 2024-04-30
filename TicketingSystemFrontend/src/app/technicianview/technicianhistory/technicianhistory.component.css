@@ -203,6 +203,10 @@ margin-left: 25px;
 margin-right: 25px;
 }
 
+.rightcontainer td {
+  background-color: #f5f6fa;
+}
+
 .invisible-button {
   background: none;
   border: none;
