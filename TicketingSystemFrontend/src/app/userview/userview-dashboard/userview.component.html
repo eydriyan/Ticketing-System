@@ -67,16 +67,17 @@
         <div class="form-col">
           <label class="form-label" for="category">Category:</label>
           <select class="form-select" id="category" name="category" [(ngModel)]="category" required #categorySelect disabled>
-            <option value="select category">Select Category:</option>
+            <option value="" disabled selected>Select Category:</option>
             <option *ngFor="let option of categoryOptions" [value]="option">{{ option }}</option>
-          </select>
+          </select>          
         </div>
         <div class="form-col">
           <label class="form-label" for="priority">Priority:</label>
           <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required #prioritySelect>
-            <option value="select priority">Select Priority:</option>
+            <option value="" disabled selected>Select Priority:</option>
             <option *ngFor="let option of priorityOptions" [value]="option">{{ option }}</option>
-          </select>
+          </select>          
+          <div *ngIf="priority === 'select priority'" class="error-message">Please select a priority</div>
         </div>
       </div>
       <div class="form-row">
@@ -206,7 +207,7 @@
   
   <!-- table for tickets-->
   <div class="cont-tickets">
-    <table>
+    <table class="tickets">
       <tr>
         <th class="color-priority"></th>
         <th>Priority</th>
@@ -216,8 +217,6 @@
         <th>Technician</th>
         <th></th>
       </tr>
-    </table>
-    <table class="tickets">
       <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>

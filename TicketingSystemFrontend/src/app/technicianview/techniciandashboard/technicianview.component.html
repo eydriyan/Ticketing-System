@@ -262,8 +262,8 @@
 		
 <!-- table for tickets-->
 	<div class="cont-tickets">
-			<table>
-					<tr>
+        <table class="tickets">
+          <tr>
 						<th class="color-priority"></th>
 						<th></th>
 						<th>Priority</th>
@@ -274,9 +274,6 @@
 						<th>Technician</th>
 						<th></th>
 						</tr>
-					
-				</table>
-        <table class="tickets">
           <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
