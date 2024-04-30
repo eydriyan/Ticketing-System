@@ -126,7 +126,6 @@ export class AdminviewComponent implements OnInit {
       .subscribe(ticket => {
         this.selectedTicket = ticket;
         this.showTicketDetailsModal = true; // Assuming this controls the modal
-        console.log(this.selectedTicket)
       }, error => {
         console.error("Error fetching ticket details", error);
         // Handle the error appropriately

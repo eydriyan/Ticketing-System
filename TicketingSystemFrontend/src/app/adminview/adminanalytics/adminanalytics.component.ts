@@ -105,10 +105,10 @@ export class AdminanalyticsComponent implements OnInit {
           'Resolved': resolvedCount
         };
 
-              // Display the ticket counts in the console
-      console.log('On Hold:', onHoldCount);
-      console.log('In Progress:', inProgressCount);
-      console.log('Resolved:', resolvedCount);
+        // Display the ticket counts in the console
+        console.log('On Hold:', onHoldCount);
+        console.log('In Progress:', inProgressCount);
+        console.log('Resolved:', resolvedCount);
       },
       (error) => {
         console.error('Error fetching tickets:', error);
