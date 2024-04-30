@@ -167,7 +167,7 @@ tr:hover {
 /*left div*/
 .leftcontainer {
   width: 20%;
-  height: 300px;
+  height: 100%;
   float: left;
   padding: 20px;
   box-sizing: border-box;

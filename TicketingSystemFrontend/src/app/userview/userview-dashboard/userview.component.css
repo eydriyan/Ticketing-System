@@ -146,7 +146,7 @@ th {
 /*left div*/
 .leftcontainer {
   width: 20%;
-  height: 100vh;
+  height: 100%;
   float: left;
   padding: 20px;
   box-sizing: border-box;
