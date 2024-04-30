@@ -216,7 +216,7 @@
         <th class="infoCol">Technician</th>
         <th></th>
       </tr>
-      <!-- <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
+      <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
         <td [ngClass]="getPriorityColor(ticket.priority)"></td>
         <td class="priority">{{ ticket.priority }}</td>
         <td>{{ ticket.category }}</td>
@@ -231,9 +231,9 @@
             <span class="ellipsis">...</span>
           </button>
         </td>
-      </tr> -->
+      </tr>
       
-<tr  >
+<!-- <tr  >
             <td class="color-high color-priority"></td>
             <td class="priority infoCol">High</td>
             <td class="infoCol">Network Security Issue</td>
@@ -259,7 +259,7 @@
                 <span class="ellipsis">...</span>
               </button>
             </td>
-          </tr>
+          </tr> -->
     </table>
   </div>
 
