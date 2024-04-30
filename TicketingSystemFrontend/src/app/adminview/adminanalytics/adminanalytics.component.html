@@ -71,13 +71,25 @@
 	<h2>Top Performing Technicians</h2>
 	<div class="analytics-table">
 			<table class="technician">
-                    <tr *ngFor="let technician of technicians; let i = index" class="technicianRow">
+                    <!-- <tr *ngFor="let technician of technicians; let i = index" class="technicianRow">
                         <th class="rankCol">{{ i + 1 }}</th>
                         <th class="pictureCol infoCol"><img class="pictureTechnician"  src="/assets/images/tempprofile.png">{{ technician.firstName }} {{ technician.lastName }}</th>
                         <th class="infoCol">{{ technician.email }}</th>
                         <th class="infoCol">{{ resolvedTicketsMap[technician.id] || 0 }}</th>
                         <th></th>
-                    </tr>
+                    </tr> -->
+					<tr  class="technicianRow">
+						<td class="rankCol">1</td>
+						<td class="pictureCol infoCol"><img class="pictureTechnician"  src="/assets/images/tempprofile.png">Mackleine Espino</td>
+						<td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
+						<td class="infoCol">8</td>
+					  </tr>
+					  <tr class="technicianRow">
+						<td class="rankCol">2</td>
+						<td class="pictureCol infoCol"><img class="pictureTechnician"  src="/assets/images/tempprofile.png">Mackleine Espino</td>
+						<td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
+						<td class="infoCol">8</td>
+					  </tr>
 			</table>
     </div>
 </div>
