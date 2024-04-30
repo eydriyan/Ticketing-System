@@ -120,7 +120,6 @@ th {
    
 }
 
-
 tr:hover {
     background-color: grey;
 }
@@ -474,3 +473,11 @@ background-color: #94d571;
   background-color: #c62116;
 }
 
+.modal-buttons {
+  border-spacing:0 15px;
+}
+
+table {
+  border-collapse:separate;
+    border-spacing:0 15px;
+}
