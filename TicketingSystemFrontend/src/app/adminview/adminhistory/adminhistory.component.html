@@ -61,7 +61,7 @@
 
       <!-- table for tickets-->
       <div class="cont-tickets">
-        <table>
+        <table class="tickets">
             <tr>
               <th class="color-priority"></th>
               <th>Priority</th>
@@ -73,9 +73,6 @@
               <th>Technician</th>
               <th></th>
               </tr>
-            
-          </table>
-          <table class="tickets">
             <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
               <td [ngClass]="getPriorityColor(ticket.priority)"></td>
               <td class="priority">{{ ticket.priority }}</td>
