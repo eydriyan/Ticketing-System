@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginuserComponent } from './authenticationpages/loginuser/loginuser.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SignupComponent } from './authenticationpages/signup/signup.component';
 import { UserviewComponent } from './userview/userview-dashboard/userview.component';
 import { AdminviewComponent } from './adminview/admindashboard/adminview.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full',
   },
-  { path: 'login', component: LoginuserComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'userdashboard', component: UserviewComponent },
   { path: 'userhistory', component: UserviewHistoryComponent},
