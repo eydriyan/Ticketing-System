@@ -54,7 +54,11 @@
 		
 <!-- table for analytics-->
 <div>
-    <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+    <canvasjs-chart [options]="ticketStatusChart"></canvasjs-chart>
+</div>
+<br><br>
+<div>
+    <canvasjs-chart [options]="ticketResolvedByCategory"></canvasjs-chart>
 </div>
 <br> <br>
 	<h2>Top Performing Technicians</h2>
@@ -67,108 +71,9 @@
                         <th class="infoCol">{{ resolvedTicketsMap[technician.id] || 0 }}</th>
                         <th></th>
                     </tr>
-					<!-- <tr  class="technicianRow">
-						<td class="rankCol">1</td>
-						<td class="pictureCol infoCol"><img class="pictureTechnician"  src="/assets/images/tempprofile.png">Mackleine Espino</td>
-						<td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
-						<td class="infoCol">8</td>
-					  </tr>
-					  <tr class="technicianRow">
-						<td class="rankCol">2</td>
-						<td class="pictureCol infoCol"><img class="pictureTechnician"  src="/assets/images/tempprofile.png">Mackleine Espino</td>
-						<td class="infoCol">mfespino@mymail.mapua.edu.ph</td>
-						<td class="infoCol">8</td>
-					  </tr> -->
 			</table>
     </div>
 </div>
-
-
-<!--FORMS-->
-
-<!--buttons for each form-->
-	<!--Filter Form
-			<button class="filter-button red-button" onclick="displayModal('Filter-form-container')" style="width:auto;">Filter</button>
-	----Ticket Details
-		 	<button onclick="displayModal('ticket-details-container')" style="width:auto;">Ticket Details:</button>
-	---- Ticket Form
-		  	<button class="red-button" onclick="document.getElementById('update-form-container').style.display='block'" style="width:auto;">Update Ticket</button>
-		-->
-
-<!--Filter Tickets Form-->	
-
-<!-- <div id="Filter-form-container" class="modal">
-	<div class="modal-content">
-		<span class="close" onclick="closeFilterModal()">&times;</span>
-		<h1 class="form-title">Filter Tickets</h1>
-		<h4 class="form-title2">Find the exact tickets you need quickly.</h4>
-		<form class="form" action="/submit_ticket.php" method="post">
-			<div class="form-row">
-			  <div class="form-col">
-				<label class="form-label" for="category">Category:</label>
-				<select class="form-select" id="category" name="category" required>
-				  <option value="select subject">Selecty Category:</option>
-				  <option value="Account Lockout">Blackboard Account failed log-in</option>
-				  <option value="Mymail Account Failed log-in">Mymail Account Failed log-in</option>
-				  <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
-				  <option value="Network Security Concern">Network Security Concern</option>
-				  <option value="Printer Issue">Printer Issue</option>
-				</select>
-			  </div>
-			  <div class="form-col">
-				<label class="form-label" for="priority">Priority:</label>
-				<select class="form-select" id="priority" name="priority" required>
-				  <option value="select subject">Select Priority:</option>
-				  <option value="Low">Low</option>
-				  <option value="Medium">Medium</option>
-				  <option value="High">High</option>
-				</select>
-			  </div>
-			</div>
-			<div class="form-row">
-				<div class="form-col">
-					<label class="form-label" for="date-created">Date Created:</label>
-					<input class="form-input" type="date" id="date-created" name="date-created">    
-				</div>
-				<div class="form-col">
-					<label class="form-label" for="status">Status:</label>
-					<select class="form-select" id="status" name="status" required>
-						  <option value="status type:">Select status:</option>
-						  <option value="On Hold">Low</option>
-						  <option value="Pending">Medium</option>
-						  <option value="In Progress">In Progress</option>
-						  <option value="Resolved">Resolved</option>
-					</select>
-				</div>
-			</div>
-				<div class="form-row">
-					  <div class="form-col">
-						<label class="form-label" for="technician">Technician:</label>
-						<select class="form-select" id="technician" name="technician" required>
-						  <option value="select subject">Select Technician:</option>
-						  <option value="Mang Kanor">Mang Kanor</option>
-						  <option value="Mang Edgar">Mang Edgar</option>
-						  <option value="Unassigned">Unassigned</option>
-						</select>
-					  </div>
-					  <div class="form-col">
-						<label class="form-label" for="requester">Requester:</label>
-							<select class="form-select" id="requester" name="requester" required>
-								  <option value="status type:">Select Requester:</option>
-								  <option value="Adrian Oraya">Adrian Oraya</option>
-								  <option value="Kurt Rumbaua">Kurt Rumbaua</option>
-								  <option value="Josh Jacala">Josh Jacala</option>
-								  <option value="Griel Mangahis">Griel Mangahis</option>
-								  <option value="Mackleine Espino">Mackleine Espino</option>
-							</select>
-					  </div>
-					</div>
-			<button class="submit-button" type="submit">Filter Tickets</button>
-			<button class="cancel-button" type="button" onclick="closeFilterModal()">Cancel</button>
-		</form>
-	</div>
-</div> -->
-
 
 <!--footer-->
     <div class="footer">

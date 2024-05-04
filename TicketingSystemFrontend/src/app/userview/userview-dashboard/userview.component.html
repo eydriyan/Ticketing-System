@@ -51,7 +51,7 @@
     <form class="form" (ngSubmit)="addTicket()" #ticketForm="ngForm" novalidate>
       <div class="form-row">
         <label class="form-label" for="title">Subject:</label>
-        <select class="form-select" id="title" name="title" [(ngModel)]="title" required (change)="onSubjectChange($event)">
+        <select class="form-select" id="title" name="title" [(ngModel)]="title" required #SubjectSelect (change) ="onSubjectChange($event)" #titleInput="ngModel">
           <option value="select subject" disabled selected>Select Subject:</option>
           <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
           <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>

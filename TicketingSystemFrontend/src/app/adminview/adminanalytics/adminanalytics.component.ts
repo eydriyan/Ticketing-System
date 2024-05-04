@@ -6,8 +6,6 @@ import { Ticket } from 'src/app/model/ticket.model';
 import { Technician } from 'src/app/model/technician.model';
 import { TechnicianserviceService } from 'src/app/services/technicianservice.service';
 import { User } from '../../model/user.model';
-import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-
 
 @Component({
   selector: 'app-adminanalytics',
@@ -34,9 +32,10 @@ export class AdminanalyticsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTicketCounts();
+    this.getTicketStatusCounts();
     this.getAllTechniciansWithResolvedTickets();
     this.getUserInfo();
+    this.getResolvedTicketsByCategory();
   }
 
   getUserInfo(): void {
@@ -93,23 +92,69 @@ export class AdminanalyticsComponent implements OnInit {
   }
 
 
-  getTicketCounts(): void {
+  getTicketStatusCounts(): void {
     this.ticketService.getAllTickets().subscribe(
       (tickets: Ticket[]) => {
-        const onHoldCount = tickets.filter(ticket => ticket.status === 'On Hold').length;
-        const inProgressCount = tickets.filter(ticket => ticket.status === 'In Progress').length;
+        const pendingCount = tickets.filter(ticket => ticket.status === 'Pending').length;
+        const inProgressCount = tickets.filter(ticket => ticket.status === 'In progress').length;
         const resolvedCount = tickets.filter(ticket => ticket.status === 'Resolved').length;
   
         this.ticketCounts = {
-          'On Hold': onHoldCount,
+          'Pending': pendingCount,
           'In Progress': inProgressCount,
           'Resolved': resolvedCount
         };
 
-        // Display the ticket counts in the console
-        console.log('On Hold:', onHoldCount);
-        console.log('In Progress:', inProgressCount);
-        console.log('Resolved:', resolvedCount);
+        // Create a new dataPoints array
+        const dataPoints = Object.entries(this.ticketCounts).map(([status, count]) => ({ y: count, label: status }));
+
+        // Construct a new ticketStatusChart object
+        this.ticketStatusChart = {
+          ...this.ticketStatusChart, // Keep other chart configurations
+          data: [{
+            ...this.ticketStatusChart.data[0], // Keep existing data properties
+            dataPoints 
+          }]
+        };
+
+      },
+      (error) => {
+        console.error('Error fetching tickets:', error);
+      }
+    );
+  }  
+
+  getResolvedTicketsByCategory(): void {
+    const categories = ['Account Lockout', 'Network Problem', 'Network Security Issue', 'Hardware Issue'];
+    const resolvedTicketsByCategory: { [category: string]: number } = {};
+  
+    this.ticketService.getAllTickets().subscribe(
+      (tickets: Ticket[]) => {
+        // Filter for resolved tickets
+        const resolvedTickets = tickets.filter(ticket => ticket.status === 'Resolved');
+  
+        // Initialize counts for each category
+        categories.forEach(category => {
+          resolvedTicketsByCategory[category] = 0; 
+        });
+  
+    // Count resolved tickets in each category
+    resolvedTickets.forEach(ticket => {
+      resolvedTicketsByCategory[ticket.category] = (resolvedTicketsByCategory[ticket.category] || 0) + 1; 
+    });
+  
+        // Construct data for your chart
+        const dataPoints = Object.entries(resolvedTicketsByCategory).map(([category, count]) => ({ y: count, label: category }));
+  
+        this.ticketResolvedByCategory = {
+          ...this.ticketResolvedByCategory,
+          data: [{
+            ...this.ticketResolvedByCategory.data[0],
+            dataPoints 
+          }]
+        };
+
+        console.log(this.ticketResolvedByCategory);
       },
       (error) => {
         console.error('Error fetching tickets:', error);
@@ -134,19 +179,26 @@ export class AdminanalyticsComponent implements OnInit {
     );
   }
 
-  chartOptions = {
-	  title: {
-		  text: "Basic Column Chart in Angular"
-	  },
-	  data: [{
-		type: "column",
-		dataPoints: [
-		{ label: "Apple",  y: 10  },
-		{ label: "Orange", y: 15  },
-		{ label: "Banana", y: 25  },
-		{ label: "Mango",  y: 30  },
-		{ label: "Grape",  y: 28  }
-		]
-	  }]                
-    };
+  ticketStatusChart = {
+    animationEnabled: true,
+    title: {
+        text: "Ticket Status Distribution" 
+    },
+    data: [{
+        type: "column", 
+        dataPoints: Array<{ y: number, label: string }>() 
+    }]
+  };
+
+  ticketResolvedByCategory = {
+    animationEnabled: true,
+    title: {
+        text: "Resolved Tickets By Category" 
+    },
+    data: [{
+        type: "pie",  
+        indexLabel: "{label}: {y}",
+        dataPoints: Array<{ y: number, label: string }>() 
+    }]
+  };
 }
