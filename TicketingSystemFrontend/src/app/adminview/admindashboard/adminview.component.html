@@ -248,7 +248,6 @@
 				<div class="form-row">
 					<label class="form-label" for="subject">Subject:</label>
 					<select class="form-select" id="subject" name="subject" [(ngModel)]="selectedTicket.title">
-						<option value="select subject">Select Subject:</option>
 						<option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
 						<option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
 						<option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
@@ -264,7 +263,6 @@
 					  <div class="form-col">
 						<label class="form-label" for="category">Category:</label>
 						<select class="form-select" id="category" name="category" [(ngModel)]="selectedTicket.category">
-							<option value="select category">Select Category:</option>
 							<option value="Account Lockout">Account Lockout</option>
 							<option value="Network Problem">Network Problem</option>
 							<option value="Network Security Issue">Network Security Issue</option>
@@ -274,7 +272,6 @@
 					  <div class="form-col">
 						<label class="form-label" for="priority">Priority:</label>
 						<select class="form-select" id="priority" name="priority" [(ngModel)]="selectedTicket.priority">
-						  <option value="select subject">Select Priority:</option>
 						  <option value="Low">Low</option>
 						  <option value="Medium">Medium</option>
 						  <option value="High">High</option>
@@ -295,7 +292,6 @@
 					  <div class="form-col">
 						<label class="form-label" for="technician">Technician:</label>
 						<select class="form-select" id="technician" name="technician" [(ngModel)]="selectedTicket.technician.id">
-							<option value="0">Select Technician:</option>
 							<option *ngFor="let technician of technicians" [value]="technician.id">{{ technician.email }}</option>
 						</select>
 
