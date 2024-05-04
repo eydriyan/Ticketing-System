@@ -127,6 +127,16 @@ export class TechnicianviewComponent implements OnInit {
     this.fetchTickets();
   }
 
+  hasFilterValue(): boolean {
+    return (
+      this.filterCategory !== '' ||
+      this.filterPriority !== '' ||
+      this.filterDate !== '' ||
+      this.filterStatus !== ''
+    );
+  }
+  
+
   // toggleUpdateForm(ticket: Ticket) {
   //   this.showUpdateForm = !this.showUpdateForm;
   // }

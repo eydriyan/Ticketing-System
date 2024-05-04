@@ -440,6 +440,14 @@ width: 30%;
 background-color: #048554;
 }
 
+button:disabled {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
+button:disabled:hover {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
 .search {
   padding-left: 10px;
 }

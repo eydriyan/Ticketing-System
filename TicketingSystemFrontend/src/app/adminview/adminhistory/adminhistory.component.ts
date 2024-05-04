@@ -146,6 +146,16 @@ export class AdminhistoryComponent implements OnInit {
     this.fetchAllTickets();
   }
 
+  hasFilterValue(): boolean {
+    return (
+      this.filterCategory !== '' ||
+      this.filterPriority !== '' ||
+      this.filterDateCreated !== '' ||
+      this.filterDateResolved !== '' ||
+      this.filterStatus !== ''
+    );
+  }
+
   showTicketDetails(ticketId: number) {
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service
       .subscribe(ticket => {

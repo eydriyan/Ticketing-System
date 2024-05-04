@@ -210,7 +210,7 @@
             <input class="form-input" type="date" id="date-resolved" name="date-resolved" [(ngModel)]="filterDateResolved">    
           </div>
       </div>
-        <button class="submit-button" type="button" (click)="applyFilter()">Filter Tickets</button>
+        <button class="submit-button" type="button" [disabled]="!hasFilterValue()" (click)="applyFilter()">Filter Tickets</button>
         <button class="cancel-button" type="button" (click)="clearFilter()">Clear</button>
       </form>
   </div>
