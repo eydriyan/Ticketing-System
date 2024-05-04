@@ -2,12 +2,10 @@ package com.group2.TicketingSystemBackend.controller;
 
 import com.group2.TicketingSystemBackend.enums.UserRole;
 import com.group2.TicketingSystemBackend.model.Student;
-import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.model.dto.loginDTO;
 import com.group2.TicketingSystemBackend.service.AuthService;
 import com.group2.TicketingSystemBackend.service.EmailService;
-import com.group2.TicketingSystemBackend.service.VerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -25,8 +23,6 @@ public class AuthController {
     private AuthService authService;
     @Autowired
     private EmailService emailService;
-    @Autowired
-    private VerificationService verificationService;
 
     // Student sign up
     @PostMapping("/signup")
@@ -43,8 +39,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        // Send Verification Code
-        verificationService.sendVerificationCode(createdUser);
         return ResponseEntity.ok(createdUser);
     }
 

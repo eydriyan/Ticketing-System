@@ -60,10 +60,10 @@ public class TechnicianService {
     }
 
     // delete technician by id
-    public void deleteTechnician(Long technicianId) {
-        Technician technician = getTechnicianById(technicianId);
-        technicianRepository.delete(technician);
-    }
+//    public void deleteTechnician(Long technicianId) {
+//        Technician technician = getTechnicianById(technicianId);
+//        technicianRepository.delete(technician);
+//    }
 
     // get technician by email
     public Technician getTechnicianByEmail(String email) {

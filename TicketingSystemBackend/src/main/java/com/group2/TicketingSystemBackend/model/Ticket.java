@@ -24,7 +24,6 @@
         @ManyToOne
         @JoinColumn(name = "technician_id")
         private Technician technician;
-
         private String title;
         private String description;
         private String priority;

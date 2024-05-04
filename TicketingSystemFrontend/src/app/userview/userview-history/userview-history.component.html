@@ -52,7 +52,16 @@
           </button>
         </td>
         <td class="search-container">
-            <input type="text" class="search" id="search" placeholder="Search technician email here..." [(ngModel)]="searchTechnicianEmail" (input)="applySearch()" style="width: 454px; height: 50px;">
+          <div class="group">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+              <g>
+                <path
+                  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                ></path>
+              </g>
+            </svg>
+            <input class="input" type="search" placeholder="Search technician email" [(ngModel)]="searchTechnicianEmail" (input)="applySearch()" />
+          </div>
         </td>
         </tr>
       </table>
@@ -195,23 +204,26 @@
                 </select>
               </div>
         </div>
-        <!-- <div class="form-row">
+        <div class="form-row">
             <div class="form-col">
               <label class="form-label" for="date-created">Date Created:</label>
-              <input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDate">    
+              <input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDateCreated">    
             </div>
-        </div> -->
-        <!-- <div class="form-row">
+            <div class="form-col">
+              <label class="form-label" for="date-resolved">Date Resolved:</label>
+              <input class="form-input" type="date" id="date-resolved" name="date-resolved" [(ngModel)]="filterDateResolved">    
+            </div>
+        </div>
+        <div class="form-row">
           <div class="form-col">
             <label class="form-label" for="status">Status:</label>
             <select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
                 <option value="status type:">Select status:</option>
-                <option value="Pending">Resolved</option>
-                <option value="In progress">Rejected</option>
+                <option value="Resolved">Resolved</option>
+                <option value="Rejected">Rejected</option>
             </select>
           </div>
-        </div> -->
-
+        </div>
 
         <button class="submit-button" type="button" (click)="applyFilter()">Filter Tickets</button>
         <button class="cancel-button" type="button" (click)="clearFilter()">Clear</button>

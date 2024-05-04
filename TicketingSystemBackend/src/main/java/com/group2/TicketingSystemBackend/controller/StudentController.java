@@ -60,9 +60,9 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
-        studentService.deleteStudent(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+//        studentService.deleteStudent(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }

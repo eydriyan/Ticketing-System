@@ -19,7 +19,6 @@ public class Verification {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn
     private Student student;

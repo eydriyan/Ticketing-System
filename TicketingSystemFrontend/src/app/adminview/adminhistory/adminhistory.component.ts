@@ -22,7 +22,8 @@ export class AdminhistoryComponent implements OnInit {
   showFilterForm: boolean = false;
   filterCategory: string = '';
   filterPriority: string = '';
-  filterDate: string = '';
+  filterDateCreated: string = '';
+  filterDateResolved: string = '';
   filterStatus: string = '';
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
@@ -105,9 +106,13 @@ export class AdminhistoryComponent implements OnInit {
         passesFilter = false;
       }
   
-      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
-      //   passesFilter = false;
-      // }
+      if (this.filterDateCreated && new Date(ticket.dateCreated).toISOString().split('T')[0] !== this.filterDateCreated) {
+        passesFilter = false;
+      }
+
+      if (this.filterDateResolved && new Date(ticket.dateResolved).toISOString().split('T')[0] !== this.filterDateResolved) {
+        passesFilter = false;
+      }
   
       if (this.filterStatus && ticket.status !== this.filterStatus) {
         passesFilter = false;
@@ -134,7 +139,8 @@ export class AdminhistoryComponent implements OnInit {
     // Reset filter criteria and fetch all tickets again
     this.filterCategory = '';
     this.filterPriority = '';
-    this.filterDate = '';
+    this.filterDateCreated = '';
+    this.filterDateResolved = '';
     this.filterStatus = '';
   
     this.fetchAllTickets();
