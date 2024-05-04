@@ -294,8 +294,16 @@ export class AdminviewComponent implements OnInit {
   
     this.fetchTickets();
   }
-  
 
+  hasFilterValue(): boolean {
+    return (
+      this.filterCategory !== '' ||
+      this.filterPriority !== '' ||
+      this.filterDate !== '' ||
+      this.filterStatus !== ''
+    );
+  }
+  
   displayUpdateModal(ticketId: number, event: MouseEvent): void {
     event.stopPropagation();
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service

@@ -467,6 +467,14 @@ background-color: #94d571;
   background-color: #c62116;
 }
 
+button:disabled {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
+button:disabled:hover {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
 .modal-buttons {
   border-spacing:0 15px;
 }

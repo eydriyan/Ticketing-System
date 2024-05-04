@@ -135,6 +135,17 @@ export class UserviewHistoryComponent implements OnInit{
     this.fetchTickets();
   }
 
+  hasFilterValue(): boolean {
+    return (
+      this.filterCategory !== '' ||
+      this.filterPriority !== '' ||
+      this.filterDateCreated !== '' ||
+      this.filterDateResolved !== '' ||
+      this.filterStatus !== ''
+    );
+  }
+  
+
   applySearch(): void {
     if (!this.searchTechnicianEmail.trim()) {
       this.filteredTickets = this.tickets;

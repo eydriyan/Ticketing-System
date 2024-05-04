@@ -156,6 +156,14 @@ export class UserviewComponent implements OnInit{
     this.fetchTickets();
   }
 
+  hasFilterValue(): boolean {
+    return (
+      this.filterCategory !== '' ||
+      this.filterPriority !== '' ||
+      this.filterDate !== '' ||
+      this.filterStatus !== ''
+    );
+  }
 
   showTicketDetails(ticketId: number) {
     this.ticketService.getTicketById(ticketId) // Use the correct method from your service
