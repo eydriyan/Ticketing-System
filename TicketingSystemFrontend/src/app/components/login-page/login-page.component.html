@@ -22,15 +22,20 @@
         <div class="form-container">
             <h1 class="text-center mt-3 ">SIGN IN</h1>
             <p class="text-center">Please sign in to continue.</p>
-            <form (ngSubmit)="login()">
+            <form (ngSubmit)="login()" #loginForm="ngForm" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="email">Email:</label>
                     <div class="input-group">
                         <div class="input-group-text">
                             <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-width="1.1" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+                                <path stroke="currentColor" stroke-linecap="round" stroke-width="1.1" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                            </svg>
                         </div>
-                        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required>
+                        <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required email #emailInput="ngModel">
+                    </div>
+                    <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-danger">
+                        <div *ngIf="emailInput?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="emailInput?.errors?.['email']">Invalid email format.</div>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -38,16 +43,20 @@
                     <div class="input-group">
                         <div class="input-group-text">
                             <svg class="w-[24px] h-[24px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/></svg>
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/>
+                            </svg>
                         </div>
-                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required>
+                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required minlength="5" #passwordInput="ngModel">
+                    </div>
+                    <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger">
+                        <div *ngIf="passwordInput?.errors?.['required']">Password is required.</div>
+                        <div *ngIf="passwordInput?.errors?.['minlength']">Password must be at least 5 characters long.</div>
                     </div>
                 </div>
                 <div class="mt-4 text-center">
-                    <button type="submit" class="button">Continue</button>
-                  </div>
+                    <button type="submit" class="button" [disabled]="loginForm.invalid">Continue</button>
+                </div>
             </form>
-
         </div>
 
     </div>
