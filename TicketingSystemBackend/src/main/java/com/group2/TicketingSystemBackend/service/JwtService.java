@@ -23,9 +23,6 @@ public class JwtService {
     @Value("${application.security.jwt.expiration}")
     private long tokenExpiration;
 
-    @Autowired
-    private UserRepository userRepository;
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }

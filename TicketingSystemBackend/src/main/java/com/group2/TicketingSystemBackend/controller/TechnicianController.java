@@ -60,20 +60,4 @@ public class TechnicianController {
         Technician technician = technicianService.updateTechnician(id, updatedTechnician);
         return ResponseEntity.ok(technician);
     }
-
-//    @PostMapping("/assign-to-self/{ticketId}")
-//    public ResponseEntity<Ticket> assignTicketToSelf(
-//            @PathVariable Long ticketId,
-//            @RequestParam String technicianEmail
-//    ) {
-//        Ticket assignedTicket = ticketService.assignTicketToSelf(ticketId, technicianEmail);
-//        return ResponseEntity.ok(assignedTicket);
-//    }
-
-
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deleteTechnician(@PathVariable Long id) {
-//        technicianService.deleteTechnician(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }

@@ -40,10 +40,10 @@ public class StudentService {
     }
 
     // delete student by id
-    public void deleteStudent(Long studentId) {
-        Student student = getStudentById(studentId);
-        studentRepository.delete(student);
-    }
+//    public void deleteStudent(Long studentId) {
+//        Student student = getStudentById(studentId);
+//        studentRepository.delete(student);
+//    }
 
     // get student by email
     public Student getStudentByEmail(String email) {

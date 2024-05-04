@@ -47,9 +47,9 @@ export class TicketserviceService {
     return this.http.put<Ticket>(`${this.apiUrl}/update/${id}`, updatedTicket);
   }
 
-  deleteTicket(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
-  }
+  // deleteTicket(id: number): Observable<void> {
+  //   return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
+  // }
 
   getTicketsByStudentId(studentId: number): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.apiUrl}/student-tickets/${studentId}`);

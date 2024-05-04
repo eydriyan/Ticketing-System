@@ -152,10 +152,10 @@ public class TicketController {
         return ResponseEntity.ok(resolvedTickets);
     }
 
-    // Delete Ticket
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
-        ticketService.deleteTicket(id);
-        return ResponseEntity.noContent().build();
-    }
+//    // Delete Ticket
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+//        ticketService.deleteTicket(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }
