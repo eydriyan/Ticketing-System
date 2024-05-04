@@ -10,7 +10,6 @@ body {
   line-height: 1.6;
 	background-color: #f5f6fa;
   overflow-y: auto;
-  margin-bottom: 350px;
 }
 
 .header {
@@ -166,6 +165,16 @@ th {
 
 .high {
     color: white;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .analytics-table {
