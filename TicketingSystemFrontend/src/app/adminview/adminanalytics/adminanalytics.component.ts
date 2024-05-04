@@ -6,6 +6,7 @@ import { Ticket } from 'src/app/model/ticket.model';
 import { Technician } from 'src/app/model/technician.model';
 import { TechnicianserviceService } from 'src/app/services/technicianservice.service';
 import { User } from '../../model/user.model';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 
 @Component({
@@ -132,4 +133,20 @@ export class AdminanalyticsComponent implements OnInit {
       }
     );
   }
+
+  chartOptions = {
+	  title: {
+		  text: "Basic Column Chart in Angular"
+	  },
+	  data: [{
+		type: "column",
+		dataPoints: [
+		{ label: "Apple",  y: 10  },
+		{ label: "Orange", y: 15  },
+		{ label: "Banana", y: 25  },
+		{ label: "Mango",  y: 30  },
+		{ label: "Grape",  y: 28  }
+		]
+	  }]                
+    };
 }

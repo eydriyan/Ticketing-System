@@ -51,7 +51,7 @@
       <div class="form-row">
         <label class="form-label" for="title">Subject:</label>
         <select class="form-select" id="title" name="title" [(ngModel)]="title" required (change)="onSubjectChange($event)">
-          <option value="select subject">Select Subject:</option>
+          <option value="select subject" disabled selected>Select Subject:</option>
           <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
           <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
           <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
@@ -102,7 +102,7 @@
               <div class="form-col">
                 <label class="form-label" for="category">Category:</label>
                 <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
-                    <option value="select category">Select Category:</option>
+                    <option value="select category" disabled selected >Select Category:</option>
                     <option value="Account Lockout">Account Lockout</option>
                     <option value="Network Problem">Network Problem</option>
                     <option value="Network Security Issue">Network Security Issue</option>
@@ -112,7 +112,7 @@
               <div class="form-col">
                 <label class="form-label" for="priority">Priority:</label>
                 <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
-                    <option value="select subject">Select Priority:</option>
+                    <option value="select subject" disabled selected>Select Priority:</option>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
@@ -127,7 +127,7 @@
             <div class="form-col">
               <label class="form-label" for="status">Status:</label>
               <select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
-                  <option value="status type:">Select status:</option>
+                  <option value="status type:" disabled selected >Select status:</option>
                   <option value="Pending">Pending</option>
                   <option value="In progress">In Progress</option>
               </select>
@@ -229,7 +229,6 @@
         </td>
         <td>
           <button class="vertical-ellipsis-button"  (click)="displayUpdateModal($event)">
-            <span class="ellipsis">...</span>
           </button>
         </td>
       </tr>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserviewComponent } from './userview/userview-dashboard/userview.component'
@@ -15,6 +14,7 @@ import { UserviewHistoryComponent } from './userview/userview-history/userview-h
 import { TechnicianhistoryComponent } from './technicianview/technicianhistory/technicianhistory.component';
 import { AdminhistoryComponent } from './adminview/adminhistory/adminhistory.component';
 import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalytics.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalyti
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

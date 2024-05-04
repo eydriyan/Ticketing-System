@@ -52,21 +52,9 @@
 	
 		
 <!-- table for analytics-->
-<br> <br>
-<div class="requestContainer">
-	<div class="requests">
-	  <h2>On Hold</h2>
-	  <h2>{{ ticketCounts['On Hold'] }}</h2>
-	</div>
-	<div class="requests">
-	  <h2>In Progress</h2>
-	  <h2>{{ ticketCounts['In Progress'] }}</h2>
-	</div>
-	<div class="requests">
-	  <h2>Resolved</h2>
-	  <h2>{{ ticketCounts['Resolved'] }}</h2>
-	</div>
-  </div>  
+<div>
+    <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+</div>
 <br> <br>
 	<h2>Top Performing Technicians</h2>
 	<div class="analytics-table">

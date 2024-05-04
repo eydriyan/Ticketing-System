@@ -273,7 +273,7 @@
 						<th>Requester</th>
 						<th>Technician</th>
 						<th></th>
-						</tr>
+					</tr>
           <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
