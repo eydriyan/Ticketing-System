@@ -51,7 +51,7 @@ export class UserviewComponent implements OnInit{
   }
 
   subjectToCategoryPriorityMap: { [subject: string]: { category: string, priority: string } } = {
-    'Blackboard Account failed log-in': { category: 'Account Lockout', priority: 'Medium' },
+    'Blackboard Account failed log-in': { category: 'Account Lockout', priority: 'High' },
     'Mymapua Account failed log-in': { category: 'Account Lockout', priority: 'High' },
     'Wi-fi Connectivity Problem': { category: 'Network Problem', priority: 'High' },
     'Network Security Concern': { category: 'Network Security Issue', priority: 'High' },

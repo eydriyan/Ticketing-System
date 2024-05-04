@@ -48,11 +48,11 @@
     <span class="close" (click)="closeModal('ticket-form-container')">&times;</span>
     <h1 class="form-title">Support Ticket Form</h1>
     <h4 class="form-title2">Create a new ticket for your issue.</h4>
-    <form class="form" (ngSubmit)="addTicket()">
+    <form class="form" (ngSubmit)="addTicket()" #ticketForm="ngForm" novalidate>
       <div class="form-row">
         <label class="form-label" for="title">Subject:</label>
-        <select class="form-select" id="title" name="title" [(ngModel)]="title" required (change)="onSubjectChange($event)">
-          <option value="select subject">Select Subject:</option>
+        <select class="form-select" id="title" name="title" [(ngModel)]="title" required #SubjectSelect (change)="onSubjectChange($event)" #titleInput="ngModel">
+          <option value="" disabled selected>Select Subject:</option>
           <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
           <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
           <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
@@ -63,18 +63,21 @@
           <option value="Keyboard not working">Keyboard not working</option>
           <option value="Monitor not turning on">Monitor not turning on</option>
         </select>
+        <div *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched || titleInput.untouched)" class="text-danger">
+          <div *ngIf="titleInput?.errors?.['required']">Subject is required.</div>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-col">
           <label class="form-label" for="category">Category:</label>
-          <select class="form-select" id="category" name="category" [(ngModel)]="category" required #categorySelect disabled>
+          <select class="form-select" id="category" name="category" [(ngModel)]="category" required disabled>
             <option value="" disabled selected>Select Category:</option>
             <option *ngFor="let option of categoryOptions" [value]="option">{{ option }}</option>
-          </select>          
+          </select>         
         </div>
         <div class="form-col">
           <label class="form-label" for="priority">Priority:</label>
-          <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required #prioritySelect>
+          <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required #prioritySelect disabled>
             <option value="" disabled selected>Select Priority:</option>
             <option *ngFor="let option of priorityOptions" [value]="option">{{ option }}</option>
           </select>          
@@ -83,13 +86,18 @@
       </div>
       <div class="form-row">
         <label class="form-label" for="description">Description:</label>
-        <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required></textarea>
+        <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required #descriptionInput="ngModel"></textarea>
+        <div *ngIf="descriptionInput.invalid && (descriptionInput.dirty || descriptionInput.touched || descriptionInput.untouched)" class="text-danger">
+          <div *ngIf="descriptionInput?.errors?.['required']" class="text-danger">Description is required.</div>
+        </div>
       </div>
-      <button class="submit-button" type="submit">Submit Request</button>
+      <button class="submit-button" type="submit" [disabled]="ticketForm.invalid">Submit Request</button>
       <button class="cancel-button" type="button" (click)="closeModal('ticket-form-container')">Cancel</button>
     </form>
   </div>
 </div>
+
+
 
 
 <!--Filter Form-->

@@ -321,7 +321,6 @@ th {
 .form-textarea {
   width: calc(100% - 0px);
   padding: 12px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -330,7 +329,7 @@ th {
 .form-row {
 width: 100%;
 overflow: hidden;
-
+margin-bottom: 15px;
 }
 
 .form-col {
@@ -452,6 +451,16 @@ background-color: #94d571;
   transform: translate(2px ,2px);
 }
 
+button:disabled {
+  background-color: rgba(186, 186, 186, 0.86);
+}
 
+button:disabled:hover {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
+.text-danger {
+  color: red;
+}
 
 
