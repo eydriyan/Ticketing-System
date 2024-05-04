@@ -13,9 +13,10 @@
   <nav class="navbar">
       <img src="../../assets/images/systemicon.png" alt="systemIcon" class="Ticketing System Icon">
       <div class="title">IT Ticketing System</div>
-      <div class="buttons">
-          <a (click)="logout()"><img src="../../assets/images/exitIcon.png" class="exitIcon" alt="Exit Icon"></a>
-      </div>
+      <button class="Btn" (click)="logout()">
+        <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+        <div class="text">Logout</div>
+      </button>   
   </nav>
   
   <!-- (logo)All Tickets(Title) - (Buttton)AddTicket - (Button)Filter - (Searchbar)-->
@@ -47,7 +48,7 @@
     <span class="close" (click)="closeModal('ticket-form-container')">&times;</span>
     <h1 class="form-title">Support Ticket Form</h1>
     <h4 class="form-title2">Create a new ticket for your issue.</h4>
-    <form class="form" (ngSubmit)="addTicket()">
+    <form class="form" (ngSubmit)="addTicket()" #ticketForm="ngForm" novalidate>
       <div class="form-row">
         <label class="form-label" for="title">Subject:</label>
         <select class="form-select" id="title" name="title" [(ngModel)]="title" required (change)="onSubjectChange($event)">
@@ -62,18 +63,21 @@
           <option value="Keyboard not working">Keyboard not working</option>
           <option value="Monitor not turning on">Monitor not turning on</option>
         </select>
+        <div *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched || titleInput.untouched)" class="text-danger">
+          <div *ngIf="titleInput?.errors?.['required']">Subject is required.</div>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-col">
           <label class="form-label" for="category">Category:</label>
-          <select class="form-select" id="category" name="category" [(ngModel)]="category" required #categorySelect disabled>
+          <select class="form-select" id="category" name="category" [(ngModel)]="category" required disabled>
             <option value="" disabled selected>Select Category:</option>
             <option *ngFor="let option of categoryOptions" [value]="option">{{ option }}</option>
-          </select>          
+          </select>         
         </div>
         <div class="form-col">
           <label class="form-label" for="priority">Priority:</label>
-          <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required #prioritySelect>
+          <select class="form-select" id="priority" name="priority" [(ngModel)]="priority" required #prioritySelect disabled>
             <option value="" disabled selected>Select Priority:</option>
             <option *ngFor="let option of priorityOptions" [value]="option">{{ option }}</option>
           </select>          
@@ -82,13 +86,18 @@
       </div>
       <div class="form-row">
         <label class="form-label" for="description">Description:</label>
-        <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required></textarea>
+        <textarea class="form-textarea" id="description" name="description" [(ngModel)]="description" required #descriptionInput="ngModel"></textarea>
+        <div *ngIf="descriptionInput.invalid && (descriptionInput.dirty || descriptionInput.touched || descriptionInput.untouched)" class="text-danger">
+          <div *ngIf="descriptionInput?.errors?.['required']" class="text-danger">Description is required.</div>
+        </div>
       </div>
-      <button class="submit-button" type="submit">Submit Request</button>
+      <button class="submit-button" type="submit" [disabled]="ticketForm.invalid">Submit Request</button>
       <button class="cancel-button" type="button" (click)="closeModal('ticket-form-container')">Cancel</button>
     </form>
   </div>
 </div>
+
+
 
 
 <!--Filter Form-->
