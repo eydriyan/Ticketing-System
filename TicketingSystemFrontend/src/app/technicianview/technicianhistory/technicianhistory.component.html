@@ -191,20 +191,16 @@
                 </select>
               </div>
         </div>
-        <!-- <div class="form-row">
-            <div class="form-col">
-              <label class="form-label" for="date-created">Date Created:</label>
-              <input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDate">    
-            </div>
-            <div class="form-col">
-              <label class="form-label" for="status">Status:</label>
-              <select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
-                  <option value="status type:">Select status:</option>
-                  <option value="Pending">Pending</option>
-                  <option value="In progress">In Progress</option>
-              </select>
-            </div>
-        </div> -->
+        <div class="form-row">
+          <div class="form-col">
+            <label class="form-label" for="date-created">Date Created:</label>
+            <input class="form-input" type="date" id="date-created" name="date-created" [(ngModel)]="filterDateCreated">    
+          </div>
+          <div class="form-col">
+            <label class="form-label" for="date-resolved">Date Resolved:</label>
+            <input class="form-input" type="date" id="date-resolved" name="date-resolved" [(ngModel)]="filterDateResolved">    
+          </div>
+      </div>
         <button class="submit-button" type="button" (click)="applyFilter()">Filter Tickets</button>
         <button class="cancel-button" type="button" (click)="clearFilter()">Clear</button>
       </form>

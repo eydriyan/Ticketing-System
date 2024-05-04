@@ -122,9 +122,9 @@ export class UserviewComponent implements OnInit{
         passesFilter = false;
       }
   
-      // if (this.filterDate && ticket.dateCreated !== this.filterDate) {
-      //   passesFilter = false;
-      // }
+      if (this.filterDate && new Date(ticket.dateCreated).toISOString().split('T')[0] !== this.filterDate) {
+        passesFilter = false;
+      }
   
       if (this.filterStatus && ticket.status !== this.filterStatus) {
         passesFilter = false;
