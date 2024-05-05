@@ -19,6 +19,7 @@ import { UserviewProfileComponent } from './userview/userview-profile/userview-p
 import { ManagetechnicianComponent } from './adminview/managetechnician/managetechnician.component';
 import { ManageuserComponent } from './adminview/manageuser/manageuser.component';
 import { TechnicianprofileComponent } from './technicianview/technicianprofile/technicianprofile.component';
+import { AdminprofileComponent } from './adminview/adminprofile/adminprofile.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TechnicianprofileComponent } from './technicianview/technicianprofile/t
     ManagetechnicianComponent,
     ManageuserComponent,
     TechnicianprofileComponent,
+    AdminprofileComponent,
   ],
   imports: [
     BrowserModule,
