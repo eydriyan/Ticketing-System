@@ -15,6 +15,7 @@ import { TechnicianhistoryComponent } from './technicianview/technicianhistory/t
 import { AdminhistoryComponent } from './adminview/adminhistory/adminhistory.component';
 import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalytics.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { UserviewProfileComponent } from './userview/userview-profile/userview-profile.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     TechnicianhistoryComponent,
     AdminhistoryComponent,
     AdminanalyticsComponent,
+    UserviewProfileComponent,
   ],
   imports: [
     BrowserModule,

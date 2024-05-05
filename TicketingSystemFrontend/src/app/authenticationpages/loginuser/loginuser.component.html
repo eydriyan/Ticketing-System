@@ -46,11 +46,10 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/>
                             </svg>
                         </div>
-                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required minlength="5" #passwordInput="ngModel">
+                        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required #passwordInput="ngModel">
                     </div>
                     <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger">
                         <div *ngIf="passwordInput?.errors?.['required']">Password is required.</div>
-                        <div *ngIf="passwordInput?.errors?.['minlength']">Password must be at least 5 characters long.</div>
                     </div>
                 </div>
                 <div class="mt-4 text-center">

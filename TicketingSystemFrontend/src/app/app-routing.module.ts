@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginuserComponent } from './authenticationpages/loginuser/loginuser.component';
 import { SignupComponent } from './authenticationpages/signup/signup.component';
 import { UserviewComponent } from './userview/userview-dashboard/userview.component';
+import { UserviewProfileComponent } from './userview/userview-profile/userview-profile.component';
 import { AdminviewComponent } from './adminview/admindashboard/adminview.component';
 import { TechnicianviewComponent } from './technicianview/techniciandashboard/technicianview.component';
 import { TechnicianhistoryComponent } from './technicianview/technicianhistory/technicianhistory.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'adminhistory', component: AdminhistoryComponent},
   { path: 'adminanalytics', component: AdminanalyticsComponent},
   { path: 'techniciandashboard', component: TechnicianviewComponent },
-  { path: 'technicianhistory', component: TechnicianhistoryComponent}
+  { path: 'technicianhistory', component: TechnicianhistoryComponent},
+  { path: 'userprofile', component: UserviewProfileComponent}
 ];
 
 @NgModule({
