@@ -99,7 +99,12 @@
         <tbody>
             <tr *ngFor="let ticket of filteredTickets" (click)="showTicketDetails(ticket.id)" data-modal="ticket-details-container" class="modal-buttons">
                 <td [ngClass]="getPriorityColor(ticket.priority)"></td>
-                <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
+				<td>
+					<input type="checkbox" 
+							[disabled]="!ticket.technician"  
+							[checked]="showResolveModal && ticketIdToResolve === ticket.id"  
+							(click)="showResolveConfirmation(ticket, ticket.id, $event)"> 
+				  </td>												  
                 <td class="priority">{{ ticket.priority }}</td>
                 <td>{{ ticket.category }}</td>
                 <td>{{ ticket.status }}</td>
@@ -124,6 +129,16 @@
         </tbody>
     </table>
 </div>
+
+<div *ngIf="showResolveModal && ticketIdToResolve" class="modal"> 
+	<div class="modal-content">
+		<h2>
+			Are you sure you want to resolve ticket #{{ ticketIdToResolve }}?
+		</h2>
+		<button class = "submit-button" (click)="markTicketResolved(ticketIdToResolve, $event)">Resolve Ticket</button>
+		<button class="close-button" (click)="showResolveModal = false">Cancel</button> 
+	</div>
+</div>  
 
 <!-- ETO UNG assign technician popup -->
 <div class="modal" *ngIf="showTechnicianPopup">

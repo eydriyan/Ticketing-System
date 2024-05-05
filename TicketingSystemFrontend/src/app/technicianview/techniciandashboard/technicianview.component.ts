@@ -26,6 +26,9 @@ export class TechnicianviewComponent implements OnInit {
   currentUserName: string = '';
   role: string = '';
   user: User | null = null;
+  showResolveModal: boolean = false;
+  ticketIdToResolve: number | undefined; 
+
 
   constructor(
     private technicianService: TechnicianserviceService,
@@ -76,9 +79,11 @@ export class TechnicianviewComponent implements OnInit {
     );
   }
 
-  // toggleFilterForm() {
-  //   this.showFilterForm = !this.showFilterForm;
-  // }
+  showResolveConfirmation(ticketId: number, event: Event) {
+    event.stopPropagation(); // Prevent checkbox state from changing
+    this.showResolveModal = true;
+    this.ticketIdToResolve = ticketId;
+  }
 
   applyFilter(): void {
     // Filter the tickets based on the selected filter criteria
@@ -170,20 +175,24 @@ export class TechnicianviewComponent implements OnInit {
       });
     }
 
-    // Method to resolve ticket
-    markTicketResolved(ticketId: number, event: Event) {
-      event.stopPropagation();
-      this.ticketService.markTicketResolved(ticketId).subscribe(
-        (resolvedTicket) => {
-          console.log('Ticket marked as resolved:', resolvedTicket);
-          window.location.reload();
-        },
-        (error) => {
-          console.error('Error marking ticket as resolved:', error);
-          // Optionally, handle the error or display a message to the user
-        }
-      );
-    }
+  // Method to resolve ticket
+  markTicketResolved(ticketId: number, event: Event) {
+    event.stopPropagation();
+        // Show the confirmation modal
+    this.showResolveModal = true;
+    this.ticketIdToResolve = ticketId;
+
+    this.ticketService.markTicketResolved(ticketId).subscribe(
+      (resolvedTicket) => {
+        console.log('Ticket marked as resolved:', resolvedTicket);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error marking ticket as resolved:', error);
+        // Optionally, handle the error or display a message to the user
+      }
+    );
+  }
   
 
   // showTicketDetails(ticket: Ticket) {

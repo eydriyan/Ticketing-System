@@ -82,7 +82,11 @@
 					</tr>
           <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
-            <td><input type="checkbox" (click)="markTicketResolved(ticket.id, $event)"></td>
+            <td>
+              <input type="checkbox" 
+                   [checked]="showResolveModal && ticketIdToResolve === ticket.id" 
+                   (click)="showResolveConfirmation(ticket.id, $event)">
+            </td>
             <td class="priority">{{ ticket.priority }}</td>
             <td>{{ ticket.category }}</td>
             <td>{{ ticket.status }}</td>
@@ -93,12 +97,21 @@
               <button  class="vertical-ellipsis-button" data-modal="update-form-container" (click)="displayUpdateModal(ticket.id, $event)">
                 <span class="ellipsis">...</span>
               </button>
-              <!-- <button (click)="showTicketDetails(ticket)">View Details</button> -->
             </td>
           </tr>
         </table>
     </div>
 
+    <!-- pop up modal confirmation for resolving tickets -->
+    <div *ngIf="showResolveModal && ticketIdToResolve" class="modal"> 
+      <div class="modal-content">
+        <h2>
+          Are you sure you want to resolve ticket #{{ ticketIdToResolve }}?
+        </h2>
+        <button class = "submit-button" (click)="markTicketResolved(ticketIdToResolve, $event)">Resolve Ticket</button>
+        <button class=  "close-button" (click)="showResolveModal = false">Cancel</button> 
+      </div>
+    </div>
 
 <!--FORMS-->
     <!--FORM buttons

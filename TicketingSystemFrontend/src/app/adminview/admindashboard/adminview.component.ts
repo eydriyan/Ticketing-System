@@ -37,6 +37,9 @@ export class AdminviewComponent implements OnInit {
   filterPriority: string = '';
   filterDate: string = '';
   filterStatus: string = '';
+  showResolveModal: boolean = false;
+  ticketIdToResolve: number | undefined; 
+  showNoTechnicianMessage: boolean = false;
 
   constructor(
     private renderer: Renderer2,
@@ -148,12 +151,19 @@ export class AdminviewComponent implements OnInit {
     });
   }
 
-  // Method to update ticket
-
+  showResolveConfirmation(ticket: Ticket, ticketId: number, event: Event) {
+      event.stopPropagation();
+      this.showResolveModal = true;
+      this.ticketIdToResolve = ticketId;
+  }  
 
   // Method to resolve ticket
   markTicketResolved(ticketId: number, event: Event) {
     event.stopPropagation();
+        // Show the confirmation modal
+    this.showResolveModal = true;
+    this.ticketIdToResolve = ticketId;
+
     this.ticketService.markTicketResolved(ticketId).subscribe(
       (resolvedTicket) => {
         console.log('Ticket marked as resolved:', resolvedTicket);
