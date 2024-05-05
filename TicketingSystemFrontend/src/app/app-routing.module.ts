@@ -7,9 +7,11 @@ import { UserviewProfileComponent } from './userview/userview-profile/userview-p
 import { AdminviewComponent } from './adminview/admindashboard/adminview.component';
 import { TechnicianviewComponent } from './technicianview/techniciandashboard/technicianview.component';
 import { TechnicianhistoryComponent } from './technicianview/technicianhistory/technicianhistory.component';
+import { TechnicianprofileComponent } from './technicianview/technicianprofile/technicianprofile.component';
 import { UserviewHistoryComponent } from './userview/userview-history/userview-history.component';
 import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalytics.component';
 import { AdminhistoryComponent } from './adminview/adminhistory/adminhistory.component';
+import { AdminprofileComponent } from './adminview/adminprofile/adminprofile.component';
 import { ManageuserComponent } from './adminview/manageuser/manageuser.component';
 import { ManagetechnicianComponent } from './adminview/managetechnician/managetechnician.component';
 
@@ -31,6 +33,8 @@ const routes: Routes = [
   { path: 'userprofile', component: UserviewProfileComponent},
   { path: 'managetechnician', component: ManagetechnicianComponent},
   { path: 'manageuser', component: ManageuserComponent},
+  { path: 'technicianprofile', component: TechnicianprofileComponent},
+  { path: 'adminprofile', component: AdminprofileComponent}
 ];
 
 @NgModule({
