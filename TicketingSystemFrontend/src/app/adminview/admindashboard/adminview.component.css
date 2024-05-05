@@ -248,6 +248,7 @@ th {
   display: inline-block;
   transform: rotate(90deg);
   transform-origin: center;
+  font-weight: 900;
 }
 
 /*Unassigned Button*/
