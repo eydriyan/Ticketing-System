@@ -126,12 +126,11 @@ th {
 
 
 .cont-tickets {
-    background-color: #f5f6fa;
-    float: left;
-    width: 75%; /* Adjust width as needed */
+  background-color: #f5f6fa;
+  float: left;
+  width: 77%;
 	margin-top: 20px;
 	margin-left: 25px;
-	margin-right: 25px;
 }
 
 /*left div*/
@@ -499,3 +498,16 @@ input:hover {
   margin-bottom: 10px;
 }
 
+.tickets td {
+  height: 3.5rem;
+}
+
+.tickets .modal-buttons:hover {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 3px 5px grey;
+  cursor: pointer;
+}
+
+.dashboard, .history {
+  cursor: pointer;
+}

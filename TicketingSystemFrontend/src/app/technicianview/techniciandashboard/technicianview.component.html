@@ -80,7 +80,7 @@
 						<th>Technician</th>
 						<th></th>
 					</tr>
-          <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" >
+          <tr *ngFor="let ticket of filteredTickets"  (click)="showTicketDetails(ticket.id)" class="modal-buttons">
             <td [ngClass]="getPriorityColor(ticket.priority)"></td>
             <td>
               <input type="checkbox" 

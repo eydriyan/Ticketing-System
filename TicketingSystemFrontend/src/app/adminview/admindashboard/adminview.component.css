@@ -120,10 +120,6 @@ th {
    
 }
 
-tr:hover {
-    background-color: grey;
-}
-
 
 .high {
     color: white;
@@ -143,11 +139,10 @@ tr:hover {
 
 .cont-tickets {
     background-color: #f5f6fa;
-    float: right;
-    width: 75%; /* Adjust width as needed */
-	margin-top: 20px;
-	margin-left: 25px;
-	margin-right: 25px;
+    float: left;
+    width: 77%; /* Adjust width as needed */
+    margin-top: 20px;
+    margin-left: 25px;
 }
 
 .container {
@@ -208,12 +203,12 @@ tr:hover {
 
 /*buttons add ticket, filter and search bar*/
 .rightcontainer {
-	background-color: #f5f6fa;
-    float: right;
-    width: 75%; /* Adjust width as needed */
-	margin-top: 20px;
-	margin-left: 25px;
-	margin-right: 25px;
+  background-color: #f5f6fa;
+  float: right;
+  width: 75%; /* Adjust width as needed */
+  margin-top: 20px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .rightcontainer td {
@@ -481,8 +476,8 @@ button:disabled:hover {
 }
 
 table {
-  border-collapse:separate;
-    border-spacing:0 15px;
+  width: 100%;
+ border-collapse:collapse;
 }
 
 .search {
@@ -611,4 +606,18 @@ input:hover {
   width: 1.2rem;
   height: 1.2rem;
   margin-bottom: 10px;
+}
+
+.tickets td {
+  height: 3.5rem;
+}
+
+.tickets .modal-buttons:hover {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 3px 5px grey;
+  cursor: pointer;
+}
+
+.dashboard, .history, .analytics, .manageuser, .managetechnician {
+  cursor: pointer;
 }

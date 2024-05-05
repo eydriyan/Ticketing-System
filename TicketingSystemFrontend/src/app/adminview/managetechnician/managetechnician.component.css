@@ -454,3 +454,7 @@ clear: both;
   .submit-button:hover {
   background-color: #048554;
   }
+
+  .dashboard, .history, .analytics, .manageuser, .managetechnician {
+    cursor: pointer;
+  }

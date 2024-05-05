@@ -482,3 +482,7 @@ background-color: #94d571;
 .Btn:active {
   transform: translate(2px ,2px);
 }
+
+.dashboard, .history, .analytics, .manageuser, .managetechnician {
+  cursor: pointer;
+}
