@@ -16,6 +16,8 @@ import { AdminhistoryComponent } from './adminview/adminhistory/adminhistory.com
 import { AdminanalyticsComponent } from './adminview/adminanalytics/adminanalytics.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { UserviewProfileComponent } from './userview/userview-profile/userview-profile.component';
+import { ManagetechnicianComponent } from './adminview/managetechnician/managetechnician.component';
+import { ManageuserComponent } from './adminview/manageuser/manageuser.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { UserviewProfileComponent } from './userview/userview-profile/userview-p
     AdminhistoryComponent,
     AdminanalyticsComponent,
     UserviewProfileComponent,
+    ManagetechnicianComponent,
+    ManageuserComponent,
   ],
   imports: [
     BrowserModule,
