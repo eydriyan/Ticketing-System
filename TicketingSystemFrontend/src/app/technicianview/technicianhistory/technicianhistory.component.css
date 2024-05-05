@@ -144,8 +144,9 @@ background-color: white;
 }
 
 .profile-container {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .tempprofile {

@@ -18,6 +18,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { UserviewProfileComponent } from './userview/userview-profile/userview-profile.component';
 import { ManagetechnicianComponent } from './adminview/managetechnician/managetechnician.component';
 import { ManageuserComponent } from './adminview/manageuser/manageuser.component';
+import { TechnicianprofileComponent } from './technicianview/technicianprofile/technicianprofile.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ManageuserComponent } from './adminview/manageuser/manageuser.component
     UserviewProfileComponent,
     ManagetechnicianComponent,
     ManageuserComponent,
+    TechnicianprofileComponent,
   ],
   imports: [
     BrowserModule,
