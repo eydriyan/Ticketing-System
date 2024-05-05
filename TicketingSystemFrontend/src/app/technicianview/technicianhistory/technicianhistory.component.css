@@ -124,6 +124,10 @@ th {
   background-color: green;
 }
 
+.color-high, .color-med, .color-low {
+  width: 2.2rem;
+}
+
 .cont-tickets {
   background-color: #f5f6fa;
   float: left;
