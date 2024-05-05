@@ -204,6 +204,7 @@ th {
 .profile-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .tempprofile {
