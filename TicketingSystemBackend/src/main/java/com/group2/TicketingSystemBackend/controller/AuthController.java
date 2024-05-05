@@ -2,6 +2,7 @@ package com.group2.TicketingSystemBackend.controller;
 
 import com.group2.TicketingSystemBackend.enums.UserRole;
 import com.group2.TicketingSystemBackend.model.Student;
+import com.group2.TicketingSystemBackend.model.Technician;
 import com.group2.TicketingSystemBackend.model.User;
 import com.group2.TicketingSystemBackend.model.dto.loginDTO;
 import com.group2.TicketingSystemBackend.service.AuthService;
@@ -59,6 +60,26 @@ public class AuthController {
         if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();
             return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @GetMapping("/student")
+    public ResponseEntity<Student> getStudent(Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof Student) {
+            Student student = (Student) authentication.getPrincipal();
+            return ResponseEntity.ok(student);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @GetMapping("/technician")
+    public ResponseEntity<Technician> getTechnician(Authentication authentication) {
+        if (authentication != null && authentication.getPrincipal() instanceof Technician) {
+            Technician technician = (Technician) authentication.getPrincipal();
+            return ResponseEntity.ok(technician);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

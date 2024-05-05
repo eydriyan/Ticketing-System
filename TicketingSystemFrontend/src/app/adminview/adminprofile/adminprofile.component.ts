@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-adminprofile',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./adminprofile.component.css']
 })
 export class AdminprofileComponent implements OnInit {
+  user: User | null = null;
 
   constructor(
     private authService: AuthserviceService,
@@ -15,7 +17,18 @@ export class AdminprofileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUserInfo();
+  }
 
+  getUserInfo(): void {
+    this.authService.getUser().subscribe(
+      (user: User) => {
+        this.user = user;
+      },
+      (error) => {
+        console.error('Error fetching user information:', error);
+      }
+    );
   }
 
   // Method to log out the user

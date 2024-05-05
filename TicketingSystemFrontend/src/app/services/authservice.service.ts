@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../model/user.model'; 
 import { Student } from '../model/student.model';
+import { Technician } from '../model/technician.model';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
@@ -28,6 +29,24 @@ export class AuthserviceService {
     });
 
     return this.http.get<User>(`${this.baseUrl}/user`, { headers });
+  }
+
+  getStudent(): Observable<Student> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Student>(`${this.baseUrl}/student`, { headers });
+  }
+
+  getTechnician(): Observable<Technician> {
+    const token = this.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Technician>(`${this.baseUrl}/technician`, { headers });
   }
 
   logout() { 

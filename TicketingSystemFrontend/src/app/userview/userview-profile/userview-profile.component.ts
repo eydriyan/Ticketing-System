@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthserviceService } from '../../services/authservice.service';
 import { Router } from '@angular/router';
+import { Student } from '../../model/student.model';
 
 @Component({
   selector: 'app-userview-profile',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./userview-profile.component.css']
 })
 export class UserviewProfileComponent implements OnInit {
+  student: Student | null = null;
 
   constructor(
     private authService: AuthserviceService,
@@ -15,7 +17,18 @@ export class UserviewProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getStudentInfo();
+  }
 
+  getStudentInfo(): void {
+    this.authService.getStudent().subscribe(
+      (student: Student) => {
+        this.student = student;
+      },
+      (error) => {
+        console.error('Error fetching student information:', error);
+      }
+    );
   }
 
   // Method to log out the user

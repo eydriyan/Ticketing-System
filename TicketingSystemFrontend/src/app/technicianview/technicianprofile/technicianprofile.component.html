@@ -36,8 +36,8 @@
                       <div class="d-flex flex-column align-items-center text-center">
                         <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                         <div class="mt-3">
-                          <h4>John Doe</h4>
-                          <p class="text-secondary mb-1">Technician</p>
+                          <h4>{{ technician?.firstName }} {{ technician?.lastName }}</h4>
+                          <p class="text-secondary mb-1">{{technician?.role}}</p>
                           <p class="text-muted font-size-sm">Mapua University</p>
                         </div>
                       </div>
@@ -63,7 +63,7 @@
                           <h6 class="mb-0">Full Name</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          Kenneth Valdez
+                          {{ technician?.firstName }} {{ technician?.lastName }}
                         </div>
                       </div>
                       <hr>
@@ -72,7 +72,7 @@
                           <h6 class="mb-0">Email</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          fip@jukmuh.al
+                          {{technician?.email}}
                         </div>
                       </div>
                       <hr>
@@ -81,7 +81,7 @@
                           <h6 class="mb-0">Mobile</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          (320) 380-4539
+                          {{technician?.phoneNumber}}
                         </div>
                       </div>
                       <hr>
@@ -102,7 +102,7 @@
                           <h6 class="mb-0">Staff Number</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          Kenneth Valdez
+                          {{technician?.staffNumber}}
                         </div>
                       </div>
                       <hr>
@@ -111,7 +111,7 @@
                           <h6 class="mb-0">Skillset</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          fip@jukmuh.al
+                          {{technician?.skillSet}}
                         </div>
                       </div>
                       <hr>
@@ -120,7 +120,7 @@
                           <h6 class="mb-0">Password</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                          MyPassword
+                          {{technician?.password}}
                         </div>
                       </div>
                       <hr>
