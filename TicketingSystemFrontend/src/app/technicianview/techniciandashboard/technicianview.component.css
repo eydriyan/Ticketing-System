@@ -348,6 +348,18 @@ margin: 0;
   color: #333;
 }
 
+/* Close Button */
+.close-button {
+  background-color: #d9291c;
+  color: white;
+  border: none;
+  padding: 12px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 138px;
+}
+
 /* Form */
 .form {
   text-align: left;
