@@ -26,30 +26,34 @@
 
 <!-- (logo)Ticket Requests(Title) - (Button)Filter - (Searchbar)-->  
 	   
-			<table class="rightcontainer">
-		  <tr>
-			<td class="title-container">
+		<div class="rightcontainer">
+		  <div>
+			<div class="title-container">
 				<img src="../../assets/images/ticketrequests.png" alt="Ticket Requests" class="ticketrequests">
-			</td>
-			<td class="filter-container">
-				<button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
-					<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
-				  </button>
-			</td>
-			<td class="search-container">
-				<div class="group">
-					<svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
-					  <g>
-						<path
-						  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-						></path>
-					  </g>
-					</svg>
-					<input class="input" type="search" placeholder="Search requester or technician email" [(ngModel)]="searchEmail" (input)="applySearch()" />
+			</div>
+
+			<div class="filter-search">
+				<div class="filter-container">
+					<button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
+						<img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
+					  </button>
 				</div>
-			</td>
-		  </tr>
-		</table>
+				<div class="search-container">
+					<div class="group">
+						<svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+						  <g>
+							<path
+							  d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+							></path>
+						  </g>
+						</svg>
+						<input class="input" type="search" placeholder="Search requester or technician email" [(ngModel)]="searchEmail" (input)="applySearch()" />
+					</div>
+				</div>
+			</div>
+			
+		  </div>
+		</div>
 		
 <!--Left Container for Profile, Dashboard and History-->   
    <div class="leftcontainer">
@@ -71,18 +75,18 @@
 		<a onclick="window.location.href='adminanalytics'">
 			<img src="../../assets/images/analyticsButton.png" class="analytics" alt="Analytics">
 		</a>
-		<a onclick="window.location.href='managetechnician'">
+		<!-- <a onclick="window.location.href='managetechnician'">
 			<img src="../../assets/images/Technician.png" class="managetechnician" alt="managetechnician">
 	  </a>
 	  <a onclick="window.location.href='manageuser'">
 		<img src="../../assets/images/User.png" class="manageuser" alt="manageuser">
-  </a> 
+  	</a>  -->
 		</div>
 	</div>
 		
 <!-- table for tickets -->
 <div class="cont-tickets" *ngIf="tickets.length > 0">
-    <table>
+    <table class="tickets">
         <thead>
             <tr>
                 <th class="color-priority"></th>
@@ -122,7 +126,7 @@
                 </td>
                 <td>
                     <button class="vertical-ellipsis-button" (click)="displayUpdateModal(ticket.id, $event)" data-modal="update-form-container">
-                        <span class="ellipsis">...</span>
+                        <span class="ellipsis">. . .</span>
                     </button>
                 </td>
             </tr>
@@ -178,7 +182,7 @@
 				<div class="form-col">
 				  <label class="form-label" for="category">Category:</label>
 				  <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
-					  <option value="select category">Select Category:</option>
+					  <option value="" disabled selected>Select Category:</option>
 					  <option value="Account Lockout">Account Lockout</option>
 					  <option value="Network Problem">Network Problem</option>
 					  <option value="Network Security Issue">Network Security Issue</option>
@@ -188,7 +192,7 @@
 				<div class="form-col">
 				  <label class="form-label" for="priority">Priority:</label>
 				  <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
-					  <option value="select subject">Select Priority:</option>
+					  <option value="" disabled selected>Select Priority:</option>
 					  <option value="Low">Low</option>
 					  <option value="Medium">Medium</option>
 					  <option value="High">High</option>
@@ -203,7 +207,7 @@
 			  <div class="form-col">
 				<label class="form-label" for="status">Status:</label>
 				<select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
-					<option value="status type:">Select status:</option>
+					<option value="" disabled selected>Select status:</option>
 					<option value="Pending">Pending</option>
 					<option value="In progress">In Progress</option>
 				</select>

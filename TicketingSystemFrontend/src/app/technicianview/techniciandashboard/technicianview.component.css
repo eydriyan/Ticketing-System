@@ -44,7 +44,7 @@ color: white;
 display: flex;
 justify-content: space-between;
 align-items: center;
-padding: 15px 16px;
+padding: 15px 25px;
 height: 60px;
 }
 
@@ -98,12 +98,12 @@ background-color: #f0f0f0;
 
 table {
   width: 100%;
- border-collapse:collapse;
+  border-collapse:collapse;
 }
 
 .tickets {
-border-collapse:collapse;
-border-collapse:separate;
+  border-collapse:collapse;
+  border-collapse:separate;
   border-spacing:0 15px;
 }
 
@@ -120,9 +120,14 @@ th {
  
 }
 
+.tickets td {
+  height: 3.5rem;
+}
 
-tr:hover {
-  background-color: grey;
+.tickets .modal-buttons:hover {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 3px 5px grey;
+  cursor: pointer;
 }
 
 
@@ -142,14 +147,17 @@ tr:hover {
   background-color: green;
 }
 
+.color-high, .color-med, .color-low {
+  width: 2.2rem;
+}
+
 
 .cont-tickets {
   background-color: #f5f6fa;
-  float: right;
-  width: 75%; /* Adjust width as needed */
-margin-top: 20px;
-margin-left: 25px;
-margin-right: 25px;
+  float: left;
+  width: 77%; /* Adjust width as needed */
+  margin-top: 20px;
+  margin-left: 25px;
 }
 
 .container {
@@ -210,16 +218,24 @@ cursor: pointer;
 
 /*buttons add ticket, filter and search bar*/
 .rightcontainer {
-background-color: #f5f6fa;
-  float: right;
-  width: 75%; /* Adjust width as needed */
-margin-top: 20px;
-margin-left: 25px;
-margin-right: 25px;
+	background-color: #f5f6fa;
+    float: right;
+    width: 77%; /* Adjust width as needed */
+	  margin-top: 20px;
+	  margin-right: 20px;
+
+    >div {
+      display: flex;
+      justify-content: space-between;
+    }
 }
 
-.rightcontainer td {
-  background-color: #f5f6fa;
+.filter-search {
+  display: flex;
+
+  .filterButton {
+    margin-right: 15px;
+  }
 }
 
 .red-button {
@@ -266,6 +282,7 @@ margin: 0;
 display: inline-block;
 transform: rotate(90deg);
 transform-origin: center;
+font-weight: 900;
 }
 
 /*Unassigned Button*/
@@ -331,6 +348,18 @@ margin: 0;
   color: #333;
 }
 
+/* Close Button */
+.close-button {
+  background-color: #d9291c;
+  color: white;
+  border: none;
+  padding: 12px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 138px;
+}
+
 /* Form */
 .form {
   text-align: left;
@@ -380,7 +409,7 @@ margin-right: 10px;
 }
 
 .cancel-button {
-background-color: #94d571;
+background-color: red;
   color: white;
   padding: 12px 12px;
   border: none;
@@ -389,7 +418,9 @@ background-color: #94d571;
   width: 30%;
 }
 
-.cancel-button:hover,
+.cancel-button:hover{
+  background-color: darkred;
+}
 .submit-button:hover {
   background-color: #048554;
 }
@@ -517,4 +548,12 @@ input:hover {
   width: 1.2rem;
   height: 1.2rem;
   margin-bottom: 10px;
+}
+
+.dashboard, .history {
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  transform: scale(2);
 }

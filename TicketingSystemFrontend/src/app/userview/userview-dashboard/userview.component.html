@@ -19,22 +19,22 @@
   </nav>
   
   <!-- (logo)All Tickets(Title) - (Buttton)AddTicket - (Button)Filter - (Searchbar)-->
-  <table class="rightcontainer">
-      <tr>
-          <td class="title-container">
+  <div class="rightcontainer">
+      <div>
+          <div class="title-container">
               <img src="../../assets/images/allTickets.png" alt="All Tickets" class="allTickets">
-          </td>
-          <td class="filter-container">
+          </div>
+          <div class="filter-container">
             <button class="invisible-button modal-buttons"  (click)="displayModal('ticket-form-container')" data-modal="ticket-form-container">
               <img src="../../assets/images/addTicketButton.png" alt="addTicket">
             </button>
-          </td>
-          <td>
+          </div>
+          <div>
             <button class="invisible-button modal-buttons" (click)="displayModal('Filter-form-container')" data-modal="Filter-form-container">
               <img src="../../assets/images/filterButton.png" class="filterButton" alt="Filter">
             </button>
-          </td>
-          <td class="search-container">
+          </div>
+          <div class="search-container">
             <div class="group">
               <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
                 <g>
@@ -45,9 +45,9 @@
               </svg>
               <input class="input" type="search" placeholder="Search technician email" [(ngModel)]="searchTechnicianEmail" (input)="applySearch()" />
             </div>
-          </td>
-      </tr>
-  </table>
+          </div>
+      </div>
+  </div>
   
 
 <!-- Add Ticket -->
@@ -60,7 +60,7 @@
       <div class="form-row">
         <label class="form-label" for="title">Subject:</label>
         <select class="form-select" id="title" name="title" [(ngModel)]="title" required #SubjectSelect (change) ="onSubjectChange($event)" #titleInput="ngModel">
-          <option value="select subject" disabled selected>Select Subject:</option>
+          <option value="" disabled selected>Select Subject:</option>
           <option value="Blackboard Account failed log-in">Blackboard Account failed log-in</option>
           <option value="Mymapua Account failed log-in">Mymapua Account failed log-in</option>
           <option value="Wi-fi Connectivity Problem">Wi-fi Connectivity Problem</option>
@@ -116,7 +116,7 @@
               <div class="form-col">
                 <label class="form-label" for="category">Category:</label>
                 <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
-                    <option value="select category" disabled selected >Select Category:</option>
+                    <option value="" disabled selected >Select Category:</option>
                     <option value="Account Lockout">Account Lockout</option>
                     <option value="Network Problem">Network Problem</option>
                     <option value="Network Security Issue">Network Security Issue</option>
@@ -126,7 +126,7 @@
               <div class="form-col">
                 <label class="form-label" for="priority">Priority:</label>
                 <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
-                    <option value="select subject" disabled selected>Select Priority:</option>
+                    <option value="" disabled selected>Select Priority:</option>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
@@ -141,7 +141,7 @@
             <div class="form-col">
               <label class="form-label" for="status">Status:</label>
               <select class="form-select" id="status" name="status" [(ngModel)]="filterStatus">
-                  <option value="status type:" disabled selected >Select status:</option>
+                  <option value="" disabled selected >Select status:</option>
                   <option value="Pending">Pending</option>
                   <option value="In progress">In Progress</option>
               </select>

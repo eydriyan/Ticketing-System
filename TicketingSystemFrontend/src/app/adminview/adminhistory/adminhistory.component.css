@@ -43,7 +43,7 @@ color: white;
 display: flex;
 justify-content: space-between;
 align-items: center;
-padding: 15px 16px;
+padding: 15px 25px;
 height: 60px;
 }
 
@@ -124,6 +124,10 @@ th {
   background-color: green;
 }
 
+.color-high, .color-med, .color-low {
+  width: 2.2rem;
+}
+
 .footer {
   background-color: #333;
   color: #fff;
@@ -137,10 +141,9 @@ th {
 .cont-tickets {
   background-color: #f5f6fa;
   float: left;
-  width: 75%; /* Adjust width as needed */
-margin-top: 20px;
-margin-left: 25px;
-margin-right: 25px;
+  width: 77%; /* Adjust width as needed */
+  margin-top: 20px;
+  margin-left: 25px;
 }
 
 /*left div*/
@@ -196,16 +199,24 @@ cursor: pointer;
 
 /*buttons add ticket, filter and search bar*/
 .rightcontainer {
-background-color: #f5f6fa;
-  float: right;
-  width: 75%; /* Adjust width as needed */
-margin-top: 20px;
-margin-left: 25px;
-margin-right: 25px;
+	background-color: #f5f6fa;
+    float: right;
+    width: 77%; /* Adjust width as needed */
+	  margin-top: 20px;
+	  margin-right: 20px;
+
+    >div {
+      display: flex;
+      justify-content: space-between;
+    }
 }
 
-.rightcontainer td {
-  background-color: #f5f6fa;
+.filter-search {
+  display: flex;
+
+  .filterButton {
+    margin-right: 15px;
+  }
 }
 
 .invisible-button {
@@ -244,6 +255,7 @@ margin: 0;
 display: inline-block;
 transform: rotate(90deg);
 transform-origin: center;
+font-weight: 900;
 }
 
 /*Unassigned Button*/
@@ -569,4 +581,18 @@ input:hover {
   width: 1.2rem;
   height: 1.2rem;
   margin-bottom: 10px;
+}
+
+.tickets td {
+  height: 3.5rem;
+}
+
+.tickets .modal-buttons:hover {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 3px 5px grey;
+  cursor: pointer;
+}
+
+.dashboard, .history, .analytics, .manageuser, .managetechnician {
+  cursor: pointer;
 }

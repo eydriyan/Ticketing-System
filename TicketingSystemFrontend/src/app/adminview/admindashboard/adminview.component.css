@@ -44,7 +44,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 16px;
+  padding: 15px 25px;
   height: 60px;
 }
 
@@ -120,10 +120,6 @@ th {
    
 }
 
-tr:hover {
-    background-color: grey;
-}
-
 
 .high {
     color: white;
@@ -141,13 +137,16 @@ tr:hover {
     background-color: green;
 }
 
+.color-high, .color-med, .color-low {
+  width: 2.2rem;
+}
+
 .cont-tickets {
     background-color: #f5f6fa;
-    float: right;
-    width: 75%; /* Adjust width as needed */
-	margin-top: 20px;
-	margin-left: 25px;
-	margin-right: 25px;
+    float: left;
+    width: 77%; /* Adjust width as needed */
+    margin-top: 20px;
+    margin-left: 25px;
 }
 
 .container {
@@ -210,14 +209,22 @@ tr:hover {
 .rightcontainer {
 	background-color: #f5f6fa;
     float: right;
-    width: 75%; /* Adjust width as needed */
-	margin-top: 20px;
-	margin-left: 25px;
-	margin-right: 25px;
+    width: 77%; /* Adjust width as needed */
+	  margin-top: 20px;
+	  margin-right: 20px;
+
+    >div {
+      display: flex;
+      justify-content: space-between;
+    }
 }
 
-.rightcontainer td {
-  background-color: #f5f6fa;
+.filter-search {
+  display: flex;
+
+  .filterButton {
+    margin-right: 15px;
+  }
 }
 
 .red-button {
@@ -249,6 +256,7 @@ tr:hover {
   display: inline-block;
   transform: rotate(90deg);
   transform-origin: center;
+  font-weight: 900;
 }
 
 /*Unassigned Button*/
@@ -257,8 +265,8 @@ tr:hover {
   border: none;
   color: white;
   cursor: pointer;
-  padding: 0 5px;
-  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 /* For Forms */
@@ -370,16 +378,18 @@ margin-right: 10px;
 }
 
 .cancel-button {
-background-color: #94d571;
-  color: white;
-  padding: 12px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 30%;
+  background-color: red;
+    color: white;
+    padding: 12px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 25%;
+  }
+  
+.cancel-button:hover{
+  background-color: darkred;
 }
-
-.cancel-button:hover,
 .submit-button:hover {
   background-color: #048554;
 }
@@ -458,10 +468,11 @@ background-color: #94d571;
   background-color: #d9291c;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 12px;
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
+  width: 138px;
 }
 
 .close-button:hover {
@@ -481,8 +492,8 @@ button:disabled:hover {
 }
 
 table {
-  border-collapse:separate;
-    border-spacing:0 15px;
+  width: 100%;
+ border-collapse:collapse;
 }
 
 .search {
@@ -493,6 +504,10 @@ table {
   width: 90%;
   height: 43px;
   margin-top: 25px;
+}
+
+.reject-button:hover{
+  background-color: darkred;
 }
 
 .Btn {
@@ -611,4 +626,22 @@ input:hover {
   width: 1.2rem;
   height: 1.2rem;
   margin-bottom: 10px;
+}
+
+.tickets td {
+  height: 3.5rem;
+}
+
+.tickets .modal-buttons:hover {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 3px 5px grey;
+  cursor: pointer;
+}
+
+.dashboard, .history, .analytics, .manageuser, .managetechnician {
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  transform: scale(2);
 }
