@@ -183,7 +183,7 @@
               <div class="form-col">
                 <label class="form-label" for="category">Category:</label>
                 <select class="form-select" id="category" name="category" [(ngModel)]="filterCategory">
-                    <option value="select category">Select Category:</option>
+                    <option value="" disabled selected>Select Category:</option>
                     <option value="Account Lockout">Account Lockout</option>
                     <option value="Network Problem">Network Problem</option>
                     <option value="Network Security Issue">Network Security Issue</option>
@@ -193,7 +193,7 @@
               <div class="form-col">
                 <label class="form-label" for="priority">Priority:</label>
                 <select class="form-select" id="priority" name="priority" [(ngModel)]="filterPriority">
-                    <option value="select subject">Select Priority:</option>
+                    <option value="" disabled selected>Select Priority:</option>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
