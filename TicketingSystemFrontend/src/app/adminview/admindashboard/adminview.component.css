@@ -44,7 +44,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 16px;
+  padding: 15px 25px;
   height: 60px;
 }
 
@@ -207,16 +207,24 @@ th {
 
 /*buttons add ticket, filter and search bar*/
 .rightcontainer {
-  background-color: #f5f6fa;
-  float: right;
-  width: 75%; /* Adjust width as needed */
-  margin-top: 20px;
-  margin-left: 25px;
-  margin-right: 25px;
+	background-color: #f5f6fa;
+    float: right;
+    width: 77%; /* Adjust width as needed */
+	  margin-top: 20px;
+	  margin-right: 20px;
+
+    >div {
+      display: flex;
+      justify-content: space-between;
+    }
 }
 
-.rightcontainer td {
-  background-color: #f5f6fa;
+.filter-search {
+  display: flex;
+
+  .filterButton {
+    margin-right: 15px;
+  }
 }
 
 .red-button {
@@ -257,8 +265,8 @@ th {
   border: none;
   color: white;
   cursor: pointer;
-  padding: 0 5px;
-  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 /* For Forms */
@@ -625,4 +633,8 @@ input:hover {
 
 .dashboard, .history, .analytics, .manageuser, .managetechnician {
   cursor: pointer;
+}
+
+input[type=checkbox] {
+  transform: scale(2);
 }

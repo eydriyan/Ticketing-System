@@ -50,9 +50,10 @@ export class LoginuserComponent {
             },
             (error) => {
               console.error('Error fetching user information:', error);
-              // Handle error fetching user information
             }
           );
+        }else{
+          alert("invalid login");
         }
         
       },
@@ -61,6 +62,8 @@ export class LoginuserComponent {
         console.error('Login error:', error);
       }
     );
+
+    
   }
   
 }
