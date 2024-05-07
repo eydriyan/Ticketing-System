@@ -192,10 +192,6 @@ markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) 
   );
 }
 
-
-<<<<<<< HEAD
-  
-
   // showTicketDetails(ticket: Ticket) {
   //   this.selectedTicket = ticket;
   // }
@@ -203,18 +199,6 @@ markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) 
   // closeTicketDetails() {
   //   this.selectedTicket = null;
   // }
-=======
-    this.ticketService.markTicketResolved(ticketId).subscribe(
-      (resolvedTicket) => {
-        console.log('Ticket marked as resolved:', resolvedTicket);
-        window.location.reload();
-      },
-      (error) => {
-        console.error('Error marking ticket as resolved:', error);
-      }
-    );
-  }
->>>>>>> 7cd40a304decbe2481dacaf7c9f2f695acef12d9
 
   getPriorityColor(priority: string): string {
     switch (priority) {
