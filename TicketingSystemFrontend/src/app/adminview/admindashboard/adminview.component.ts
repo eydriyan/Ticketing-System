@@ -151,22 +151,35 @@ export class AdminviewComponent implements OnInit {
     });
   }
 
-  showResolveConfirmation(ticket: Ticket, ticketId: number, event: Event) {
-      event.stopPropagation();
-      this.showResolveModal = true;
-      this.ticketIdToResolve = ticketId;
-  }  
-
-  // Method to resolve ticket
-  markTicketResolved(ticketId: number, event: Event) {
+  showResolveConfirmation(ticketId: number, event: Event) {
     event.stopPropagation();
-        // Show the confirmation modal
     this.showResolveModal = true;
     this.ticketIdToResolve = ticketId;
+    
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    .subscribe(ticket => {
+      this.selectedTicket = ticket;
+    }, error => {
+      console.error("Error fetching ticket details", error);
+      // Handle the error appropriately
+    });
+  } 
 
-    this.ticketService.markTicketResolved(ticketId).subscribe(
-      (resolvedTicket) => {
-        console.log('Ticket marked as resolved:', resolvedTicket);
+
+
+  // Method to resolve ticket
+  markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) {
+    event.stopPropagation();
+    this.showResolveModal = true;
+    this.ticketIdToResolve = ticketId;
+  
+    // Update the ticket status to 'Resolved'
+    selectedTicket.status = 'Resolved';
+  
+    // Call the updateTicket method to update the ticket in the backend
+    this.ticketService.updateTicket(selectedTicket.id, selectedTicket).subscribe(
+      (updatedTicket: Ticket) => {
+        console.log('Ticket marked as resolved:', updatedTicket);
         window.location.reload();
       },
       (error) => {
@@ -176,6 +189,7 @@ export class AdminviewComponent implements OnInit {
     );
   }
 
+  
   // Method to reject ticket
   markTicketRejected(ticketId: number) {
     this.ticketService.markTicketRejected(ticketId).subscribe(

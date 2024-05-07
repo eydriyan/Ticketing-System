@@ -83,6 +83,14 @@ export class TechnicianviewComponent implements OnInit {
     event.stopPropagation();
     this.showResolveModal = true;
     this.ticketIdToResolve = ticketId;
+    
+    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    .subscribe(ticket => {
+      this.selectedTicket = ticket;
+    }, error => {
+      console.error("Error fetching ticket details", error);
+      // Handle the error appropriately
+    });
   }  
 
   applyFilter(): void {
