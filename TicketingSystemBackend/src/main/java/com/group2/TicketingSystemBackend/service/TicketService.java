@@ -52,6 +52,7 @@ public class TicketService {
         existingTicket.setPriority(updatedTicket.getPriority());
         existingTicket.setCategory(updatedTicket.getCategory());
         existingTicket.setStatus(updatedTicket.getStatus());
+        existingTicket.setSolution(updatedTicket.getSolution());
         existingTicket.setTechnician(updatedTicket.getTechnician());
         if (updatedTicket.getTechnician() != null) {
             existingTicket.setTechnician(updatedTicket.getTechnician());
