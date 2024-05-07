@@ -18,14 +18,9 @@
         <div class="text">Logout</div>
       </button>
 </nav>
- <!-- Debugging State Indicators
-<p>Filter Modal Open: {{ showFilterModal }}</p>
-<p>Ticket Details Modal Open: {{ showTicketDetailsModal }}</p>
-<p>Update Modal Open: {{ showUpdateModal }}</p> -->
 
 
 <!-- (logo)Ticket Requests(Title) - (Button)Filter - (Searchbar)-->  
-	   
 		<div class="rightcontainer">
 		  <div>
 			<div class="title-container">
@@ -75,12 +70,6 @@
 		<a onclick="window.location.href='adminanalytics'">
 			<img src="../../assets/images/analyticsButton.png" class="analytics" alt="Analytics">
 		</a>
-		<!-- <a onclick="window.location.href='managetechnician'">
-			<img src="../../assets/images/Technician.png" class="managetechnician" alt="managetechnician">
-	  </a>
-	  <a onclick="window.location.href='manageuser'">
-		<img src="../../assets/images/User.png" class="manageuser" alt="manageuser">
-  	</a>  -->
 		</div>
 	</div>
 		
@@ -158,19 +147,6 @@
     </div>
 </div>
 
-  
-
-<!--FORMS-->
-
-<!--buttons for each form-->
-	<!--Filter Form
-			<button class="filter-button red-button" onclick="displayModal('Filter-form-container')" style="width:auto;">Filter</button>
-	----Ticket Details
-		 	<button onclick="displayModal('ticket-details-container')" style="width:auto;">Ticket Details:</button>
-	---- Ticket Form
-		  	<button class="red-button" onclick="document.getElementById('update-form-container').style.display='block'" style="width:auto;">Update Ticket</button>
-		-->
-
 <!--Filter Form-->
 <div *ngIf="showFilterModal" id="Filter-form-container" class="modal"  (click)="closeOnOutsideClick($event, 'Filter-form-container')">
 	<div class="modal-content" (click)="$event.stopPropagation()">
@@ -220,10 +196,7 @@
   </div>
   
 
-<!--Ticket Details Form-->	
-
-<!--Ticket Details-->
-<!--Ticket Details-->
+<!--Ticket Details-->	
 <div *ngIf="showTicketDetailsModal" (click)="closeOnOutsideClick($event, 'ticket-details-container')" id="ticket-details-container" class="modal">
 	<div class="modal-content" (click)="$event.stopPropagation()">
 		<span class="close" (click)="closeModal('ticket-details-container')">&times;</span>
@@ -313,16 +286,6 @@
 					  </div>
 					</div>
 					<div class="form-row">
-					  <!-- <div class="form-col">
-						<label class="form-label" for="status">Status:</label>
-							<select class="form-select" id="status" name="status" [(ngModel)]="selectedTicket.status">
-								  <option value="status type:">Select a status:</option>
-								  <option value="On Hold">On Hold</option>
-								  <option value="Pending">Pending</option>
-								  <option value="In Progress">In Progress</option>
-								  <option value="Resolved">Resolved</option>
-							</select>
-					  </div> -->
 					  <div class="form-col">
 						<label class="form-label" for="technician">Technician:</label>
 						<select class="form-select" id="technician" name="technician" [(ngModel)]="selectedTicket.technician.id">
@@ -340,6 +303,5 @@
 	</div>
 </div>
 
-<!-- FOR FORMS handling of modals -->
 </body>
 </html>

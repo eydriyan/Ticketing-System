@@ -91,7 +91,7 @@ export class UserviewHistoryComponent implements OnInit{
       case 'Low':
         return 'color-low';
       default:
-        return ''; // Default class if priority is not recognized
+        return '';
     }
   }
 
@@ -146,7 +146,6 @@ export class UserviewHistoryComponent implements OnInit{
     );
   }
   
-
   applySearch(): void {
     if (!this.searchTechnicianEmail.trim()) {
       this.filteredTickets = this.tickets;
@@ -160,13 +159,12 @@ export class UserviewHistoryComponent implements OnInit{
   }
 
   showTicketDetails(ticketId: number) {
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId)
       .subscribe(ticket => {
         this.selectedTicket = ticket;
-        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        this.showTicketDetailsModal = true;
       }, error => {
         console.error("Error fetching ticket details", error);
-        // Handle the error appropriately
       });
     }
 
@@ -192,7 +190,6 @@ export class UserviewHistoryComponent implements OnInit{
   showFilterModal: boolean = false;
   showTicketDetailsModal: boolean = false;
   showModal: boolean = false;
-
 
   displayModal(modalId: string): void {
     this.closeAllModals();
@@ -253,5 +250,4 @@ export class UserviewHistoryComponent implements OnInit{
       this.closeModal(modalId);
     }
   }
-  
 }

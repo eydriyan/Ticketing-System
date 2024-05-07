@@ -27,8 +27,8 @@ export class UserviewComponent implements OnInit{
   selectedTicket: Ticket | null = null;
   tickets: Ticket[] = [];
   filteredTickets: Ticket[] = [];
-  categoryOptions: string[] = []; // Define your category options
-  priorityOptions: string[] = []; // Define your priority options
+  categoryOptions: string[] = [];
+  priorityOptions: string[] = [];
   currentUserName: string = '';
   role: string = '';
   user: User | null = null;
@@ -166,13 +166,12 @@ export class UserviewComponent implements OnInit{
   }
 
   showTicketDetails(ticketId: number) {
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId)
       .subscribe(ticket => {
         this.selectedTicket = ticket;
-        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        this.showTicketDetailsModal = true;
       }, error => {
         console.error("Error fetching ticket details", error);
-        // Handle the error appropriately
       });
     }
   
@@ -221,7 +220,7 @@ export class UserviewComponent implements OnInit{
       case 'Low':
         return 'color-low';
       default:
-        return ''; // Default class if priority is not recognized
+        return '';
     }
   }
   

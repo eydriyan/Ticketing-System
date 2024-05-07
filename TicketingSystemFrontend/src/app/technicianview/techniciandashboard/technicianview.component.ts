@@ -80,7 +80,7 @@ export class TechnicianviewComponent implements OnInit {
   }
 
   showResolveConfirmation(ticketId: number, event: Event) {
-    event.stopPropagation(); // Prevent checkbox state from changing
+    event.stopPropagation();
     this.showResolveModal = true;
     this.ticketIdToResolve = ticketId;
   }
@@ -140,11 +140,6 @@ export class TechnicianviewComponent implements OnInit {
       this.filterStatus !== ''
     );
   }
-  
-
-  // toggleUpdateForm(ticket: Ticket) {
-  //   this.showUpdateForm = !this.showUpdateForm;
-  // }
 
   updateTicket(ticket: Ticket | null) {
     if (!ticket) {
@@ -165,10 +160,10 @@ export class TechnicianviewComponent implements OnInit {
 
   // Method to update the selected ticket
   showTicketDetails(ticketId: number) {
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId)
       .subscribe(ticket => {
         this.selectedTicket = ticket;
-        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        this.showTicketDetailsModal = true;
       }, error => {
         console.error("Error fetching ticket details", error);
         // Handle the error appropriately
@@ -189,19 +184,9 @@ export class TechnicianviewComponent implements OnInit {
       },
       (error) => {
         console.error('Error marking ticket as resolved:', error);
-        // Optionally, handle the error or display a message to the user
       }
     );
   }
-  
-
-  // showTicketDetails(ticket: Ticket) {
-  //   this.selectedTicket = ticket;
-  // }
-  
-  // closeTicketDetails() {
-  //   this.selectedTicket = null;
-  // }
 
   getPriorityColor(priority: string): string {
     switch (priority) {
@@ -212,7 +197,7 @@ export class TechnicianviewComponent implements OnInit {
       case 'Low':
         return 'color-low';
       default:
-        return ''; // Default class if priority is not recognized
+        return '';
     }
   }
 
@@ -268,7 +253,6 @@ export class TechnicianviewComponent implements OnInit {
       // Handle the error appropriately
     });
   }
-  
   
   closeModal(modalId: string): void {
     switch(modalId) {

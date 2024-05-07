@@ -94,8 +94,6 @@ cursor: pointer;
 background-color: #f0f0f0;
 }
 
-
-
 table {
   width: 100%;
   border-collapse:collapse;
@@ -155,7 +153,7 @@ th {
 .cont-tickets {
   background-color: #f5f6fa;
   float: left;
-  width: 77%; /* Adjust width as needed */
+  width: 77%;
   margin-top: 20px;
   margin-left: 25px;
 }
@@ -172,7 +170,6 @@ float: left;
 padding: 20px;
 box-sizing: border-box;
 background-color: white;
-/* border: 5px solid blue; */
 }
 
 .profile-container {
@@ -220,7 +217,7 @@ cursor: pointer;
 .rightcontainer {
 	background-color: #f5f6fa;
     float: right;
-    width: 77%; /* Adjust width as needed */
+    width: 77%;
 	  margin-top: 20px;
 	  margin-right: 20px;
 
@@ -295,7 +292,6 @@ padding: 0 5px;
 margin: 0;
 }
 
-/* For Forms */
 /* Modal Container */
 .modal-container {
   display: none;
@@ -312,7 +308,6 @@ margin: 0;
 
 /* Modal */
 .modal {
-  
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -421,6 +416,7 @@ background-color: red;
 .cancel-button:hover{
   background-color: darkred;
 }
+
 .submit-button:hover {
   background-color: #048554;
 }

@@ -316,17 +316,15 @@ export class AdminviewComponent implements OnInit {
   
   displayUpdateModal(ticketId: number, event: MouseEvent): void {
     event.stopPropagation();
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId) 
     .subscribe(ticket => {
       this.selectedTicket = ticket;
       this.displayModal('update-form-container');
       console.log(this.selectedTicket)
     }, error => {
       console.error("Error fetching ticket details", error);
-      // Handle the error appropriately
     });
   }
-
   
   closeModal(modalId: string): void {
     switch(modalId) {

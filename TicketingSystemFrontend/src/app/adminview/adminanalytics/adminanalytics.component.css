@@ -158,11 +158,6 @@ th {
 }
 
 
-/* tr:hover {
-    background-color: grey;
-} */
-
-
 .high {
     color: white;
 }
@@ -198,7 +193,6 @@ th {
   padding: 20px;
   box-sizing: border-box;
   background-color: white;
-  /* border: 5px solid blue; */
 }
 
 .profile-container {
@@ -246,7 +240,7 @@ th {
 .rightcontainer {
 	background-color: #f5f6fa;
     float: right;
-    width: 75%; /* Adjust width as needed */
+    width: 75%;
 	margin-top: 20px;
 	margin-left: 25px;
 	margin-right: 25px;
@@ -391,7 +385,7 @@ clear: both;
   cursor: pointer;
   width: 25%;
   margin-left: 130px;
-margin-right: 0;
+  margin-right: 0;
 }
 
 .cancel-button {
