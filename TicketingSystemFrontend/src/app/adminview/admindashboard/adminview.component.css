@@ -94,8 +94,6 @@ body {
   background-color: #f0f0f0;
 }
 
-
-
 table {
     width: 100%;
    border-collapse:collapse;
@@ -120,7 +118,6 @@ th {
    
 }
 
-
 .high {
     color: white;
 }
@@ -144,7 +141,7 @@ th {
 .cont-tickets {
     background-color: #f5f6fa;
     float: left;
-    width: 77%; /* Adjust width as needed */
+    width: 77%;
     margin-top: 20px;
     margin-left: 25px;
 }
@@ -161,7 +158,6 @@ th {
   padding: 20px;
   box-sizing: border-box;
   background-color: white;
-  /* border: 5px solid blue; */
 }
 
 .profile-container {
@@ -209,7 +205,7 @@ th {
 .rightcontainer {
 	background-color: #f5f6fa;
     float: right;
-    width: 77%; /* Adjust width as needed */
+    width: 77%;
 	  margin-top: 20px;
 	  margin-right: 20px;
 
@@ -394,7 +390,6 @@ margin-right: 10px;
   background-color: #048554;
 }
 
-/* ETO UNG CSS PARA SA ASSIGN TECHNICIAN MODAL POP UP WINDOW */
 /* Modal Container */
 .modal-container {
   display: none;
@@ -453,14 +448,14 @@ margin-right: 10px;
 }
 
 .modal-content li {
-  background-color: #f9f9f9; /* light grey background */
-  margin-bottom: 10px; /* margin between technician rows */
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
   padding: 10px;
   cursor: pointer;
 }
 
 .modal-content li:hover {
-  background-color: #ddd; /* darker grey background on hover */
+  background-color: #ddd;
 }
 
 /* Close Button */
@@ -549,6 +544,7 @@ table {
 .sign svg path {
   fill: var(--night-rider);
 }
+
 /* text */
 .text {
   position: absolute;
@@ -560,6 +556,7 @@ table {
   font-weight: 600;
   transition-duration: .3s;
 }
+
 /* hover effect on button width */
 .Btn:hover {
   width: 125px;
@@ -572,6 +569,7 @@ table {
   transition-duration: .3s;
   padding-left: 20px;
 }
+
 /* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;

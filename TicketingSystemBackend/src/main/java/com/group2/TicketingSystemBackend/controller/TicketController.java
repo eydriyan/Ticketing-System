@@ -151,11 +151,4 @@ public class TicketController {
         List<Ticket> resolvedTickets = ticketService.getResolvedTicketsByTechnician(technician);
         return ResponseEntity.ok(resolvedTickets);
     }
-
-//    // Delete Ticket
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
-//        ticketService.deleteTicket(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }

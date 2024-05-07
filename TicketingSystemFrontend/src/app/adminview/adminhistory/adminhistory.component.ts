@@ -34,7 +34,7 @@ export class AdminhistoryComponent implements OnInit {
   user: User | null = null;
 
   constructor(
-    private technicianService: TechnicianserviceService, // change to admin service
+    private technicianService: TechnicianserviceService,
     private el: ElementRef,
     private ticketService: TicketserviceService,
     private authService: AuthserviceService,
@@ -89,7 +89,7 @@ export class AdminhistoryComponent implements OnInit {
       case 'Low':
         return 'color-low';
       default:
-        return ''; // Default class if priority is not recognized
+        return '';
     }
   }
 
@@ -157,10 +157,10 @@ export class AdminhistoryComponent implements OnInit {
   }
 
   showTicketDetails(ticketId: number) {
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId)
       .subscribe(ticket => {
         this.selectedTicket = ticket;
-        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        this.showTicketDetailsModal = true;
       }, error => {
         console.error("Error fetching ticket details", error);
         // Handle the error appropriately
@@ -249,7 +249,4 @@ export class AdminhistoryComponent implements OnInit {
       this.closeModal(modalId);
     }
   }
-
-
-
 }

@@ -90,7 +90,7 @@ export class TechnicianhistoryComponent implements OnInit {
       case 'Low':
         return 'color-low';
       default:
-        return ''; // Default class if priority is not recognized
+        return '';
     }
   }
 
@@ -154,13 +154,12 @@ export class TechnicianhistoryComponent implements OnInit {
   
 
   showTicketDetails(ticketId: number) {
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId)
       .subscribe(ticket => {
         this.selectedTicket = ticket;
-        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        this.showTicketDetailsModal = true;
       }, error => {
         console.error("Error fetching ticket details", error);
-        // Handle the error appropriately
       });
     }
 
@@ -246,5 +245,4 @@ export class TechnicianhistoryComponent implements OnInit {
       this.closeModal(modalId);
     }
   }
-
 }

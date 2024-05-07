@@ -36,7 +36,6 @@ body {
     padding: 20px;
 }
 
-
 .navbar {
   background-color: #d9291c;
   color: white;
@@ -68,7 +67,6 @@ body {
   align-items: center;
 }
 
-
 .button {
   color: red;
   border: none;
@@ -81,8 +79,6 @@ body {
 .button:hover {
   background-color: #f0f0f0;
 }
-
-
 
 table {
     width: 100%;
@@ -105,7 +101,6 @@ th, td {
 
 th {
     background-color: #f5f6fa;
-   
 }
 
 .high {
@@ -127,7 +122,6 @@ th {
 .color-high, .color-med, .color-low {
   width: 2.2rem;
 }
-
 
 .cont-tickets {
   background-color: #f5f6fa;
@@ -156,7 +150,6 @@ th {
 .tempprofile {
   width: 100px;
   height: 100px;
-  
   object-fit: cover;
 }
 
@@ -192,7 +185,7 @@ th {
 .rightcontainer {
 	background-color: #f5f6fa;
     float: right;
-    width: 77%; /* Adjust width as needed */
+    width: 77%;
 	  margin-top: 20px;
 	  margin-right: 20px;
 
@@ -413,6 +406,7 @@ background-color: red;
 .sign svg path {
   fill: var(--night-rider);
 }
+
 /* text */
 .text {
   position: absolute;
@@ -436,6 +430,7 @@ background-color: red;
   transition-duration: .3s;
   padding-left: 20px;
 }
+
 /* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;
@@ -443,6 +438,7 @@ background-color: red;
   transition-duration: .3s;
   padding-right: 10px;
 }
+
 /* button click effect*/
 .Btn:active {
   transform: translate(2px ,2px);

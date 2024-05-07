@@ -80,7 +80,7 @@ export class TechnicianviewComponent implements OnInit {
   }
 
   showResolveConfirmation(ticketId: number, event: Event) {
-    event.stopPropagation(); // Prevent checkbox state from changing
+    event.stopPropagation();
     this.showResolveModal = true;
     this.ticketIdToResolve = ticketId;
   }  
@@ -140,11 +140,6 @@ export class TechnicianviewComponent implements OnInit {
       this.filterStatus !== ''
     );
   }
-  
-
-  // toggleUpdateForm(ticket: Ticket) {
-  //   this.showUpdateForm = !this.showUpdateForm;
-  // }
 
   updateTicket(ticket: Ticket | null) {
     if (!ticket) {
@@ -165,10 +160,10 @@ export class TechnicianviewComponent implements OnInit {
 
   // Method to update the selected ticket
   showTicketDetails(ticketId: number) {
-    this.ticketService.getTicketById(ticketId) // Use the correct method from your service
+    this.ticketService.getTicketById(ticketId)
       .subscribe(ticket => {
         this.selectedTicket = ticket;
-        this.showTicketDetailsModal = true; // Assuming this controls the modal
+        this.showTicketDetailsModal = true;
       }, error => {
         console.error("Error fetching ticket details", error);
         // Handle the error appropriately
@@ -198,6 +193,7 @@ markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) 
 }
 
 
+<<<<<<< HEAD
   
 
   // showTicketDetails(ticket: Ticket) {
@@ -207,6 +203,18 @@ markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) 
   // closeTicketDetails() {
   //   this.selectedTicket = null;
   // }
+=======
+    this.ticketService.markTicketResolved(ticketId).subscribe(
+      (resolvedTicket) => {
+        console.log('Ticket marked as resolved:', resolvedTicket);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error marking ticket as resolved:', error);
+      }
+    );
+  }
+>>>>>>> 7cd40a304decbe2481dacaf7c9f2f695acef12d9
 
   getPriorityColor(priority: string): string {
     switch (priority) {
@@ -217,7 +225,7 @@ markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) 
       case 'Low':
         return 'color-low';
       default:
-        return ''; // Default class if priority is not recognized
+        return '';
     }
   }
 
@@ -273,7 +281,6 @@ markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) 
       // Handle the error appropriately
     });
   }
-  
   
   closeModal(modalId: string): void {
     switch(modalId) {
