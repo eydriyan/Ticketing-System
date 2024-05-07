@@ -83,7 +83,7 @@ export class TechnicianviewComponent implements OnInit {
     event.stopPropagation(); // Prevent checkbox state from changing
     this.showResolveModal = true;
     this.ticketIdToResolve = ticketId;
-  }
+  }  
 
   applyFilter(): void {
     // Filter the tickets based on the selected filter criteria
@@ -176,23 +176,28 @@ export class TechnicianviewComponent implements OnInit {
     }
 
   // Method to resolve ticket
-  markTicketResolved(ticketId: number, event: Event) {
-    event.stopPropagation();
-        // Show the confirmation modal
-    this.showResolveModal = true;
-    this.ticketIdToResolve = ticketId;
+markTicketResolved(ticketId: number, selectedTicket: Ticket, event: MouseEvent) {
+  event.stopPropagation();
+  this.showResolveModal = true;
+  this.ticketIdToResolve = ticketId;
 
-    this.ticketService.markTicketResolved(ticketId).subscribe(
-      (resolvedTicket) => {
-        console.log('Ticket marked as resolved:', resolvedTicket);
-        window.location.reload();
-      },
-      (error) => {
-        console.error('Error marking ticket as resolved:', error);
-        // Optionally, handle the error or display a message to the user
-      }
-    );
-  }
+  // Update the ticket status to 'Resolved'
+  selectedTicket.status = 'Resolved';
+
+  // Call the updateTicket method to update the ticket in the backend
+  this.ticketService.updateTicket(selectedTicket.id, selectedTicket).subscribe(
+    (updatedTicket: Ticket) => {
+      console.log('Ticket marked as resolved:', updatedTicket);
+      window.location.reload();
+    },
+    (error) => {
+      console.error('Error marking ticket as resolved:', error);
+      // Optionally, handle the error or display a message to the user
+    }
+  );
+}
+
+
   
 
   // showTicketDetails(ticket: Ticket) {
