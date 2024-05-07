@@ -39,12 +39,6 @@ public class StudentService {
         return studentRepository.save(existingStudent);
     }
 
-    // delete student by id
-//    public void deleteStudent(Long studentId) {
-//        Student student = getStudentById(studentId);
-//        studentRepository.delete(student);
-//    }
-
     // get student by email
     public Student getStudentByEmail(String email) {
         Optional<Student> studentOptional = studentRepository.findByEmail(email);

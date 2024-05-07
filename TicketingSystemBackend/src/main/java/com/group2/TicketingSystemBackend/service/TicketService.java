@@ -60,12 +60,6 @@ public class TicketService {
         return ticketRepository.save(existingTicket);
     }
 
-    // delete ticket by id
-//    public void deleteTicket(Long ticketId) {
-//        Ticket ticket = getTicketById(ticketId);
-//        ticketRepository.delete(ticket);
-//    }
-
     // get tickets by student
     public List<Ticket> getTicketsByStudent(Student student) {
         return ticketRepository.findByStudent(student);
@@ -92,23 +86,6 @@ public class TicketService {
 
         return ticketRepository.save(ticket);
     }
-
-    // Assign ticket to self(technician)
-//    public Ticket assignTicketToSelf(Long ticketId, String technicianEmail) {
-//        Ticket ticket = getTicketById(ticketId);
-//
-//        if (ticket.getTechnician() != null) {
-//            throw new RuntimeException("Ticket already assigned to a technician");
-//        }
-//
-//        Optional<Technician> technicianOptional = technicianRepository.findByEmail(technicianEmail);
-//        Technician technician = technicianOptional.orElseThrow(() -> new RuntimeException("Technician not found with email: " + technicianEmail));
-//
-//        ticket.setTechnician(technician);
-//        ticket.setStatus("In progress");
-//
-//        return ticketRepository.save(ticket);
-//    }
 
     // Mark ticket as resolved
     public Ticket markTicketResolved(Long ticketId) {

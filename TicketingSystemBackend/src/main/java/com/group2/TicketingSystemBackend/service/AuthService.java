@@ -66,17 +66,6 @@ public class AuthService {
         return token;
     }
 
-    // check if user is admin
-//    public boolean isAdmin(User possiblyAdminAccount) {
-//        // Check if non-null
-//        if (possiblyAdminAccount == null)
-//            return false;
-//
-//        // Check email
-//        return possiblyAdminAccount.getEmail().equals("admin@gmail.com");
-//    }
-
-
     // Method to get currently authenticated user's email
     public String getCurrentUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -86,14 +75,4 @@ public class AuthService {
         return authentication.getName();
     }
 
-    // Check if student is valid
-//    public boolean isValidStudent(Student possiblyValidUserAccount) {
-//        // Check if non-null
-//        if (possiblyValidUserAccount == null)
-//            return false;
-//
-//        Optional<Student> studentAccount = studentRepository.findByEmail(possiblyValidUserAccount.getEmail());
-//
-//        return studentAccount.isPresent();
-//    }
 }
