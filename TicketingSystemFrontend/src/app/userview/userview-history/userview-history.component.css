@@ -523,6 +523,14 @@ background-color: #048554;
   transform: translate(2px ,2px);
 }
 
+button:disabled {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
+button:disabled:hover {
+  background-color: rgba(186, 186, 186, 0.86);
+}
+
 .group {
   display: flex;
   line-height: 28px;

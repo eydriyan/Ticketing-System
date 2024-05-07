@@ -9,7 +9,8 @@ export interface Ticket {
   title: string;
   description: string;
   priority: string; 
-  status: string; 
+  status: string;   
+  solution: string;
   dateCreated: Date; 
   dateResolved: Date; 
 }

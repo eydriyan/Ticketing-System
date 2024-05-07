@@ -28,6 +28,7 @@
         private String description;
         private String priority;
         private String status;
+        private String solution;
         private LocalDate dateCreated;
         private LocalDate dateResolved;
     }

@@ -95,6 +95,7 @@ export class UserviewHistoryComponent implements OnInit{
     }
   }
 
+
   applyFilter(): void {
     // Filter the tickets based on the selected filter criteria
     this.filteredTickets = this.tickets.filter(ticket => {
